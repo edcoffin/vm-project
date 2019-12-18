@@ -4,9 +4,9 @@
 The project has the following dependencies:
 - gcc or clang
 - cmake 3.2+
-- google benchmark (see installation)
 - Linux (2.6.31+) with `perf` installed (perf_events available)
-- Eclipse OMR
+- [google benchmark](https://github.com/google/benchmark)
+- [Eclipse OMR](https://github.com/eclipse/omr/tree/master/jitbuilder/release)
 - LLVM
 - libjit
 

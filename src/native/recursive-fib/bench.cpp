@@ -1,6 +1,6 @@
 #include <time.h>
 #include <iostream>
-#include <benchmark/benchmark.h>
+#include "benchmark/benchmark.h"
 #include "fib.h"
 
 static void BM_Fib(benchmark::State& state) {

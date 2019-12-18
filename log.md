@@ -1,20 +1,26 @@
 # Log
 History, outstanding items and insights.
 
+## 2019-12-18
+    x - add readme
+    - move benchmark to src/lib
+    - move flamegraph to src/lib
+    - update native/recursive-fib makefile to build with new benchmark locale (not system)
+        - add benchmark target
+        - add main target
+    
+
 ## 2019-12-17
 Goals:
-    Add Recursive Fib for ORM:
+    x Add Recursive Fib for ORM:
     
-    https://github.com/eclipse/omr/blob/master/jitbuilder/release/cpp/samples/RecursiveFib.cpp
+    x https://github.com/eclipse/omr/blob/master/jitbuilder/release/cpp/samples/RecursiveFib.cpp
 
 Consider measurements:
     
     Memory: native vs jitBuilder
     CPU time: native vs jitbuilder
     Measure time spent compiling (extract from perf)
-
-
-
 
 ## 2019-12-16
 + Migrated work to Ubuntu
