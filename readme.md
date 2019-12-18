@@ -9,6 +9,7 @@ The project has the following dependencies:
 - [Eclipse OMR](https://github.com/eclipse/omr/tree/master/jitbuilder/release)
 - LLVM
 - libjit
+- Python (for flamegraphs 🔥)
 
 After cloning this repository `cd` into `src/lib` and perform the following operations.
 

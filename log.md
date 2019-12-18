@@ -3,7 +3,7 @@ History, outstanding items and insights.
 
 ## 2019-12-18
     x - add readme
-    - move benchmark to src/lib
+    x - move benchmark to src/lib
     - move flamegraph to src/lib
     - update native/recursive-fib makefile to build with new benchmark locale (not system)
         - add benchmark target
