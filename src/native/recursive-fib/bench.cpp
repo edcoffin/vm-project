@@ -1,7 +1,7 @@
 #include <time.h>
 #include <iostream>
 #include "benchmark/benchmark.h"
-#include "fib.h"
+#include "fib.hpp"
 
 static void BM_Fib(benchmark::State& state) {
   int32_t result = 0;

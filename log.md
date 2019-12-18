@@ -4,11 +4,21 @@ History, outstanding items and insights.
 ## 2019-12-18
     x - add readme
     x - move benchmark to src/lib
-    - move flamegraph to src/lib
-    - update native/recursive-fib makefile to build with new benchmark locale (not system)
+    
+    x - update native/recursive-fib makefile to build with new benchmark locale (not system)
         - add benchmark target
         - add main target
     
+    - update omr/recursive-fib
+        - add main target
+        - get building! manual if need be.
+        - add benchmark target
+        
+
+    - move flamegraph to src/lib
+        ? what am I scripting with flamegraph;
+    
+
 
 ## 2019-12-17
 Goals:

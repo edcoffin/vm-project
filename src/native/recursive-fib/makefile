@@ -1,23 +1,33 @@
 OUT			= ./build
-SRC			= fib.cpp
-OBJ			= $(patsubst %.cpp,%.o, $(SRC))
 MK_DIR		= mkdir -p $(OUT)
 
+MAIN_OBJ		= main.o fib.o
+BENCH_OBJ		= bench.o fib.o
+
 CXXFLAGS	+= -std=c++11 -O3 
-HEADERS		= -I. -I ../../lib/benchmark/include
+HEADERS		= -I. -I../../lib/benchmark/include
 LDFLAGS		+= -L../../lib/benchmark/build/src
 LDLIBS		+= -lbenchmark -lpthread
 
-main: $(OBJ)
+main: $(MAIN_OBJ)
 	$(MK_DIR)
-	$(CXX) $(HEADERS) -o $(OUT)/$@ $@.cpp $(OBJ)
+	$(CXX) -o $(OUT)/$@ $(MAIN_OBJ) $(HEADERS)
 
-bench: $(OBJ)
+bench: $(BENCH_OBJ)
 	$(MK_DIR)
-	$(CXX) $(HEADERS) -o $(OUT)/$@ $@.cpp $(OBJ) $(LDFLAGS) $(LDLIBS)
+	$(CXX) -o $(OUT)/$@ $(BENCH_OBJ) $(HEADERS) $(LDFLAGS) $(LDLIBS)
+
+main.o: main.cpp
+	$(CXX) -c main.cpp -o main.o $(HEADERS)
+
+bench.o: bench.cpp
+	$(CXX) -c bench.cpp -o bench.o $(HEADERS) 
+
+fib.o: fib.cpp
+	$(CXX) -c fib.cpp -o fib.o $(HEADERS)
 
 clean:
-	rm $(OBJ)
+	rm fib.o
 	rm -rf $(OUT)
 
 run-bench:

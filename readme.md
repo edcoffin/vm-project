@@ -9,7 +9,7 @@ The project has the following dependencies:
 - [Eclipse OMR](https://github.com/eclipse/omr/tree/master/jitbuilder/release)
 - LLVM
 - libjit
-- Python (for flamegraphs 🔥)
+- Python (for [FlameGraph](https://github.com/brendangregg/FlameGraph) 🔥)
 
 After cloning this repository `cd` into `src/lib` and perform the following operations.
 
@@ -35,9 +35,8 @@ $ make
 ```
 ### Install and Build JITBuilder
 Clone the Eclipse OMR repository in `src/lib`:
-`$ git clone https://github.com/eclipse/omr`
-
 ```
+$ git clone https://github.com/eclipse/omr
 $ cd omr
 $ mkdir build
 $ cd build
@@ -49,8 +48,10 @@ $ ln -s ../../../build/jitbuilder/libjitbuilder.a .
 $ make test
 ```
 
-The code used in this project will reference the code referenced in `src/lib/omr`.
-
-
+### Install FlameGraph 
+Clone the FlameGraph repository in `src/lib`:
+```
+$ git clone https://github.com/brendangregg/FlameGraph.git
+```
 
 
