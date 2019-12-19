@@ -16,7 +16,7 @@ main: $(MAIN_OBJ)
 
 bench: $(BENCH_OBJ)
 	$(MK_DIR)
-	$(CXX) -o $(OUT)/$@ $(BENCH_OBJ) $(HEADERS) $(LDFLAGS) $(LDLIBS)
+	$(CXX) -o $(OUT)/$@ $(BENCH_OBJ) $(HEADERS) $(LDFLAGS) $(LDLIBS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
 
 main.o: main.cpp
 	$(CXX) -c main.cpp -o main.o $(HEADERS)
