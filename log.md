@@ -2,26 +2,26 @@
 History, outstanding items and insights.
 
 ## 2019-12-20
-Next steps
+### Next steps
 
 - What will benefit the group during a seminar
     - focus on work
 - Benchmarking tools (future seminar topic)
-Can we benchmark JIT
-Execution Time by function (flamegraphs)
-Memory (RSS, WSS) over time
-We need an application to run for a long time… to see the long term benefits (dominated by JIT compilation)
-Can we measure throughput?
-Relative ns + result (buckets of 1000 ns) 
-What JIT optimizations can we apply?
-TRJIT: noOpt? Scorching? Disable profiling? Not considering a staged compilation scenario
-Does jitBuilder automatically improve compilation
-In addition to rec-fib --- what is another common application we can write.
-What is interesting about rec-fib?
-Compare generated JIT assembler (log it?)
-
-
-
+- Experiments and Results
+    - Can we benchmark JIT
+    - Execution Time by function (flamegraphs)
+    - Memory (RSS, WSS) over time
+- We need an application to run for a long time… to see the long term benefits (dominated by JIT compilation)
+    - Can we measure throughput? (visualize time spent with JIT)
+    - Can we compare to native O3 results...
+        - More interesting than a recursive-fib?
+    - Relative ns + result (buckets of 1000 ns) 
+- What JIT optimizations can we apply to the compilers?
+    - TRJIT: noOpt? Scorching? Disable profiling? Not considering a staged compilation scenario?
+    - Does jitBuilder automatically increment optimizations?
+- In addition to rec-fib --- what is another common application we can write.
+- What is interesting about rec-fib? 
+- Compare generated JIT assembler (log it?)
 
 ## 2019-12-19
     - built omr example on mac
