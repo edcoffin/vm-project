@@ -1,6 +1,36 @@
 # Log
 History, outstanding items and insights.
 
+## 2019-12-20
+Next steps
+
+- What will benefit the group during a seminar
+    - focus on work
+- Benchmarking tools (future seminar topic)
+Can we benchmark JIT
+Execution Time by function (flamegraphs)
+Memory (RSS, WSS) over time
+We need an application to run for a long time… to see the long term benefits (dominated by JIT compilation)
+Can we measure throughput?
+Relative ns + result (buckets of 1000 ns) 
+What JIT optimizations can we apply?
+TRJIT: noOpt? Scorching? Disable profiling? Not considering a staged compilation scenario
+Does jitBuilder automatically improve compilation
+In addition to rec-fib --- what is another common application we can write.
+What is interesting about rec-fib?
+Compare generated JIT assembler (log it?)
+
+
+
+
+## 2019-12-19
+    - built omr example on mac
+    - added llvm fib example
+    - ran /usr/bin/time -v ./build/main maxrss (9936 OMR vs 32396 for LLVM)
+        - note version; compare to ORC?
+    - compare size where asserts are off?
+    - massif ? for valgrind
+
 ## 2019-12-18
     x - add readme
     x - move benchmark to src/lib
@@ -9,13 +39,13 @@ History, outstanding items and insights.
         - add benchmark target
         - add main target
     
-    - update omr/recursive-fib
+    x - update omr/recursive-fib
         - add main target
         - get building! manual if need be.
         - add benchmark target
-        
+      
 
-    - move flamegraph to src/lib
+    x - move flamegraph to src/lib
         ? what am I scripting with flamegraph;
     
 
