@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <errno.h>
+#include <fstream>
+#include <time.h>
 
 #include "fib.hpp"
 
@@ -140,5 +142,50 @@ RecursiveFibonnaciMethod::run(int n) {
   
    shutdownJit();
 
+   return result;
+}
+
+void
+RecursiveFibonnaciMethod::testThroughput(std::ostream ostream, 
+                                         long s_to_run, 
+                                         long ns_to_run) {
+   
+   struct timespec begin, current, elapsed;
+  
+   clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
+
+   ostream << "0" << std::endl;
+
+   bool initialized = initializeJit();
+   if (!initialized)
+      {
+      fprintf(stderr, "FAIL: could not initialize JIT\n");
+      exit(-1);
+      }
+
+   OMR::JitBuilder::TypeDictionary types;
+
+   RecursiveFibonnaciMethod method(&types);
+   void *entry=0;
+   int32_t rc = compileMethodBuilder(&method, &entry);
+   if (rc != 0)
+      {
+      fprintf(stderr,"FAIL: compilation error %d\n", rc);
+      exit(-2);
+      }
+
+   RecursiveFibFunctionType *fib = (RecursiveFibFunctionType *)entry;
+   
+
+   while(elapsed.tv_sec + elapsed.tv_nsec < s_to_run + ns_to_run) {
+      int32_t result = fib(20);
+      clock_gettime(CLOCK_MONOTONIC_RAW, &current);
+      elapsed.tv_sec = current.tv_sec - begin.tv_sec;
+      elapsed.tv_nsec = current.tv_nsec - begin.tv_nsec;
+      ostream << elapsed.tv_sec + elapssed.tv_nsec << std::endl;
+   }
+
+   shutdownJit();
+   
    return result;
 }

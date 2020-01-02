@@ -11,6 +11,7 @@ class RecursiveFibonnaciMethod : public OMR::JitBuilder::MethodBuilder
    RecursiveFibonnaciMethod(OMR::JitBuilder::TypeDictionary *types);
    virtual bool buildIL();
    static int run(int32_t);
+   static void testThroughput(std::ostream*, int32_t);
    };
 
 #endif // !defined(RECURSIVEFIB_INCL)

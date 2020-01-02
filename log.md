@@ -1,7 +1,6 @@
 # Log
 History, outstanding items and insights.
 
-## 2019-12-20
 ### Next steps
 
 - What will benefit the group during a seminar
@@ -23,30 +22,38 @@ History, outstanding items and insights.
 - What is interesting about rec-fib? 
 - Compare generated JIT assembler (log it?)
 
+## 2020-01-02
+x - add report template and begin writing
+- design throughput experiment 
+    - tp.cpp
+        - write to tp_results/001
+    - tp_runner.py
+    - tp_stats.py
+
 ## 2019-12-19
-    - built omr example on mac
-    - added llvm fib example
-    - ran /usr/bin/time -v ./build/main maxrss (9936 OMR vs 32396 for LLVM)
-        - note version; compare to ORC?
-    - compare size where asserts are off?
-    - massif ? for valgrind
+- built omr example on mac
+- added llvm fib example
+- ran /usr/bin/time -v ./build/main maxrss (9936 OMR vs 32396 for LLVM)
+    - note version; compare to ORC?
+- compare size where asserts are off?
+- massif ? for valgrind
 
 ## 2019-12-18
-    x - add readme
-    x - move benchmark to src/lib
-    
-    x - update native/recursive-fib makefile to build with new benchmark locale (not system)
-        - add benchmark target
-        - add main target
-    
-    x - update omr/recursive-fib
-        - add main target
-        - get building! manual if need be.
-        - add benchmark target
-      
+x - add readme
+x - move benchmark to src/lib
 
-    x - move flamegraph to src/lib
-        ? what am I scripting with flamegraph;
+x - update native/recursive-fib makefile to build with new benchmark locale (not system)
+    - add benchmark target
+    - add main target
+
+x - update omr/recursive-fib
+    - add main target
+    - get building! manual if need be.
+    - add benchmark target
+    
+
+x - move flamegraph to src/lib
+    ? what am I scripting with flamegraph;
     
 
 

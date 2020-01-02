@@ -18,6 +18,10 @@ bench: fib.o bench.o
 	$(MK_DIR)
 	$(CXX) -o $(OUT)/$@ fib.o bench.o $(JITBUILDER_LD) $(BENCH_LD)
 
+tp: fib.o tp.o
+	$(MK_DIR)
+	$(CXX) -o $(OUT)/$@ fib.o tp.o $(JITBUILDER_LD)
+
 fib.o: fib.cpp
 	$(CXX) $(HEADERS) -c $< -o $@
 
@@ -25,6 +29,9 @@ main.o: main.cpp
 	$(CXX) $(HEADERS) -c $< -o $@
 
 bench.o: bench.cpp
+	$(CXX) $(HEADERS) -c $< -o $@
+
+tp.o: tp.cpp
 	$(CXX) $(HEADERS) -c $< -o $@
 
 clean:
