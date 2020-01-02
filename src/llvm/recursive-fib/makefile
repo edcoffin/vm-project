@@ -3,6 +3,7 @@ MK_DIR		= mkdir -p $(OUT)
 
 MAIN_OBJ		= main.o fib.o
 BENCH_OBJ		= bench.o fib.o
+TPP_OBJ			= tpp.o fib.o
 
 CXXFLAGS	+= -std=c++11 -O3 
 HEADERS		= -I. -I../../lib/benchmark/include
@@ -18,6 +19,10 @@ bench: $(BENCH_OBJ)
 	$(MK_DIR)
 	$(CXX) -o $(OUT)/$@ $(BENCH_OBJ) $(HEADERS) $(LDFLAGS) $(LDLIBS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
 
+tpp: $(TPP_OBJ)
+	$(MK_DIR)
+	$(CXX) -o $(OUT)/$@ $(TPP_OBJ) $(HEADERS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
+
 main.o: main.cpp
 	$(CXX) -c main.cpp -o main.o $(HEADERS)
 
@@ -27,8 +32,11 @@ bench.o: bench.cpp
 fib.o: fib.cpp
 	$(CXX) -c fib.cpp -o $@ `$(LLVM_CONFIG) --cppflags` $(HEADERS)
 
+tp.o: tp.cpp
+	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@	
+
 clean:
-	rm fib.o
+	rm fib.o bench.o main.o tp.o
 	rm -rf $(OUT)
 
 run-bench:
