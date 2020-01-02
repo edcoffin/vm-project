@@ -1,4 +1,12 @@
 \begin{abstract}
-    Abstract.
+    Just-in-Time compilation has allowed for significant performance gains during the run-time of applications.
+    LLVM can be embedded within an application to allow JIT compilation during run-time.
+    Similarly, the OMR JIT compiler can be embedded within an application.
+    Both frameworks offer simple, programmer interaces to define and generate native methods at run-time.
+    In this report we discuss the different approaches the two frameworks employ.
+    We then measure the overhead associated with each framework while compiling relatively simple functions.
+    We found that while LLVM required a significantly larger memory footprint, it was able to generate code more quickly.
+    Furthermore, the code LLVM generated was by default more optimized.
+    By configuring JITBuilder, we were able to reduce the compilation time significantly, however it still was above that of LLVM.
 \end{abstract}
   
