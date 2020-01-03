@@ -98,6 +98,7 @@ int fib(int32_t n) {
   std::string errStr;
   ExecutionEngine *EE =
     EngineBuilder(std::move(Owner))
+    .setOptLevel(CodeGenOpt::Aggressive)
     .setErrorStr(&errStr)
     .create();
 
