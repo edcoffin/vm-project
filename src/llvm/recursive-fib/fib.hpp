@@ -2,9 +2,10 @@
 #define FIB_H_INCLUDED
 
 #include <cstdint>
+#include <iostream>
 
 int32_t fib(int a);
 
-void testThroughput(std::ostream&, int32_t, int32_t);
+int32_t testThroughput(std::ostream&, int32_t, int32_t);
 
 #endif
