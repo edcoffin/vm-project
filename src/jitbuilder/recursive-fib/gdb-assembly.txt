@@ -1,0 +1,22 @@
+(gdb) x/32i $1
+   0x7ffff6a81034:	sub    rsp,0x18
+   0x7ffff6a81038:	mov    QWORD PTR [rsp+0x10],rbx
+   0x7ffff6a8103d:	cmp    edi,0x2
+   0x7ffff6a81040:	jl     0x7ffff6a8106d
+   0x7ffff6a81042:	mov    rbx,rdi
+   0x7ffff6a81045:	lea    edi,[rbx-0x2]
+   0x7ffff6a81048:	call   0x7ffff6a81034
+   0x7ffff6a8104d:	mov    rdi,rbx
+   0x7ffff6a81050:	mov    rbx,rax
+   0x7ffff6a81053:	sub    edi,0x1
+   0x7ffff6a81056:	call   0x7ffff6a81034
+   0x7ffff6a8105b:	xchg   rbx,rax
+   0x7ffff6a8105e:	mov    rcx,rbx
+   0x7ffff6a81061:	add    eax,ecx
+   0x7ffff6a81063:	mov    rbx,QWORD PTR [rsp+0x10]
+   0x7ffff6a81068:	add    rsp,0x18
+   0x7ffff6a8106c:	ret    
+   0x7ffff6a8106d:	mov    rax,rdi
+   0x7ffff6a81070:	mov    rbx,QWORD PTR [rsp+0x10]
+   0x7ffff6a81075:	add    rsp,0x18
+   0x7ffff6a81079:	ret   

@@ -4,8 +4,9 @@ MK_DIR		= mkdir -p $(OUT)
 MAIN_OBJ		= main.o fib.o
 BENCH_OBJ		= bench.o fib.o
 TPP_OBJ			= tp.o fib.o
+1KTIME_OBJ		= 1ktime.o fib.o
 
-CXXFLAGS	+= -std=c++11 -O3 
+CXXFLAGS	+= -O3 #-g -O0 
 HEADERS		= -I. -I../../lib/benchmark/include
 LDFLAGS		+= -L../../lib/benchmark/build/src
 LDLIBS		+= -lbenchmark -lpthread
@@ -13,26 +14,33 @@ LLVM_CONFIG = ../../lib/llvm-project/build/bin/llvm-config
 
 main: $(MAIN_OBJ)
 	$(MK_DIR)
-	$(CXX) -o $(OUT)/$@ $(MAIN_OBJ) $(HEADERS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
+	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ $(MAIN_OBJ) $(HEADERS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
 
 bench: $(BENCH_OBJ)
 	$(MK_DIR)
-	$(CXX) -o $(OUT)/$@ $(BENCH_OBJ) $(HEADERS) $(LDFLAGS) $(LDLIBS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
+	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ $(BENCH_OBJ) $(HEADERS) $(LDFLAGS) $(LDLIBS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
 
 tp: $(TPP_OBJ)
 	$(MK_DIR)
-	$(CXX) -o $(OUT)/$@ $(TPP_OBJ) $(HEADERS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
+	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ $(TPP_OBJ) $(HEADERS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
+
+1ktime: $(1KTIME_OBJ) 
+	$(MK_DIR)
+	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ $(1KTIME_OBJ) $(HEADERS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
 
 main.o: main.cpp
-	$(CXX) -c main.cpp -o main.o $(HEADERS)
+	$(CXX) $(CXXFLAGS) -c main.cpp -o main.o $(HEADERS)
 
 bench.o: bench.cpp
-	$(CXX) -c bench.cpp -o bench.o $(HEADERS) 
+	$(CXX) $(CXXFLAGS) -c bench.cpp -o bench.o $(HEADERS) 
 
 fib.o: fib.cpp
-	$(CXX) -c fib.cpp -o $@ `$(LLVM_CONFIG) --cppflags` $(HEADERS)
+	$(CXX) $(CXXFLAGS) -c fib.cpp -o $@ `$(LLVM_CONFIG) --cppflags` $(HEADERS)
 
 tp.o: tp.cpp
+	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@	
+
+1ktime.o: 1ktime.cpp
 	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@	
 
 clean:

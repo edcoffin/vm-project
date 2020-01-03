@@ -1,0 +1,22 @@
+(gdb) set disassembly-flavor intel
+(gdb) x/20i $1
+   0x7ffff7fcd000 <fib>:	push   rbp
+   0x7ffff7fcd001 <fib+1>:	push   r14
+   0x7ffff7fcd003 <fib+3>:	push   rbx
+   0x7ffff7fcd004 <fib+4>:	cmp    edi,0x2
+   0x7ffff7fcd007 <fib+7>:	jg     0x7ffff7fcd010 <fib+16>
+   0x7ffff7fcd009 <fib+9>:	mov    eax,0x1
+   0x7ffff7fcd00e <fib+14>:	jmp    0x7ffff7fcd02e <fib+46>
+   0x7ffff7fcd010 <fib+16>:	mov    ebx,edi
+   0x7ffff7fcd012 <fib+18>:	lea    edi,[rbx-0x1]
+   0x7ffff7fcd015 <fib+21>:	movabs r14,0x7ffff7fcd000
+   0x7ffff7fcd01f <fib+31>:	call   r14
+   0x7ffff7fcd022 <fib+34>:	mov    ebp,eax
+   0x7ffff7fcd024 <fib+36>:	add    ebx,0xfffffffe
+   0x7ffff7fcd027 <fib+39>:	mov    edi,ebx
+   0x7ffff7fcd029 <fib+41>:	call   r14
+   0x7ffff7fcd02c <fib+44>:	add    eax,ebp
+   0x7ffff7fcd02e <fib+46>:	pop    rbx
+   0x7ffff7fcd02f <fib+47>:	pop    r14
+   0x7ffff7fcd031 <fib+49>:	pop    rbp
+   0x7ffff7fcd032 <fib+50>:	ret 

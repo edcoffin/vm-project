@@ -64,12 +64,12 @@ static Function *CreateFibFunction(Module *M, LLVMContext &Context) {
   // create fib(x-1)
   Value *Sub = BinaryOperator::CreateSub(ArgX, One, "arg", RecurseBB);
   CallInst *CallFibX1 = CallInst::Create(FibF, Sub, "fibx1", RecurseBB);
-  CallFibX1->setTailCall();
+  //CallFibX1->setTailCall();
 
   // create fib(x-2)
   Sub = BinaryOperator::CreateSub(ArgX, Two, "arg", RecurseBB);
   CallInst *CallFibX2 = CallInst::Create(FibF, Sub, "fibx2", RecurseBB);
-  CallFibX2->setTailCall();
+  //CallFibX2->setTailCall();
 
   // fib(x-1)+fib(x-2)
   Value *Sum = BinaryOperator::CreateAdd(CallFibX1, CallFibX2,
@@ -125,6 +125,12 @@ int fib(int32_t n) {
   std::vector<GenericValue> Args(1);
   Args[0].IntVal = APInt(32, n);
   GenericValue GV = EE->runFunction(FibF, Args);
+
+  uint64_t ptr = EE->getFunctionAddress("fib"); 
+
+  //uint64_t ptr;
+  //lldb_private::ConstString name;
+  //EE->GetFunctionAddress(FibF, &ptr, &name, )
 
 #if defined(DEBUG_OUTPUT)
   // import result of execution

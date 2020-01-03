@@ -5,7 +5,7 @@ BENCH_DIR 	= ../../lib/benchmark
 JITBUILDER_DIR = ../../lib/omr/jitbuilder/release/cpp
 
 CXX      = /usr/bin/g++
-CXXFLAGS	= -std=c++0x -O3 -fno-rtti -fPIC -Wno-write-strings 
+CXXFLAGS	= --std=c++0x -fno-rtti -fPIC -Wno-write-strings -O3 #-g -O0
 HEADERS		= -I. -I$(BENCH_DIR)/include -I../../lib/omr/include_core -I$(JITBUILDER_DIR)/include
 
 BENCH_LD	= -L$(BENCH_DIR)/build/src -lbenchmark -lpthread
@@ -23,6 +23,10 @@ tp: fib.o tp.o
 	$(MK_DIR)
 	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ fib.o tp.o $(JITBUILDER_LD)
 
+1ktime: fib.o 1ktime.o
+	$(MK_DIR)
+	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ fib.o 1ktime.o $(JITBUILDER_LD)
+
 fib.o: fib.cpp
 	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
 
@@ -33,6 +37,9 @@ bench.o: bench.cpp
 	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
 
 tp.o: tp.cpp
+	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
+
+1ktime.o: 1ktime.cpp
 	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
 
 clean:
