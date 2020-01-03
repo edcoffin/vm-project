@@ -5,4 +5,6 @@
 
 int32_t fib(int a);
 
+void testThroughput(std::ostream&, int32_t, int32_t);
+
 #endif

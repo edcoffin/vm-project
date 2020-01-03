@@ -3,7 +3,7 @@ MK_DIR		= mkdir -p $(OUT)
 
 MAIN_OBJ		= main.o fib.o
 BENCH_OBJ		= bench.o fib.o
-TPP_OBJ			= tpp.o fib.o
+TPP_OBJ			= tp.o fib.o
 
 CXXFLAGS	+= -std=c++11 -O3 
 HEADERS		= -I. -I../../lib/benchmark/include
@@ -19,7 +19,7 @@ bench: $(BENCH_OBJ)
 	$(MK_DIR)
 	$(CXX) -o $(OUT)/$@ $(BENCH_OBJ) $(HEADERS) $(LDFLAGS) $(LDLIBS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
 
-tpp: $(TPP_OBJ)
+tp: $(TPP_OBJ)
 	$(MK_DIR)
 	$(CXX) -o $(OUT)/$@ $(TPP_OBJ) $(HEADERS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
 
@@ -42,4 +42,7 @@ clean:
 run-bench:
 	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=10
 
-	# g++ -g -O3 main.cpp `llvm-config --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen` -o main
+run-tp: tp
+	$(MK_DIR)
+	mkdir -p $(OUT)/tp_results
+	python tp_runner.py $(OUT)/tp

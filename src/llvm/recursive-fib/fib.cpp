@@ -22,6 +22,9 @@
 #include <string>
 #include <vector>
 
+#include <fstream>
+#include <time.h>
+
 using namespace llvm;
 
 /* Un comment to enable debug output */
@@ -129,5 +132,50 @@ int fib(int32_t n) {
 #endif
 
   return (int32_t) GV.IntVal.getSExtValue();
+
+}
+
+void testThroughput(std::ostream &ostream, 
+                    int32_t s_to_run, 
+                    int32_t ns_to_run) {
+                  
+  int32_t ONE_BILLION=1000000000;
+
+  struct timespec begin, current, elapsed;
+
+  clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
+
+  elapsed.tv_sec = 0;
+  elapsed.tv_nsec = 0;
+
+  InitializeNativeTarget();
+  InitializeNativeTargetAsmPrinter();
+  LLVMContext Context;
+
+  // Create some module to put our function into it.
+  std::unique_ptr<Module> Owner(new Module("test", Context));
+  Module *M = Owner.get();
+
+  // We are about to create the "fib" function:
+  Function *FibF = CreateFibFunction(M, Context);
+
+  // Now we going to create JIT
+  std::string errStr;
+  ExecutionEngine *EE =
+    EngineBuilder(std::move(Owner))
+    .setErrorStr(&errStr)
+    .create();
+
+  // Call the Fibonacci function with argument n:
+  std::vector<GenericValue> Args(1);
+  Args[0].IntVal = APInt(32, 20);
+
+  while(elapsed.tv_sec * ONE_BILLION + elapsed.tv_nsec < s_to_run * ONE_BILLION + ns_to_run) {
+    GenericValue GV = EE->runFunction(FibF, Args);
+    clock_gettime(CLOCK_MONOTONIC_RAW, &current);
+    elapsed.tv_sec = current.tv_sec - begin.tv_sec;
+    elapsed.tv_nsec = current.tv_nsec - begin.tv_nsec;
+    ostream << elapsed.tv_sec * ONE_BILLION + elapsed.tv_nsec << std::endl;
+  }
 
 }

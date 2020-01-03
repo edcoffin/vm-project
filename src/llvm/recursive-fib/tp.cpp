@@ -18,7 +18,8 @@ int main(int argc, char *argv[]) {
     std::cout << "Outfile: " << argv[1] << ", time_in_sec=" << time_in_sec;
     std::cout << ", time_in_nanosec=" << time_in_ns << std::endl;
 
-    RecursiveFibonnaciMethod::testThroughput(outfile, time_in_sec, time_in_ns);
+    testThroughput(outfile, time_in_sec, time_in_ns);
+    //RecursiveFibonnaciMethod::testThroughput(outfile, time_in_sec, time_in_ns);
 
     outfile.close();
     return 0;
