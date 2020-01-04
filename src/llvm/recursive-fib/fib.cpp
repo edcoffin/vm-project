@@ -101,6 +101,9 @@ int32_t jit_compile_function(bool run_function, int32_t n, int32_t count) {
 
   int32_t sum = 0;
 
+  // trigger the compilation
+  uint64_t ptr = _EE->getFunctionAddress("fib"); 
+
   if(run_function) {
     std::vector<GenericValue> Args(1);
     Args[0].IntVal = APInt(32, n);

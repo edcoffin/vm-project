@@ -6,7 +6,7 @@ BENCH_OBJ		= bench.o fib.o
 TPP_OBJ			= tp.o fib.o
 1KTIME_OBJ		= 1ktime.o fib.o
 
-CXXFLAGS	+= -O0 
+CXXFLAGS	+= -O3 
 HEADERS		= -I. -I../../lib/benchmark/include
 LDFLAGS		+= -L../../lib/benchmark/build/src
 LDLIBS		+= -lbenchmark -lpthread

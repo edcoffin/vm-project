@@ -99,11 +99,10 @@ RecursiveFibonnaciMethod::buildIL()
    return true;
    }
 
-int
-RecursiveFibonnaciMethod::run(int n) {
-   #if defined(DEBUG_OUTPUT)
-   printf("Step 1: initialize JIT\n");
-   #endif 
+int32_t 
+RecursiveFibonnaciMethod::jit_compile_function(bool run_function, 
+                     int32_t n, 
+                     int32_t count) {
    bool initialized = initializeJit();
    if (!initialized)
       {
@@ -111,15 +110,43 @@ RecursiveFibonnaciMethod::run(int n) {
       exit(-1);
       }
 
-   #if defined(DEBUG_OUTPUT)
-   printf("Step 2: define relevant types\n");
-   #endif
+   OMR::JitBuilder::TypeDictionary types;
+
+   RecursiveFibonnaciMethod method(&types);
+   void *entry=0;
+   int32_t rc = compileMethodBuilder(&method, &entry);
+
+   if (rc != 0)
+   {
+      fprintf(stderr,"FAIL: compilation error %d\n", rc);
+      exit(-2);
+   }
+
+   int32_t result = 0;
+
+   if(run_function) {
+      for(int i = 0; i < count; i++) {
+         RecursiveFibFunctionType *fib = (RecursiveFibFunctionType *)entry;
+         result += fib(20);
+      }
+   }
+
+   shutdownJit();
+
+   return result;
+}
+
+int
+RecursiveFibonnaciMethod::run(int n) {
+   bool initialized = initializeJit();
+   if (!initialized)
+      {
+      fprintf(stderr, "FAIL: could not initialize JIT\n");
+      exit(-1);
+      }
 
    OMR::JitBuilder::TypeDictionary types;
 
-   #if defined(DEBUG_OUTPUT)
-   printf("Step 3: compile method builder\n");
-   #endif
    RecursiveFibonnaciMethod method(&types);
    void *entry=0;
    int32_t rc = compileMethodBuilder(&method, &entry);
@@ -129,17 +156,9 @@ RecursiveFibonnaciMethod::run(int n) {
       exit(-2);
       }
 
-   #if defined(DEBUG_OUTPUT)
-   printf("Step 4: invoke compiled code\n");
-   #endif 
    RecursiveFibFunctionType *fib = (RecursiveFibFunctionType *)entry;
    int32_t result = fib(20);
 
-   #if defined(DEBUG_OUTPUT)
-   printf("fib(%2d) = %d\n", 20, result);
-   printf ("Step 5: shutdown JIT\n");
-   #endif 
-  
    shutdownJit();
 
    return result;
