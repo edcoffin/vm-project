@@ -1,0 +1,4 @@
+(gdb) x/10i 0x7ffff6a81034
+   0x7ffff6a81034:      mov    rax,rdi
+   0x7ffff6a81037:      add    eax,0x1
+   0x7ffff6a8103a:      ret 
