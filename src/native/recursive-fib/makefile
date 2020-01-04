@@ -27,7 +27,7 @@ fib.o: fib.cpp
 	$(CXX) $(CXXFLAGS) -c fib.cpp -o fib.o $(HEADERS)
 
 clean:
-	rm fib.o
+	rm fib.o bench.o main.o
 	rm -rf $(OUT)
 
 run-bench:

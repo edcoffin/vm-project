@@ -1,8 +1,8 @@
 OUT			= ./build
 MK_DIR		= mkdir -p $(OUT)
 
-MAIN_OBJ		= main.o fib.o
-BENCH_OBJ		= bench.o fib.o
+MAIN_OBJ		= main.o simple.o
+BENCH_OBJ		= bench.o simple.o
 
 CXXFLAGS	+= -std=c++11 -O3
 HEADERS		= -I. -I../../lib/benchmark/include
@@ -23,12 +23,12 @@ main.o: main.cpp
 bench.o: bench.cpp
 	$(CXX) $(CXXFLAGS) -c bench.cpp -o bench.o $(HEADERS) 
 
-fib.o: fib.cpp
-	$(CXX) $(CXXFLAGS) -c fib.cpp -o fib.o $(HEADERS)
+simple.o: simple.cpp
+	$(CXX) $(CXXFLAGS) -c simple.cpp -o simple.o $(HEADERS)
 
 clean:
-	rm fib.o
+	rm simple.o main.o bench.o
 	rm -rf $(OUT)
 
-run-bench:
+run-bench: bench
 	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=10
