@@ -1,0 +1,246 @@
+
+fib.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <_Z3fibi>:
+   0:	41 57                	push   r15
+   2:	41 56                	push   r14
+   4:	41 55                	push   r13
+   6:	41 54                	push   r12
+   8:	55                   	push   rbp
+   9:	53                   	push   rbx
+   a:	48 81 ec 88 00 00 00 	sub    rsp,0x88
+  11:	83 ff 01             	cmp    edi,0x1
+  14:	c7 44 24 68 00 00 00 	mov    DWORD PTR [rsp+0x68],0x0
+  1b:	00 
+  1c:	0f 8e b7 02 00 00    	jle    2d9 <_Z3fibi+0x2d9>
+  22:	8d 47 fd             	lea    eax,[rdi-0x3]
+  25:	89 44 24 54          	mov    DWORD PTR [rsp+0x54],eax
+  29:	8d 47 fe             	lea    eax,[rdi-0x2]
+  2c:	83 ef 05             	sub    edi,0x5
+  2f:	89 44 24 7c          	mov    DWORD PTR [rsp+0x7c],eax
+  33:	83 e0 fe             	and    eax,0xfffffffe
+  36:	29 c7                	sub    edi,eax
+  38:	89 7c 24 74          	mov    DWORD PTR [rsp+0x74],edi
+  3c:	8b 4c 24 54          	mov    ecx,DWORD PTR [rsp+0x54]
+  40:	c7 44 24 6c 00 00 00 	mov    DWORD PTR [rsp+0x6c],0x0
+  47:	00 
+  48:	89 c8                	mov    eax,ecx
+  4a:	83 c0 02             	add    eax,0x2
+  4d:	83 f8 01             	cmp    eax,0x1
+  50:	0f 8e 61 02 00 00    	jle    2b7 <_Z3fibi+0x2b7>
+  56:	8d 51 01             	lea    edx,[rcx+0x1]
+  59:	89 c8                	mov    eax,ecx
+  5b:	83 e0 fe             	and    eax,0xfffffffe
+  5e:	89 54 24 5c          	mov    DWORD PTR [rsp+0x5c],edx
+  62:	8d 51 ff             	lea    edx,[rcx-0x1]
+  65:	89 54 24 64          	mov    DWORD PTR [rsp+0x64],edx
+  69:	29 c2                	sub    edx,eax
+  6b:	8b 44 24 5c          	mov    eax,DWORD PTR [rsp+0x5c]
+  6f:	89 54 24 78          	mov    DWORD PTR [rsp+0x78],edx
+  73:	83 f8 01             	cmp    eax,0x1
+  76:	0f 84 e4 02 00 00    	je     360 <_Z3fibi+0x360>
+  7c:	8d 70 ff             	lea    esi,[rax-0x1]
+  7f:	c7 44 24 58 00 00 00 	mov    DWORD PTR [rsp+0x58],0x0
+  86:	00 
+  87:	89 74 24 4c          	mov    DWORD PTR [rsp+0x4c],esi
+  8b:	8d 70 fd             	lea    esi,[rax-0x3]
+  8e:	8b 44 24 64          	mov    eax,DWORD PTR [rsp+0x64]
+  92:	89 74 24 60          	mov    DWORD PTR [rsp+0x60],esi
+  96:	83 e0 fe             	and    eax,0xfffffffe
+  99:	29 c6                	sub    esi,eax
+  9b:	8b 44 24 4c          	mov    eax,DWORD PTR [rsp+0x4c]
+  9f:	89 74 24 70          	mov    DWORD PTR [rsp+0x70],esi
+  a3:	83 f8 01             	cmp    eax,0x1
+  a6:	0f 84 a2 02 00 00    	je     34e <_Z3fibi+0x34e>
+  ac:	8d 48 ff             	lea    ecx,[rax-0x1]
+  af:	8d 78 fd             	lea    edi,[rax-0x3]
+  b2:	8b 44 24 60          	mov    eax,DWORD PTR [rsp+0x60]
+  b6:	c7 44 24 48 00 00 00 	mov    DWORD PTR [rsp+0x48],0x0
+  bd:	00 
+  be:	89 7c 24 44          	mov    DWORD PTR [rsp+0x44],edi
+  c2:	89 4c 24 3c          	mov    DWORD PTR [rsp+0x3c],ecx
+  c6:	83 e0 fe             	and    eax,0xfffffffe
+  c9:	29 c7                	sub    edi,eax
+  cb:	89 c8                	mov    eax,ecx
+  cd:	89 7c 24 50          	mov    DWORD PTR [rsp+0x50],edi
+  d1:	83 f8 01             	cmp    eax,0x1
+  d4:	0f 84 62 02 00 00    	je     33c <_Z3fibi+0x33c>
+  da:	8d 48 ff             	lea    ecx,[rax-0x1]
+  dd:	8d 70 fd             	lea    esi,[rax-0x3]
+  e0:	8b 44 24 44          	mov    eax,DWORD PTR [rsp+0x44]
+  e4:	c7 44 24 38 00 00 00 	mov    DWORD PTR [rsp+0x38],0x0
+  eb:	00 
+  ec:	89 74 24 34          	mov    DWORD PTR [rsp+0x34],esi
+  f0:	89 4c 24 2c          	mov    DWORD PTR [rsp+0x2c],ecx
+  f4:	83 e0 fe             	and    eax,0xfffffffe
+  f7:	29 c6                	sub    esi,eax
+  f9:	89 c8                	mov    eax,ecx
+  fb:	89 74 24 40          	mov    DWORD PTR [rsp+0x40],esi
+  ff:	83 f8 01             	cmp    eax,0x1
+ 102:	0f 84 22 02 00 00    	je     32a <_Z3fibi+0x32a>
+ 108:	8d 70 ff             	lea    esi,[rax-0x1]
+ 10b:	8d 50 fd             	lea    edx,[rax-0x3]
+ 10e:	8b 44 24 34          	mov    eax,DWORD PTR [rsp+0x34]
+ 112:	c7 44 24 28 00 00 00 	mov    DWORD PTR [rsp+0x28],0x0
+ 119:	00 
+ 11a:	89 54 24 24          	mov    DWORD PTR [rsp+0x24],edx
+ 11e:	89 74 24 1c          	mov    DWORD PTR [rsp+0x1c],esi
+ 122:	83 e0 fe             	and    eax,0xfffffffe
+ 125:	29 c2                	sub    edx,eax
+ 127:	89 f0                	mov    eax,esi
+ 129:	89 54 24 30          	mov    DWORD PTR [rsp+0x30],edx
+ 12d:	83 f8 01             	cmp    eax,0x1
+ 130:	0f 84 e2 01 00 00    	je     318 <_Z3fibi+0x318>
+ 136:	8d 50 ff             	lea    edx,[rax-0x1]
+ 139:	8d 70 fd             	lea    esi,[rax-0x3]
+ 13c:	8b 44 24 24          	mov    eax,DWORD PTR [rsp+0x24]
+ 140:	c7 44 24 18 00 00 00 	mov    DWORD PTR [rsp+0x18],0x0
+ 147:	00 
+ 148:	89 74 24 14          	mov    DWORD PTR [rsp+0x14],esi
+ 14c:	89 54 24 0c          	mov    DWORD PTR [rsp+0xc],edx
+ 150:	83 e0 fe             	and    eax,0xfffffffe
+ 153:	29 c6                	sub    esi,eax
+ 155:	89 d0                	mov    eax,edx
+ 157:	89 74 24 20          	mov    DWORD PTR [rsp+0x20],esi
+ 15b:	83 f8 01             	cmp    eax,0x1
+ 15e:	0f 84 a4 01 00 00    	je     308 <_Z3fibi+0x308>
+ 164:	44 8d 60 fd          	lea    r12d,[rax-0x3]
+ 168:	8d 58 ff             	lea    ebx,[rax-0x1]
+ 16b:	8b 44 24 14          	mov    eax,DWORD PTR [rsp+0x14]
+ 16f:	45 31 ed             	xor    r13d,r13d
+ 172:	44 89 e6             	mov    esi,r12d
+ 175:	83 e0 fe             	and    eax,0xfffffffe
+ 178:	29 c6                	sub    esi,eax
+ 17a:	89 74 24 10          	mov    DWORD PTR [rsp+0x10],esi
+ 17e:	83 fb 01             	cmp    ebx,0x1
+ 181:	0f 84 71 01 00 00    	je     2f8 <_Z3fibi+0x2f8>
+ 187:	44 8d 73 fd          	lea    r14d,[rbx-0x3]
+ 18b:	44 89 e0             	mov    eax,r12d
+ 18e:	8d 6b ff             	lea    ebp,[rbx-0x1]
+ 191:	83 e0 fe             	and    eax,0xfffffffe
+ 194:	45 31 ff             	xor    r15d,r15d
+ 197:	41 29 c6             	sub    r14d,eax
+ 19a:	89 ef                	mov    edi,ebp
+ 19c:	83 ed 02             	sub    ebp,0x2
+ 19f:	e8 00 00 00 00       	call   1a4 <_Z3fibi+0x1a4>
+ 1a4:	41 01 c7             	add    r15d,eax
+ 1a7:	41 39 ee             	cmp    r14d,ebp
+ 1aa:	75 ee                	jne    19a <_Z3fibi+0x19a>
+ 1ac:	44 89 e0             	mov    eax,r12d
+ 1af:	83 e0 01             	and    eax,0x1
+ 1b2:	42 8d 14 38          	lea    edx,[rax+r15*1]
+ 1b6:	83 eb 02             	sub    ebx,0x2
+ 1b9:	41 83 ec 02          	sub    r12d,0x2
+ 1bd:	41 01 d5             	add    r13d,edx
+ 1c0:	39 5c 24 10          	cmp    DWORD PTR [rsp+0x10],ebx
+ 1c4:	75 b8                	jne    17e <_Z3fibi+0x17e>
+ 1c6:	8b 44 24 14          	mov    eax,DWORD PTR [rsp+0x14]
+ 1ca:	83 e0 01             	and    eax,0x1
+ 1cd:	83 6c 24 0c 02       	sub    DWORD PTR [rsp+0xc],0x2
+ 1d2:	41 01 c5             	add    r13d,eax
+ 1d5:	83 6c 24 14 02       	sub    DWORD PTR [rsp+0x14],0x2
+ 1da:	8b 44 24 0c          	mov    eax,DWORD PTR [rsp+0xc]
+ 1de:	44 01 6c 24 18       	add    DWORD PTR [rsp+0x18],r13d
+ 1e3:	39 44 24 20          	cmp    DWORD PTR [rsp+0x20],eax
+ 1e7:	0f 85 6e ff ff ff    	jne    15b <_Z3fibi+0x15b>
+ 1ed:	8b 44 24 24          	mov    eax,DWORD PTR [rsp+0x24]
+ 1f1:	83 e0 01             	and    eax,0x1
+ 1f4:	03 44 24 18          	add    eax,DWORD PTR [rsp+0x18]
+ 1f8:	83 6c 24 1c 02       	sub    DWORD PTR [rsp+0x1c],0x2
+ 1fd:	01 44 24 28          	add    DWORD PTR [rsp+0x28],eax
+ 201:	8b 44 24 1c          	mov    eax,DWORD PTR [rsp+0x1c]
+ 205:	83 6c 24 24 02       	sub    DWORD PTR [rsp+0x24],0x2
+ 20a:	39 44 24 30          	cmp    DWORD PTR [rsp+0x30],eax
+ 20e:	0f 85 19 ff ff ff    	jne    12d <_Z3fibi+0x12d>
+ 214:	8b 44 24 34          	mov    eax,DWORD PTR [rsp+0x34]
+ 218:	83 e0 01             	and    eax,0x1
+ 21b:	03 44 24 28          	add    eax,DWORD PTR [rsp+0x28]
+ 21f:	83 6c 24 2c 02       	sub    DWORD PTR [rsp+0x2c],0x2
+ 224:	01 44 24 38          	add    DWORD PTR [rsp+0x38],eax
+ 228:	8b 44 24 2c          	mov    eax,DWORD PTR [rsp+0x2c]
+ 22c:	83 6c 24 34 02       	sub    DWORD PTR [rsp+0x34],0x2
+ 231:	39 44 24 40          	cmp    DWORD PTR [rsp+0x40],eax
+ 235:	0f 85 c4 fe ff ff    	jne    ff <_Z3fibi+0xff>
+ 23b:	8b 44 24 44          	mov    eax,DWORD PTR [rsp+0x44]
+ 23f:	83 e0 01             	and    eax,0x1
+ 242:	03 44 24 38          	add    eax,DWORD PTR [rsp+0x38]
+ 246:	83 6c 24 3c 02       	sub    DWORD PTR [rsp+0x3c],0x2
+ 24b:	01 44 24 48          	add    DWORD PTR [rsp+0x48],eax
+ 24f:	8b 44 24 3c          	mov    eax,DWORD PTR [rsp+0x3c]
+ 253:	83 6c 24 44 02       	sub    DWORD PTR [rsp+0x44],0x2
+ 258:	39 44 24 50          	cmp    DWORD PTR [rsp+0x50],eax
+ 25c:	0f 85 6f fe ff ff    	jne    d1 <_Z3fibi+0xd1>
+ 262:	8b 44 24 60          	mov    eax,DWORD PTR [rsp+0x60]
+ 266:	83 e0 01             	and    eax,0x1
+ 269:	03 44 24 48          	add    eax,DWORD PTR [rsp+0x48]
+ 26d:	83 6c 24 4c 02       	sub    DWORD PTR [rsp+0x4c],0x2
+ 272:	01 44 24 58          	add    DWORD PTR [rsp+0x58],eax
+ 276:	8b 44 24 4c          	mov    eax,DWORD PTR [rsp+0x4c]
+ 27a:	83 6c 24 60 02       	sub    DWORD PTR [rsp+0x60],0x2
+ 27f:	39 44 24 70          	cmp    DWORD PTR [rsp+0x70],eax
+ 283:	0f 85 1a fe ff ff    	jne    a3 <_Z3fibi+0xa3>
+ 289:	8b 44 24 64          	mov    eax,DWORD PTR [rsp+0x64]
+ 28d:	83 e0 01             	and    eax,0x1
+ 290:	03 44 24 58          	add    eax,DWORD PTR [rsp+0x58]
+ 294:	83 6c 24 5c 02       	sub    DWORD PTR [rsp+0x5c],0x2
+ 299:	01 44 24 6c          	add    DWORD PTR [rsp+0x6c],eax
+ 29d:	8b 44 24 5c          	mov    eax,DWORD PTR [rsp+0x5c]
+ 2a1:	83 6c 24 64 02       	sub    DWORD PTR [rsp+0x64],0x2
+ 2a6:	39 44 24 78          	cmp    DWORD PTR [rsp+0x78],eax
+ 2aa:	0f 85 c3 fd ff ff    	jne    73 <_Z3fibi+0x73>
+ 2b0:	8b 44 24 54          	mov    eax,DWORD PTR [rsp+0x54]
+ 2b4:	83 e0 01             	and    eax,0x1
+ 2b7:	03 44 24 6c          	add    eax,DWORD PTR [rsp+0x6c]
+ 2bb:	83 6c 24 54 02       	sub    DWORD PTR [rsp+0x54],0x2
+ 2c0:	01 44 24 68          	add    DWORD PTR [rsp+0x68],eax
+ 2c4:	8b 44 24 54          	mov    eax,DWORD PTR [rsp+0x54]
+ 2c8:	39 44 24 74          	cmp    DWORD PTR [rsp+0x74],eax
+ 2cc:	0f 85 6a fd ff ff    	jne    3c <_Z3fibi+0x3c>
+ 2d2:	8b 7c 24 7c          	mov    edi,DWORD PTR [rsp+0x7c]
+ 2d6:	83 e7 01             	and    edi,0x1
+ 2d9:	8b 44 24 68          	mov    eax,DWORD PTR [rsp+0x68]
+ 2dd:	48 81 c4 88 00 00 00 	add    rsp,0x88
+ 2e4:	5b                   	pop    rbx
+ 2e5:	5d                   	pop    rbp
+ 2e6:	01 f8                	add    eax,edi
+ 2e8:	41 5c                	pop    r12
+ 2ea:	41 5d                	pop    r13
+ 2ec:	41 5e                	pop    r14
+ 2ee:	41 5f                	pop    r15
+ 2f0:	c3                   	ret    
+ 2f1:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+ 2f8:	45 31 ff             	xor    r15d,r15d
+ 2fb:	b8 01 00 00 00       	mov    eax,0x1
+ 300:	e9 ad fe ff ff       	jmp    1b2 <_Z3fibi+0x1b2>
+ 305:	0f 1f 00             	nop    DWORD PTR [rax]
+ 308:	45 31 ed             	xor    r13d,r13d
+ 30b:	b8 01 00 00 00       	mov    eax,0x1
+ 310:	e9 b8 fe ff ff       	jmp    1cd <_Z3fibi+0x1cd>
+ 315:	0f 1f 00             	nop    DWORD PTR [rax]
+ 318:	c7 44 24 18 00 00 00 	mov    DWORD PTR [rsp+0x18],0x0
+ 31f:	00 
+ 320:	b8 01 00 00 00       	mov    eax,0x1
+ 325:	e9 ca fe ff ff       	jmp    1f4 <_Z3fibi+0x1f4>
+ 32a:	c7 44 24 28 00 00 00 	mov    DWORD PTR [rsp+0x28],0x0
+ 331:	00 
+ 332:	b8 01 00 00 00       	mov    eax,0x1
+ 337:	e9 df fe ff ff       	jmp    21b <_Z3fibi+0x21b>
+ 33c:	c7 44 24 38 00 00 00 	mov    DWORD PTR [rsp+0x38],0x0
+ 343:	00 
+ 344:	b8 01 00 00 00       	mov    eax,0x1
+ 349:	e9 f4 fe ff ff       	jmp    242 <_Z3fibi+0x242>
+ 34e:	c7 44 24 48 00 00 00 	mov    DWORD PTR [rsp+0x48],0x0
+ 355:	00 
+ 356:	b8 01 00 00 00       	mov    eax,0x1
+ 35b:	e9 09 ff ff ff       	jmp    269 <_Z3fibi+0x269>
+ 360:	c7 44 24 58 00 00 00 	mov    DWORD PTR [rsp+0x58],0x0
+ 367:	00 
+ 368:	b8 01 00 00 00       	mov    eax,0x1
+ 36d:	e9 1e ff ff ff       	jmp    290 <_Z3fibi+0x290>
+ 372:	66 66 2e 0f 1f 84 00 	data16 nop WORD PTR cs:[rax+rax*1+0x0]
+ 379:	00 00 00 00 
+ 37d:	0f 1f 00             	nop    DWORD PTR [rax]
+
