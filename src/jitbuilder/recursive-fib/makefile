@@ -23,10 +23,6 @@ tp: fib.o tp.o
 	$(MK_DIR)
 	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ fib.o tp.o $(JITBUILDER_LD)
 
-1ktime: fib.o 1ktime.o
-	$(MK_DIR)
-	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ fib.o 1ktime.o $(JITBUILDER_LD)
-
 fib.o: fib.cpp
 	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
 
@@ -37,9 +33,6 @@ bench.o: bench.cpp
 	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
 
 tp.o: tp.cpp
-	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
-
-1ktime.o: 1ktime.cpp
 	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
 
 clean:

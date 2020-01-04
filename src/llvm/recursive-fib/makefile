@@ -24,10 +24,6 @@ tp: $(TPP_OBJ)
 	$(MK_DIR)
 	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ $(TPP_OBJ) $(HEADERS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
 
-1ktime: $(1KTIME_OBJ) 
-	$(MK_DIR)
-	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ $(1KTIME_OBJ) $(HEADERS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs core executionengine interpreter mc mcjit support nativecodegen`
-
 main.o: main.cpp
 	$(CXX) $(CXXFLAGS) -c main.cpp -o main.o $(HEADERS)
 
@@ -38,9 +34,6 @@ fib.o: fib.cpp
 	$(CXX) $(CXXFLAGS) -c fib.cpp -o $@ `$(LLVM_CONFIG) --cppflags` $(HEADERS)
 
 tp.o: tp.cpp
-	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@	
-
-1ktime.o: 1ktime.cpp
 	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@	
 
 clean:
