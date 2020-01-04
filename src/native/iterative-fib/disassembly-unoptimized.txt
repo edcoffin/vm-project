@@ -1,0 +1,33 @@
+
+fib.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <_Z3fibi>:
+   0:	55                   	push   rbp
+   1:	48 89 e5             	mov    rbp,rsp
+   4:	89 7d ec             	mov    DWORD PTR [rbp-0x14],edi
+   7:	83 7d ec 00          	cmp    DWORD PTR [rbp-0x14],0x0
+   b:	75 07                	jne    14 <_Z3fibi+0x14>
+   d:	b8 00 00 00 00       	mov    eax,0x0
+  12:	eb 3d                	jmp    51 <_Z3fibi+0x51>
+  14:	c7 45 f0 00 00 00 00 	mov    DWORD PTR [rbp-0x10],0x0
+  1b:	c7 45 f4 01 00 00 00 	mov    DWORD PTR [rbp-0xc],0x1
+  22:	c7 45 f8 01 00 00 00 	mov    DWORD PTR [rbp-0x8],0x1
+  29:	8b 45 f8             	mov    eax,DWORD PTR [rbp-0x8]
+  2c:	3b 45 ec             	cmp    eax,DWORD PTR [rbp-0x14]
+  2f:	7d 1d                	jge    4e <_Z3fibi+0x4e>
+  31:	8b 55 f4             	mov    edx,DWORD PTR [rbp-0xc]
+  34:	8b 45 f0             	mov    eax,DWORD PTR [rbp-0x10]
+  37:	01 d0                	add    eax,edx
+  39:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
+  3c:	8b 45 f4             	mov    eax,DWORD PTR [rbp-0xc]
+  3f:	89 45 f0             	mov    DWORD PTR [rbp-0x10],eax
+  42:	8b 45 fc             	mov    eax,DWORD PTR [rbp-0x4]
+  45:	89 45 f4             	mov    DWORD PTR [rbp-0xc],eax
+  48:	83 45 f8 01          	add    DWORD PTR [rbp-0x8],0x1
+  4c:	eb db                	jmp    29 <_Z3fibi+0x29>
+  4e:	8b 45 f4             	mov    eax,DWORD PTR [rbp-0xc]
+  51:	5d                   	pop    rbp
+  52:	c3                   	ret    
