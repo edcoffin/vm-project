@@ -2,7 +2,9 @@
 
 int32_t fib(int32_t n) {
     
-    if(n == 0) return 0;
+    if(n == 0) {
+        return 0;
+    }
     
     int lastSum = 0;
     int sum = 1;

@@ -11,14 +11,14 @@ static void BM_Compile(benchmark::State& state) {
 static void BM_CompileRunOnce(benchmark::State& state) {
   int32_t result = 0;
   for (auto _ : state) {
-    result = jit_compile_function(true, 20, 1);
+    result = jit_compile_function(true, 19, 1);
   }
 }
 
 static void BM_CompileRun1k(benchmark::State& state) {
   int32_t result = 0;
   for (auto _ : state) {
-    result = jit_compile_function(true, 20, 1000);
+    result = jit_compile_function(true, 19, 1000);
   }
 }
 

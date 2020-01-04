@@ -10,6 +10,7 @@
 #include "llvm/IR/Function.h"
 #include "llvm/IR/InstrTypes.h"
 #include "llvm/IR/Instructions.h"
+#include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Type.h"
@@ -39,43 +40,69 @@ static Function *CreateFibFunction(Module *M, LLVMContext &Context) {
   // Add a basic block to the function.
   BasicBlock *BB = BasicBlock::Create(Context, "EntryBlock", FibF);
 
+  IRBuilder<> Builder(Context);
+  Builder.SetInsertPoint(BB);
+
   // Get pointers to the constants.
+  Value *Zero = ConstantInt::get(Type::getInt32Ty(Context), 0);
   Value *One = ConstantInt::get(Type::getInt32Ty(Context), 1);
-  Value *Two = ConstantInt::get(Type::getInt32Ty(Context), 2);
+  Value *Five = ConstantInt::get(Type::getInt32Ty(Context), 5);
 
   // Get pointer to the integer argument of the add1 function...
   Argument *ArgX = &*FibF->arg_begin(); // Get the arg.
   ArgX->setName("AnArg");            // Give it a nice symbolic name for fun.
 
-  // Create the true_block.
-  BasicBlock *RetBB = BasicBlock::Create(Context, "return", FibF);
-  // Create an exit block.
-  BasicBlock* RecurseBB = BasicBlock::Create(Context, "recurse", FibF);
+  // Create the return 0 if n == 0
+  //BasicBlock *RetBB = BasicBlock::Create(Context, "return", FibF);
+  // Create: ret int 0
+  //ReturnInst::Create(Context, Zero, RetBB);
 
-  // Create the "if (arg <= 2) goto exitbb"
-  Value *CondInst = new ICmpInst(*BB, ICmpInst::ICMP_SLE, ArgX, Two, "cond");
-  BranchInst::Create(RetBB, RecurseBB, CondInst, BB);
+  // Create the "if (arg == 0) return"
+  //Value *CondInst = new ICmpInst(*BB, ICmpInst::ICMP_EQ, ArgX, Zero, "cond");
+  //BranchInst::Create(RetBB, CondInst);
+  
+  AllocaInst *last_sum_alloc_ptr = new AllocaInst(Type::getInt32Ty(Context), 0,"last_sum", BB);
+  AllocaInst *sum_alloc_ptr = new AllocaInst(IntegerType::getInt32Ty(Context), 0, "sum", BB);
+  AllocaInst *temp_alloc_ptr = new AllocaInst(IntegerType::getInt32Ty(Context), 0, "temp", BB);
 
-  // Create: ret int 1
-  ReturnInst::Create(Context, One, RetBB);
+  StoreInst *last_sum_store = new StoreInst(Zero, last_sum_alloc_ptr, false, BB);
+  StoreInst *sum_store = new StoreInst(One, sum_alloc_ptr, false, BB);
+  StoreInst *temp_store = new StoreInst(Zero, temp_alloc_ptr, false, BB);
+   
 
-  // create fib(x-1)
-  Value *Sub = BinaryOperator::CreateSub(ArgX, One, "arg", RecurseBB);
-  CallInst *CallFibX1 = CallInst::Create(FibF, Sub, "fibx1", RecurseBB);
-  //CallFibX1->setTailCall();
+  BasicBlock *LoopBB = BasicBlock::Create(Context, "loop", FibF);
+  BasicBlock *AfterBB = BasicBlock::Create(Context, "afterloop", FibF);
+  
+  BasicBlock *PreheaderBB = Builder.GetInsertBlock();
+  Builder.CreateBr(LoopBB);
+  Builder.SetInsertPoint(LoopBB);
+  PHINode *IndVar = Builder.CreatePHI(Type::getInt32Ty(Context), 2, "i");
+  
+  // Loop Start Value is 1
+  IndVar->addIncoming(One, PreheaderBB);
 
-  // create fib(x-2)
-  Sub = BinaryOperator::CreateSub(ArgX, Two, "arg", RecurseBB);
-  CallInst *CallFibX2 = CallInst::Create(FibF, Sub, "fibx2", RecurseBB);
-  //CallFibX2->setTailCall();
+  // https://stackoverflow.com/questions/29223589/how-would-i-create-this-sequence-in-the-llvm-builder-framework
+  // body of loop
+  auto* sum = Builder.CreateLoad(sum_alloc_ptr);
+  auto* last_sum = Builder.CreateLoad(last_sum_alloc_ptr);
+  auto* temp_sum = Builder.CreateAdd(sum, last_sum, "temp_sum");
 
-  // fib(x-1)+fib(x-2)
-  Value *Sum = BinaryOperator::CreateAdd(CallFibX1, CallFibX2,
-                                         "addresult", RecurseBB);
+  Builder.CreateStore(temp_sum, temp_alloc_ptr, false);
+  Builder.CreateStore(sum, last_sum_alloc_ptr, false);
+  Builder.CreateStore(temp_sum, sum_alloc_ptr, false);
 
-  // Create the return instruction and add it to the basic block
-  ReturnInst::Create(Context, Sum, RecurseBB);
+  //Value *Add = Builder.CreateAdd(One, Builder.getInt32(5), "tmp");
+  
+  Value *NextVal = Builder.CreateAdd(IndVar, One, "nextval");
+  Value *EndCond = Builder.CreateICmpNE(IndVar, ArgX, "loopcond");
 
+  BasicBlock *LoopEndBB = Builder.GetInsertBlock();
+  Builder.CreateCondBr(EndCond, LoopBB, AfterBB);
+  Builder.SetInsertPoint(AfterBB);
+  IndVar->addIncoming(NextVal, LoopEndBB);
+  
+  Builder.CreateRet(Builder.CreateLoad(sum_alloc_ptr));
+    
   return FibF;
 }
 
