@@ -1,0 +1,22 @@
+./build/bench --benchmark_report_aggregates_only --benchmark_repetitions=10                                       
+2020-01-04 15:17:11
+Running ./build/bench
+Run on (12 X 4600 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x6)
+  L1 Instruction 32 KiB (x6)
+  L2 Unified 256 KiB (x6)
+  L3 Unified 12288 KiB (x1)
+Load Average: 0.21, 0.30, 0.33
+-------------------------------------------------------------------                                               
+Benchmark                         Time             CPU   Iterations                                               
+-------------------------------------------------------------------                                               
+BM_Compile_mean             1228939 ns      1228911 ns           10                                               
+BM_Compile_median           1223583 ns      1223570 ns           10                                               
+BM_Compile_stddev             13780 ns        13776 ns           10                                               
+BM_CompileRunOnce_mean      1220463 ns      1220430 ns           10                                               
+BM_CompileRunOnce_median    1219300 ns      1219273 ns           10                                               
+BM_CompileRunOnce_stddev       3904 ns         3906 ns           10                                               
+BM_CompileRun1k_mean        1418201 ns      1418157 ns           10                                               
+BM_CompileRun1k_median      1410931 ns      1410894 ns           10                                               
+BM_CompileRun1k_stddev        14245 ns        14242 ns           10   
