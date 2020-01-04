@@ -24,11 +24,9 @@
 
 #include <fstream>
 #include <time.h>
+#include "fib.hpp"
 
 using namespace llvm;
-
-/* Un comment to enable debug output */
-//#define DEBUG_OUTPUT
 
 static Function *CreateFibFunction(Module *M, LLVMContext &Context) {
   // Create the fib function and insert it into module M. This function is said
@@ -81,6 +79,41 @@ static Function *CreateFibFunction(Module *M, LLVMContext &Context) {
   return FibF;
 }
 
+int32_t jit_compile_function(bool run_function, int32_t n, int32_t count) {
+  InitializeNativeTarget();
+  InitializeNativeTargetAsmPrinter();
+  LLVMContext Context;
+
+  // Create some module to put our function into it.
+  std::unique_ptr<Module> Owner(new Module("test", Context));
+  Module *M = Owner.get();
+
+  // We are about to create the "fib" function:
+  Function *_FibF = CreateFibFunction(M, Context);
+
+  // Now we going to create JIT
+  std::string errStr;
+  ExecutionEngine *_EE =
+    EngineBuilder(std::move(Owner))
+    .setOptLevel(CodeGenOpt::Aggressive)
+    .setErrorStr(&errStr)
+    .create();
+
+  int32_t sum = 0;
+
+  if(run_function) {
+    std::vector<GenericValue> Args(1);
+    Args[0].IntVal = APInt(32, n);
+    for(int i = 0; i < count; i++) {
+      GenericValue GV = _EE->runFunction(_FibF, Args);
+      sum += GV.IntVal.getSExtValue();
+    }
+  }
+
+  return sum;
+
+}
+
 int fib(int32_t n) {
   
   InitializeNativeTarget();
@@ -102,47 +135,19 @@ int fib(int32_t n) {
     .setErrorStr(&errStr)
     .create();
 
-#if defined(DEBUG_OUTPUT)
-
-  if (!EE) {
-    errs() << argv[0] << ": Failed to construct ExecutionEngine: " << errStr
-           << "\n";
-    return 1;
-  }
-
-  errs() << "verifying... ";
-  if (verifyModule(*M)) {
-    errs() << argv[0] << ": Error constructing function!\n";
-    return 1;
-  }
-
-  errs() << "OK\n";
-  errs() << "We just constructed this LLVM module:\n\n---------\n" << *M;
-  errs() << "---------\nstarting fibonacci(" << n << ") with JIT...\n";
-
-#endif
-
   // Call the Fibonacci function with argument n:
   std::vector<GenericValue> Args(1);
   Args[0].IntVal = APInt(32, n);
   GenericValue GV = EE->runFunction(FibF, Args);
 
+  // useful for printing disassembly in GDB
   uint64_t ptr = EE->getFunctionAddress("fib"); 
-
-  //uint64_t ptr;
-  //lldb_private::ConstString name;
-  //EE->GetFunctionAddress(FibF, &ptr, &name, )
-
-#if defined(DEBUG_OUTPUT)
-  // import result of execution
-  outs() << "Result: " << GV.IntVal << "\n";
-#endif
 
   return (int32_t) GV.IntVal.getSExtValue();
 
 }
 
-void testThroughput(std::ostream &ostream, 
+int32_t testThroughput(std::ostream &ostream, 
                     int32_t s_to_run, 
                     int32_t ns_to_run) {
                   
@@ -184,5 +189,7 @@ void testThroughput(std::ostream &ostream,
     elapsed.tv_nsec = current.tv_nsec - begin.tv_nsec;
     ostream << elapsed.tv_sec * ONE_BILLION + elapsed.tv_nsec << std::endl;
   }
+
+  return 0;
 
 }
