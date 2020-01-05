@@ -1,4 +1,14 @@
 \section{Introduction}
+Just-in-time compilation, or JIT compilation, is a technique to improve the run-time binary translation of an application.
+Using information collected from the running application, JIT compilers can further optimize generated code.
+For instance, by collecting profile information on executed code paths, JIT compilers can generate code that is optimized for hot-paths.
+A JIT compiler might also inline entire blocks of code, or generate an inline cache to speed up the dispatch of polymorphic method calls.
+Considering JIT compilers may also perform many of the optimizations found in a static compiler such as common sub-expression elimination, loop unrolling and constant propagation, to name a few, an application developer, or language designer interested in enhancing run-time performance by adding a JIT compiler, will have their work cut out for them.
+In addition, for projects targeting multiple architectures, considering JIT compilers generate native, or architecture specific code, the effort required will increase significantly.
+It is no surprise then, that libraries or frameworks, encapsulating proven, high-performance JIT compilers are now commonly available to application developers.
+
+In this report, we will look at two such JIT frameworks: LLVM MCJIT and OMR JitBuilder.
+
 
 
 % \begin{figure}
