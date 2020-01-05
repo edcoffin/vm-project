@@ -6,9 +6,9 @@
     In this report we discuss the different approaches the two frameworks employ.
     We then measure the overhead associated with each framework while compiling relatively simple functions.
     \textcolor{blue}{
-    We found that while LLVM required a significantly larger memory footprint, it was able to generate code more quickly.
-    Furthermore, the code LLVM generated was by default more optimized.
-    By configuring JITBuilder, we were able to reduce the compilation time significantly, however it still was above that of LLVM.
+    We found that while LLVM required a larger memory footprint, in certain cases it was able to generate code more quickly.
+    Furthermore, in our tests, the code LLVM generated typically offered high throughput.
+    JitBuilder, a relatively young project compared to LLVM, does not expose the underlying configuration of TRJIT, instead locking compilations in to the \textit{warm} optimization level.
     }
 \end{abstract}
   
