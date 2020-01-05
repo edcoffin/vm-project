@@ -1,4 +1,5 @@
 \section{Introduction}
+\label{sec:introduction}
 Just-in-time compilation, or JIT compilation, is a technique to improve the run-time binary translation of an application \cite{Aycock:2003:BHJ:857076.857077}.
 Using information collected from the running application, JIT compilers can further optimize generated code.
 For instance, by collecting profile information on executed code paths, JIT compilers can generate code that is optimized for hot-paths \cite{Smith:2005:VMV:1204009}.
@@ -19,30 +20,20 @@ In addition, for projects targeting multiple architectures, considering JIT comp
 It is no surprise then, that libraries or frameworks, encapsulating proven, high-performance JIT compilers are available to software engineers today.
 For an engineer interested in incorporating an existing JIT framework, it is useful to consider the following questions when making their selection: 
 \begin{itemize}
-    \item How much larger is the linked binary with the inclusion of the JIT framework?
+    \item How much larger is the application binary with the inclusion of the JIT framework?
     \item How is the resident state set for the application effected?
-    \item How is the working state set of the application effected during run-time?
+    \item How is the working state set of the application effected during JIT compilation?\footnote{
+        An application's working set size (WSS) can be defined as the subset of resident set size pages (RSS) that are \textit{active}   specific time interval \cite{BgreggWSS}.
+    }
     \item How much processor overhead does the JIT compiler have?
     \item How configurable is the JIT framework?
     \item What is the quality of the generated JIT code and what effect does this have on throughput?
     \item How easy is it for the programmer to incorporate and use the JIT framework?
 \end{itemize} 
 
-In this report, we will consider those questions while looking at two such JIT frameworks: LLVM MCJIT \cite{LLVM} and OMR JitBuilder \cite{10.5555/3172795.3172842}.
-In \hyperref[sec:background]{Section 2}, we will discuss the background of each compiler and consider the techniques they employ.
+In this report, we will consider those questions while looking at two such JIT frameworks: LLVM MCJIT \cite{LLVM_Web} and OMR JitBuilder \cite{10.5555/3172795.3172842}.
+In Sections \hyperref[sec:llvm]{2}, and \hyperref[sec:jitbuilder]{3} we will discuss the background of each compiler and consider the techniques they employ.
 In \hyperref[sec:methodology]{Section 3}, we outline the methods we used to answer those questions.
 In \hyperref[sec:results]{Section 4}, we will consider the results.
 In \hyperref[sec:related-work]{Section 5}, we will discuss related work.
 In \hyperref[sec:future-work]{Section 6}, we will look at potential future work, and finally in \hyperref[sec:summary]{Section 7}, we will summarize our findings.
-
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=7cm]{images/throughput.png}
-%     \caption{ Application Rampup. The application moves from the startup phase to the throughput phase once enough methods have been compiled to reach optimal throughput \cite{Sogaro:2017:MLJ:3172795.3172812}.}
-%     \label{fig:throughput}
-%     \Description[Graph showing application throughput as function of time.]{Initially the application begins in the startup phase, during which all methods are interpreted. After a period of time, the most important code paths will have been compiled, allowing the application to enter an optimal period, or throughput phase.}
-% \end{figure}
-
-
-
