@@ -18,6 +18,120 @@
  keywords = {Just-in-time compilation, dynamic compilation},
 }
 
+@inproceedings{10.5555/646149.679193,
+ author = {H\"{o}lzle, Urs and Chambers, Craig and Ungar, David},
+ title = {Optimizing Dynamically-Typed Object-Oriented Languages With Polymorphic Inline Caches},
+ year = {1991},
+ isbn = {3540542620},
+ publisher = {Springer-Verlag},
+ address = {Berlin, Heidelberg},
+ booktitle = {Proceedings of the European Conference on Object-Oriented Programming},
+ pages = {21–38},
+ numpages = {18},
+ series = {ECOOP ’91}
+}
+
+@book{Smith:2005:VMV:1204009,
+ author = {Smith, Jim and Nair, Ravi},
+ title = {{ Virtual Machines: Versatile Platforms for Systems and Processes (The Morgan Kaufmann Series in Computer Architecture and Design) }},
+ year = {2005},
+ isbn = {1558609105},
+ publisher = {Morgan Kaufmann Publishers Inc.},
+ address = {San Francisco, CA, USA},
+}
+
+@article{HiPerfJava,
+ author = {Kazi, Iffat H. and Chen, Howard H. and Stanley, Berdenia and Lilja, David J.},
+ title = {{ Techniques for Obtaining High Performance in Java Programs }},
+ journal = {ACM Comput. Surv.},
+ issue_date = {Sept. 2000},
+ volume = {32},
+ number = {3},
+ month = sep,
+ year = {2000},
+ issn = {0360-0300},
+ pages = {213--240},
+ numpages = {28},
+ url = {http://doi.acm.org/10.1145/367701.367714},
+ doi = {10.1145/367701.367714},
+ acmid = {367714},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {Java, Java virtual machine, bytecode-to-source translators, direct compilers, dynamic compilation, interpreters, just-in-time compilers},
+}
+
+
+@misc{optimizeJVMStartup,
+  author= {{ Marius Pirvu }},
+  year = {2018},
+  title = {{Optimize JVM start-up with Eclipse OpenJ9}},
+  note = {\url{https://developer.ibm.com/articles/optimize-jvm-startup-with-eclipse-openjj9/},
+         Last accessed on 2019-06-19}
+}
+
+@misc{eclipseOMR,
+  author = {{ Eclipse Foundation }},
+  year = {2018},
+  title = {{ Eclipse OMR }},
+  note = {\url{ https://projects.eclipse.org/projects/technology.omr }, 
+          Last accessed on 2019-06-19}
+}
+
+@article{dynamo,
+author = {Leone, Mark and Dybvig, R.},
+year = {1999},
+month = {04},
+pages = {},
+title = {Dynamo: A Staged Compiler Architecture for Dynamic Program Optimization}
+}
+
+@misc{TRJitLevels,
+  author= {{ IBM Knowledge Center}},
+  title = {{ Selectively disabling the JIT or AOT compiler}},
+  note = {\url{https://www.ibm.com/support/knowledgecenter/en/SSYKE2_7.0.0/com.ibm.java.zos.70.doc/diag/tools/jitpd_disable_some.html},
+         Last accessed on 2019-06-19}
+}
+
+@misc{TRJITOptimize,
+  author= {{ IBM Knowledge Center}},
+  title = {{  How the JIT compiler optimizes code }},
+  note = {\url{https://www.ibm.com/support/knowledgecenter/en/SSB23S_1.1.0.15/com.ibm.java.vm.80.doc/docs/jit_optimize.html},
+         Last accessed on 2019-06-19}
+}
+
+@book{10.5555/2737838,
+author = {Cooper, Keith and Torczon, Linda},
+title = {Engineering a Compiler: International Student Edition},
+year = {2003},
+isbn = {9780080472676},
+publisher = {Morgan Kaufmann Publishers Inc.},
+address = {San Francisco, CA, USA}
+}
+
+@inproceedings{10.5555/3172795.3172842,
+author = {Maier, Daryl and Liang, Xiaoli},
+title = {Supercharge a Language Runtime!},
+year = {2017},
+publisher = {IBM Corp.},
+address = {USA},
+booktitle = {Proceedings of the 27th Annual International Conference on Computer Science and Software Engineering},
+pages = {314},
+numpages = {1},
+location = {Markham, Ontario, Canada},
+series = {CASCON ’17}
+}
+
+@misc{LLVM,
+  author= {{  LLVM Project }},
+  title = {{ LLVM Compiler Infrastructure }},
+  note = {\url{https://llvm.org/},
+         Last accessed on 2020-01-06}
+}
+
+
+
+# not used
+
 @misc{TiobeJavaIndex,
   author = {{ TIOBE - The software quality company}},
   year = {2019}, 
@@ -59,54 +173,10 @@
           Last accessed on 2019-06-19}
 }
 
-@article{HiPerfJava,
- author = {Kazi, Iffat H. and Chen, Howard H. and Stanley, Berdenia and Lilja, David J.},
- title = {{ Techniques for Obtaining High Performance in Java Programs }},
- journal = {ACM Comput. Surv.},
- issue_date = {Sept. 2000},
- volume = {32},
- number = {3},
- month = sep,
- year = {2000},
- issn = {0360-0300},
- pages = {213--240},
- numpages = {28},
- url = {http://doi.acm.org/10.1145/367701.367714},
- doi = {10.1145/367701.367714},
- acmid = {367714},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {Java, Java virtual machine, bytecode-to-source translators, direct compilers, dynamic compilation, interpreters, just-in-time compilers},
-} 
-@misc{eclipseOMR,
-  author = {{ Eclipse Foundation }},
-  year = {2018},
-  title = {{ Eclipse OMR }},
-  note = {\url{ https://projects.eclipse.org/projects/technology.omr }, 
-          Last accessed on 2019-06-19}
-}
 
-@misc{optimizeJVMStartup,
-  author= {{ Marius Pirvu }},
-  year = {2018},
-  title = {{Optimize JVM start-up with Eclipse OpenJ9}},
-  note = {\url{https://developer.ibm.com/articles/optimize-jvm-startup-with-eclipse-openjj9/},
-         Last accessed on 2019-06-19}
-}
 
-@misc{TRJitLevels,
-  author= {{ IBM Knowledge Center}},
-  title = {{ Selectively disabling the JIT or AOT compiler}},
-  note = {\url{https://www.ibm.com/support/knowledgecenter/en/SSYKE2_7.0.0/com.ibm.java.zos.70.doc/diag/tools/jitpd_disable_some.html},
-         Last accessed on 2019-06-19}
-}
 
-@misc{TRJITOptimze,
-  author= {{ IBM Knowledge Center}},
-  title = {{  How the JIT compiler optimizes code }},
-  note = {\url{https://www.ibm.com/support/knowledgecenter/en/SSB23S_1.1.0.15/com.ibm.java.vm.80.doc/docs/jit_optimize.html},
-         Last accessed on 2019-06-19}
-}
+
 
 @ARTICLE{SuganumaIBMJit, 
 author={T. {Suganuma} and T. {Ogasawara} and M. {Takeuchi} and T. {Yasue} and M. {Kawahito} and K. {Ishizaki} and H. {Komatsu} and T. {Nakatani}}, 
@@ -166,14 +236,7 @@ month={},}
  keywords = {DaCapo, Java, SPEC, benchmark, methodology},
 } 
 
-@book{Smith:2005:VMV:1204009,
- author = {Smith, Jim and Nair, Ravi},
- title = {{ Virtual Machines: Versatile Platforms for Systems and Processes (The Morgan Kaufmann Series in Computer Architecture and Design) }},
- year = {2005},
- isbn = {1558609105},
- publisher = {Morgan Kaufmann Publishers Inc.},
- address = {San Francisco, CA, USA},
-} 
+
 
 @inproceedings{Fulton:2007:CTR:1251974.1252543,
  author = {Fulton, Mike and Stoodley, Mark},

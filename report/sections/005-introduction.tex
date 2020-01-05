@@ -1,20 +1,20 @@
 \section{Introduction}
-Just-in-time compilation, or JIT compilation, is a technique to improve the run-time binary translation of an application.
+Just-in-time compilation, or JIT compilation, is a technique to improve the run-time binary translation of an application \cite{Aycock:2003:BHJ:857076.857077}.
 Using information collected from the running application, JIT compilers can further optimize generated code.
-For instance, by collecting profile information on executed code paths, JIT compilers can generate code that is optimized for hot-paths.
-A JIT compiler might also inline entire blocks of code, or generate an inline cache to speed up the dispatch of polymorphic method calls.
+For instance, by collecting profile information on executed code paths, JIT compilers can generate code that is optimized for hot-paths \cite{Smith:2005:VMV:1204009}.
+A JIT compiler might also inline entire blocks of code, or generate an inline cache to speed up the dispatch of polymorphic method calls \cite{10.5555/646149.679193}.
 
-Popular high-level language runtimes for Java make heavy use of JIT compilers, allowing their workloads, to execute much faster than if they were entirely interpreted.
+Popular high-level language runtimes for Java make heavy use of JIT compilers, allowing their workloads, to execute much faster than if they were entirely interpreted \cite{HiPerfJava}.
 Given that JIT compilation can add significant overhead to a workload, compilation is typically applied selectively to the code executed most frequently.
-Furthermore, given that compilation can be viewed as a continuum, where slow, unoptimized code is cheap to generate, and where fast, optimized code is expensive to generate, a compiler will often support multiple optimization levels.
-A runtime with such an optimizing JIT compiler can then employ a staged compilation strategy which would allow the runtime to apply compilation and optimization according to heuristics .\footnote{
-    An example of a staged, or tiered compilation strategy can seen with the Testarossa JIT compiler (TRJIT) in the OpenJ9 JVM.
+Furthermore, given that compilation can be viewed as a continuum, where slow, unoptimized code is cheap to generate, and where fast, optimized code is expensive to generate, a compiler will often support multiple optimization levels \cite{Smith:2005:VMV:1204009}.
+A runtime with such an optimizing JIT compiler can then employ a staged compilation strategy which would allow the runtime to apply compilation and optimization according to heuristics \cite{dynamo}.\footnote{
+    An example of a staged, or tiered compilation strategy can seen with the Testarossa JIT compiler (TRJIT) in the OpenJ9 JVM \cite{eclipseOMR,TRJITOptimize}.
     Here an invocation threshold must be met before the JIT compiler will compile a method.
-    Additionally, separate thresholds can be associated with each optimization level.
-    We will discuss TRJIT in more detail in \textcolor{blue}{Section 2.2}.
+    Additionally, separate thresholds can be associated with each optimization level \cite{TRJitLevels}.
+    We will discuss TRJIT in more detail when we look at JitBuilder in \hyperref[sec:jitbuilder]{Section 2.2}.
     }
 
-Considering JIT compilers may also perform many of the optimizations found in a static compiler such as common sub-expression elimination, loop unrolling and constant propagation, to name a few, an application developer, or language designer interested in enhancing run-time performance by adding a JIT compiler, will have a large engineering task ahead of them.
+Considering JIT compilers may also need perform some of the optimizations found in a static compiler such as common sub-expression elimination, loop unrolling and constant propagation \cite{10.5555/2737838}, an application developer, or language designer interested in enhancing run-time performance by adding a JIT compiler, will have a large engineering task ahead of them.
 In addition, for projects targeting multiple architectures, considering JIT compilers generate native, or architecture specific code, the effort required will increase significantly.
 It is no surprise then, that libraries or frameworks, encapsulating proven, high-performance JIT compilers are available to software engineers today.
 For an engineer interested in incorporating an existing JIT framework, it is useful to consider the following questions when making their selection: 
@@ -28,12 +28,12 @@ For an engineer interested in incorporating an existing JIT framework, it is use
     \item How easy is it for the programmer to incorporate and use the JIT framework?
 \end{itemize} 
 
-In this report, we will consider those questions while looking at two such JIT frameworks: LLVM MCJIT and OMR JitBuilder.
-In \textcolor{blue}{Section 2}, we will discuss the background of each compiler and consider the techniques they employ.
-In \textcolor{blue}{Section 3}, we outline the methods we used to answer those questions.
-In \textcolor{blue}{Section 4}, we will consider the results.
-In \textcolor{blue}{Section 5}, we will discuss related work.
-In \textcolor{blue}{Section 6}, we will look at potential future work, and finally in {blue}{Section 7}, we will summarize our findings.
+In this report, we will consider those questions while looking at two such JIT frameworks: LLVM MCJIT \cite{LLVM} and OMR JitBuilder \cite{10.5555/3172795.3172842}.
+In \hyperref[sec:background]{Section 2}, we will discuss the background of each compiler and consider the techniques they employ.
+In \hyperref[sec:methodology]{Section 3}, we outline the methods we used to answer those questions.
+In \hyperref[sec:results]{Section 4}, we will consider the results.
+In \hyperref[sec:related-work]{Section 5}, we will discuss related work.
+In \hyperref[sec:future-work]{Section 6}, we will look at potential future work, and finally in \hyperref[sec:summary]{Section 7}, we will summarize our findings.
 
 
 % \begin{figure}
