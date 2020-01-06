@@ -14,6 +14,7 @@
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Type.h"
+#include "llvm/Passes/PassBuilder.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/TargetSelect.h"
 #include "llvm/Support/raw_ostream.h"
@@ -118,6 +119,28 @@ int32_t jit_compile_function(bool run_function, int32_t n, int32_t count) {
   // We are about to create the "fib" function:
   Function *_FibF = CreateFibFunction(M, Context);
 
+  llvm::PassBuilder _PassBuilder;
+  
+  auto _LoopMgr = llvm::LoopAnalysisManager();
+  auto _CGSCCMgr = llvm::CGSCCAnalysisManager();
+  auto _ModMgr = llvm::ModuleAnalysisManager();
+  auto _FAMgr = llvm::FunctionAnalysisManager(); // magic: it's must be here
+
+  _PassBuilder.registerModuleAnalyses(_ModMgr);
+  // search call graph for strongly connected components
+  _PassBuilder.registerCGSCCAnalyses(_CGSCCMgr);
+  _PassBuilder.registerFunctionAnalyses(_FAMgr);
+  _PassBuilder.registerLoopAnalyses(_LoopMgr);
+
+  _PassBuilder.crossRegisterProxies(_LoopMgr, _FAMgr, _CGSCCMgr, _ModMgr);
+
+  auto _FunctionPassMgr = _PassBuilder.buildFunctionSimplificationPipeline(
+        llvm::PassBuilder::OptimizationLevel::O3,
+        llvm::PassBuilder::ThinLTOPhase::None,
+        false);
+
+  _FunctionPassMgr.run(*_FibF, _FAMgr);  
+
   // Now we going to create JIT
   std::string errStr;
   ExecutionEngine *_EE =
@@ -141,85 +164,5 @@ int32_t jit_compile_function(bool run_function, int32_t n, int32_t count) {
   }
 
   return sum;
-
-}
-
-int fib(int32_t n) {
-  
-  InitializeNativeTarget();
-  InitializeNativeTargetAsmPrinter();
-  LLVMContext Context;
-
-  // Create some module to put our function into it.
-  std::unique_ptr<Module> Owner(new Module("test", Context));
-  Module *M = Owner.get();
-
-  // We are about to create the "fib" function:
-  Function *FibF = CreateFibFunction(M, Context);
-
-  // Now we going to create JIT
-  std::string errStr;
-  ExecutionEngine *EE =
-    EngineBuilder(std::move(Owner))
-    .setOptLevel(CodeGenOpt::Aggressive)
-    .setErrorStr(&errStr)
-    .create();
-
-  // Call the Fibonacci function with argument n:
-  std::vector<GenericValue> Args(1);
-  Args[0].IntVal = APInt(32, n);
-  GenericValue GV = EE->runFunction(FibF, Args);
-
-  // useful for printing disassembly in GDB
-  uint64_t ptr = EE->getFunctionAddress("fib"); 
-
-  return (int32_t) GV.IntVal.getSExtValue();
-
-}
-
-int32_t testThroughput(std::ostream &ostream, 
-                    int32_t s_to_run, 
-                    int32_t ns_to_run) {
-                  
-  int32_t ONE_BILLION=1000000000;
-
-  struct timespec begin, current, elapsed;
-
-  clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
-
-  elapsed.tv_sec = 0;
-  elapsed.tv_nsec = 0;
-
-  InitializeNativeTarget();
-  InitializeNativeTargetAsmPrinter();
-  LLVMContext Context;
-
-  // Create some module to put our function into it.
-  std::unique_ptr<Module> Owner(new Module("test", Context));
-  Module *M = Owner.get();
-
-  // We are about to create the "fib" function:
-  Function *FibF = CreateFibFunction(M, Context);
-
-  // Now we going to create JIT
-  std::string errStr;
-  ExecutionEngine *EE =
-    EngineBuilder(std::move(Owner))
-    .setErrorStr(&errStr)
-    .create();
-
-  // Call the Fibonacci function with argument n:
-  std::vector<GenericValue> Args(1);
-  Args[0].IntVal = APInt(32, 20);
-
-  while(elapsed.tv_sec * ONE_BILLION + elapsed.tv_nsec < s_to_run * ONE_BILLION + ns_to_run) {
-    GenericValue GV = EE->runFunction(FibF, Args);
-    clock_gettime(CLOCK_MONOTONIC_RAW, &current);
-    elapsed.tv_sec = current.tv_sec - begin.tv_sec;
-    elapsed.tv_nsec = current.tv_nsec - begin.tv_nsec;
-    ostream << elapsed.tv_sec * ONE_BILLION + elapsed.tv_nsec << std::endl;
-  }
-
-  return 0;
 
 }
