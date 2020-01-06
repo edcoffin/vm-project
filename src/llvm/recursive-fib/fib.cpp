@@ -110,7 +110,7 @@ int32_t jit_compile_function(bool run_function, int32_t n, int32_t count) {
   auto _FunctionPassMgr = _PassBuilder.buildFunctionSimplificationPipeline(
         llvm::PassBuilder::OptimizationLevel::O3,
         llvm::PassBuilder::ThinLTOPhase::None,
-        false);
+        true);
 
   _FunctionPassMgr.run(*_FibF, _FAMgr); 
 

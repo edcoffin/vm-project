@@ -1,4 +1,4 @@
-\section{LLVM}
+\subsection{LLVM}
 \label{sec:llvm}
 LLVM, which at one time stood for Low Level Virtual Machine, is a popular set of open-source, modular compiler and toolchain components \cite{lattner2004llvm}.
 The compiler framework was originally designed to provide analysis and transformation for an application throughout it's entire lifetime: from initial compilation and linking, through to runtime and even while the application was offline (see Figure \ref{fig:llvmarch}).
@@ -41,3 +41,7 @@ These passes can be categorized as analysis passes, or transformation passes \ci
     \item Transformation Passes: These typically modify IR. Examples include \textit{adce} for dead code elimination, \textit{instcombine} for combining redundant instructions, or peephole optimizing, and \textit{tailcallelim} for eliminating tail calls. There are roughly 60 such passes available.
 \end{itemize}
 This optimized IR will then be used by the ExecutionEngine when generating code for the target architecture.
+Before a function is executed by the ExecutionEngine, it first checks if the ObjectCache contains a copy.
+If the function could not be found, the compiler will generate code and store it in the ObjectCache before execution \cite{LLVM_MCJIT}.
+It is worth noting that an newer JIT API, called ORCJIT, is also part of the LLVM project.
+ORCJIT, or On-Request-Compilation JIT, is intended to compliment the MCJIT API -- which compiles eagerly, by adding support for lazy, and concurrent compilations \cite{LLVM_ORCJIT}.
