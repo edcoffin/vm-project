@@ -5,9 +5,34 @@
 \usepackage{xcolor}
 \usepackage{multirow}
 \usepackage{hyperref}
+\usepackage{listings}
 
 \pgfplotsset{compat=1.8}
 \usepgfplotslibrary{statistics}
+
+\lstset{
+language=C,
+basicstyle=\scriptsize\ttfamily,
+commentstyle=\ttfamily\color{gray},
+numbers=left,
+numberstyle=\ttfamily\color{gray}\footnotesize,
+stepnumber=1,
+numbersep=5pt,
+backgroundcolor=\color{white},
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+frame=single,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+breakatwhitespace=false,
+title=\lstname,
+escapeinside={},
+keywordstyle={},
+morekeywords={}
+}
+
 
 \setcopyright{none}
 \settopmatter{printacmref=false}
