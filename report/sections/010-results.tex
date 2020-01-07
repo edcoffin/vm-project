@@ -26,13 +26,13 @@ IncrementMethod::buildIL()
 
 
 \begin{table*}[t]
-  \begin{tabular}{|r|l|l|l|l||l|l|}
+  \begin{tabular}{|r|l|l|l|l|l|l|}
   \hline
-  \multicolumn{1}{|l|}{\multirow{2}{*}{}} & \multicolumn{3}{c|}{\textbf{LLVM MCJIT}}                                                                                     & \multicolumn{3}{c|}{\textbf{Eclipse OMR JitBuilder}}                                                                              \\ \cline{2-7}
-  \multicolumn{1}{|c|}{\textbf{Program}}  & \multicolumn{1}{c|}{mean (nanoseconds)}  & \multicolumn{1}{c|}{median}  & \multicolumn{1}{c|}{std. dev.}                & \multicolumn{1}{c|}{mean (nanoseconds)}  & \multicolumn{1}{c|}{median}  & \multicolumn{1}{c|}{std. dev.}             \\ \hline
-  increment                               & \num{1378060}                            & \num{1387338}                & \num{39774}                                        & \num{533581}                             & \num{531840}                & \num{4911}                                      \\ \hline
-  recursive-fib                           & \num{1548316}                            & \num{1547491}                & \num{3925}                                         & \num{1854393}                            & \num{1850322}               & \num{21754}                                     \\ \hline
-  iterative-fib                           & \num{2509502}                            & \num{2519808}                & \num{60429}                                        & \num{4192213}                            & \num{4191730}               & \num{10419}                                     \\ \hline
+  \multicolumn{1}{|l|}{\multirow{2}{*}{}} & \multicolumn{3}{c|}{\textbf{LLVM MCJIT}}                                                                                                       & \multicolumn{3}{c|}{\textbf{Eclipse OMR JitBuilder}}                                                                              \\ \cline{2-7}
+  \multicolumn{1}{|c|}{\textbf{Program}}  & \multicolumn{1}{c|}{mean (ns)}  & \multicolumn{1}{c|}{median}  & \multicolumn{1}{c|}{std. dev.}     & \multicolumn{1}{c|}{mean (ns)}           & \multicolumn{1}{c|}{median} & \multicolumn{1}{c|}{std. dev.}             \\ \hline
+  increment                               & \num{1378060}                            & \num{1387338}                & \num{39774}               & \num{533581}                             & \num{531840}                & \num{4911}                                 \\ \hline
+  recursive-fib                           & \num{1548316}                            & \num{1547491}                & \num{3925}                & \num{1854393}                            & \num{1850322}               & \num{21754}                                \\ \hline
+  iterative-fib                           & \num{2509502}                            & \num{2519808}                & \num{60429}               & \num{4192213}                            & \num{4191730}               & \num{10419}                                \\ \hline
   \end{tabular}
   \caption{Results of compiling each function 25 times with each JIT framework.}
   \label{tab:compile_time}
@@ -75,20 +75,21 @@ IncrementMethod::buildIL()
 \subsection{Execution Time}
 Once compilation has completed we turn to measuring how much CPU time is spent actually executing the function.
 To measure this we compiled the function once and then executed the compiled function 1000 times.
-For each program process was repeated 25 times (see Table \ref{tab:1k_time}).
+For each program, the process was repeated 25 times (see Table \ref{tab:1k_time}).
 The native solution was compiled using GCC 5.3 with an optimization level of O0\footnote{
-  Setting any level optimization was causing the function within the test runner to be optimized away.
+  Setting any level optimization above O0 was causing the function within the test runner to be optimized away.
 }
 
+
 \begin{table*}[t]
-  \begin{tabular}{|r|l|l|l|l||l|l|l|l|l|}
+  \begin{tabular}{|r|l|l|l|l|l|l|l|l|l|}
   \hline
   \multicolumn{1}{|l|}{\multirow{2}{*}{}} & \multicolumn{3}{c|}{\textbf{LLVM MCJIT}}                                                                                     & \multicolumn{3}{c|}{\textbf{Eclipse OMR JitBuilder}}                                                                & \multicolumn{3}{c|}{\textbf{Native (C++)}}                                                                               \\ \cline{2-10}
   \multicolumn{1}{|c|}{\textbf{Program}}  & \multicolumn{1}{c|}{mean (ns)}           & \multicolumn{1}{c|}{median}  & \multicolumn{1}{c|}{std. dev.}                     & \multicolumn{1}{c|}{mean (ns)}           & \multicolumn{1}{c|}{median}  & \multicolumn{1}{c|}{std. dev.}            & \multicolumn{1}{c|}{mean (ns)}  & \multicolumn{1}{c|}{median}  & \multicolumn{1}{c|}{std. dev.}                        \\ \hline
   increment                               & \num{1464856}                            & \num{1460112}                & \num{15406}                                        & \num{532489}                             & \num{532010}                 & \num{1887}                                & \num{2088}                              & \num{1998}                   & \num{233}                                \\ \hline
-  recursive-fib                           & \num{}                                   & \num{}                       & \num{}                                             & \num{}                                   & \num{}                       & \num{}                                    & \num{}                                  & \num{}                       & \num{}                                \\ \hline
-  iterative-fib                           & \num{}                                   & \num{}                       & \num{}                                             & \num{}                                   & \num{}                       & \num{}                                    & \num{}                                  & \num{}                       & \num{}                                \\ \hline
+  recursive-fib                           & \num{16809528}                           & \num{16801418}               & \num{27106}                                        & \num{28736409}                           & \num{28726192}               & \num{47205}                               & \num{16145398}                          & \num{16116321}               & \num{92733}                                \\ \hline
+  iterative-fib                           & \num{2657528}                            & \num{2668792}                & \num{83388}                                        & \num{4227967}                            & \num{4190232}                & \num{102744}                              & \num{37379}                             & \num{37516}                  & \num{583}                                \\ \hline
   \end{tabular}
-  \caption{Results of compiling each function 25 times with each JIT framework.}
+  \caption{Results of compiling each function and executing generated function 1000 times.}
   \label{tab:1k_time}
 \end{table*}
