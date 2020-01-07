@@ -4,12 +4,12 @@ g++ -O3 -std=c++14 -o ./build/bench bench.o increment.o -I. -I../../lib/benchmar
 -------------------------------------------------------------------
 Benchmark                         Time             CPU   Iterations
 -------------------------------------------------------------------
-BM_Compile_mean             1360719 ns      1360696 ns           20
-BM_Compile_median           1379840 ns      1379818 ns           20
-BM_Compile_stddev             40416 ns        40419 ns           20
-BM_CompileRunOnce_mean      1300271 ns      1300248 ns           20
-BM_CompileRunOnce_median    1290335 ns      1290325 ns           20
-BM_CompileRunOnce_stddev      23243 ns        23245 ns           20
-BM_CompileRun10k_mean       2994900 ns      2994840 ns           20
-BM_CompileRun10k_median     2965100 ns      2965050 ns           20
-BM_CompileRun10k_stddev       81394 ns        81373 ns           20
+BM_Compile_mean             1309467 ns      1309429 ns           20
+BM_Compile_median           1307898 ns      1307835 ns           20
+BM_Compile_stddev              6574 ns         6585 ns           20
+BM_CompileRunOnce_mean      1304817 ns      1304786 ns           20
+BM_CompileRunOnce_median    1303833 ns      1303802 ns           20
+BM_CompileRunOnce_stddev       2859 ns         2861 ns           20
+BM_CompileRun1k_mean        1463310 ns      1463263 ns           20
+BM_CompileRun1k_median      1463032 ns      1462969 ns           20
+BM_CompileRun1k_stddev         1660 ns         1651 ns           20

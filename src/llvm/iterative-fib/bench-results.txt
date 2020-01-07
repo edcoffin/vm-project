@@ -1,22 +1,15 @@
-./build/bench --benchmark_display_aggregates_only=true --benchmark_repetitions=25
-2020-01-07 09:22:43
-Running ./build/bench
-Run on (12 X 4600 MHz CPU s)
-CPU Caches:
-  L1 Data 32 KiB (x6)
-  L1 Instruction 32 KiB (x6)
-  L2 Unified 256 KiB (x6)
-  L3 Unified 12288 KiB (x1)
-Load Average: 0.85, 0.89, 0.57
+mkdir -p ./build
+g++ -O3 -std=c++14 -o ./build/bench bench.o fib.o -I. -I../../lib/benchmark/include -L../../lib/benchmark/build/src -lbenchmark -lpthread `../../lib/llvm-project/build/bin/llvm-config --cppflags --ldflags --system-libs --libs core executionengine interpreter passes mc mcjit support nativecodegen`
+./build/bench --benchmark_report_aggregates_only --benchmark_repetitions=20
 -------------------------------------------------------------------
 Benchmark                         Time             CPU   Iterations
 -------------------------------------------------------------------
-BM_Compile_mean             2509502 ns      2509440 ns           25
-BM_Compile_median           2519808 ns      2519733 ns           25
-BM_Compile_stddev             60429 ns        60427 ns           25
-BM_CompileRunOnce_mean      2471931 ns      2471887 ns           25
-BM_CompileRunOnce_median    2477420 ns      2477386 ns           25
-BM_CompileRunOnce_stddev      64475 ns        64476 ns           25
-BM_CompileRun1k_mean        2657528 ns      2657489 ns           25
-BM_CompileRun1k_median      2668792 ns      2668735 ns           25
-BM_CompileRun1k_stddev        83388 ns        83385 ns           25
+BM_Compile_mean             2286509 ns      2286431 ns           20
+BM_Compile_median           2286476 ns      2286439 ns           20
+BM_Compile_stddev              2856 ns         2853 ns           20
+BM_CompileRunOnce_mean      2282687 ns      2282602 ns           20
+BM_CompileRunOnce_median    2281257 ns      2281171 ns           20
+BM_CompileRunOnce_stddev       5024 ns         5029 ns           20
+BM_CompileRun1k_mean        2444509 ns      2444429 ns           20
+BM_CompileRun1k_median      2442936 ns      2442880 ns           20
+BM_CompileRun1k_stddev         6949 ns         6929 ns           20

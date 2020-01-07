@@ -1,4 +1,3 @@
-/usr/bin/g++ --std=c++0x -fno-rtti -fPIC -Wno-write-strings -O3 -I. -I../../lib/benchmark/include -I../../lib/omr/include_core -I../../lib/omr/jitbuilder/release/cpp/include -c increment.cpp -o increment.o
 /usr/bin/g++ --std=c++0x -fno-rtti -fPIC -Wno-write-strings -O3 -I. -I../../lib/benchmark/include -I../../lib/omr/include_core -I../../lib/omr/jitbuilder/release/cpp/include -c bench.cpp -o bench.o
 mkdir -p ./build
 /usr/bin/g++ --std=c++0x -fno-rtti -fPIC -Wno-write-strings -O3 -o ./build/bench increment.o bench.o -L../../lib/omr/jitbuilder/release/cpp -ljitbuilder -ldl  -L../../lib/benchmark/build/src -lbenchmark -lpthread
@@ -6,12 +5,12 @@ mkdir -p ./build
 -------------------------------------------------------------------
 Benchmark                         Time             CPU   Iterations
 -------------------------------------------------------------------
-BM_Compile_mean              529534 ns       529481 ns           20
-BM_Compile_median            529010 ns       529005 ns           20
-BM_Compile_stddev              2440 ns         2439 ns           20
-BM_CompileRunOnce_mean       527269 ns       527236 ns           20
-BM_CompileRunOnce_median     526892 ns       526842 ns           20
-BM_CompileRunOnce_stddev       1881 ns         1880 ns           20
-BM_CompileRun10k_mean        539035 ns       538995 ns           20
-BM_CompileRun10k_median      538690 ns       538666 ns           20
-BM_CompileRun10k_stddev        1503 ns         1482 ns           20
+BM_Compile_mean              525615 ns       525609 ns           20
+BM_Compile_median            525350 ns       525347 ns           20
+BM_Compile_stddev              1845 ns         1846 ns           20
+BM_CompileRunOnce_mean       523311 ns       523304 ns           20
+BM_CompileRunOnce_median     523358 ns       523347 ns           20
+BM_CompileRunOnce_stddev        690 ns          687 ns           20
+BM_CompileRun1k_mean         524723 ns       524716 ns           20
+BM_CompileRun1k_median       524763 ns       524752 ns           20
+BM_CompileRun1k_stddev          718 ns          717 ns           20

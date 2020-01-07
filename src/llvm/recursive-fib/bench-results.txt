@@ -1,17 +1,15 @@
-g++ -O3 -std=c++14 -c bench.cpp -o bench.o -I. -I../../lib/benchmark/include 
-g++ -O3 -std=c++14 -c fib.cpp -o fib.o `../../lib/llvm-project/build/bin/llvm-config --cppflags` -I. -I../../lib/benchmark/include
 mkdir -p ./build
 g++ -O3 -std=c++14 -o ./build/bench bench.o fib.o -I. -I../../lib/benchmark/include -L../../lib/benchmark/build/src -lbenchmark -lpthread `../../lib/llvm-project/build/bin/llvm-config --cppflags --ldflags --system-libs --libs core executionengine interpreter passes mc mcjit support nativecodegen`
-./build/bench --benchmark_report_aggregates_only --benchmark_repetitions=25
+./build/bench --benchmark_report_aggregates_only --benchmark_repetitions=20
 -------------------------------------------------------------------
 Benchmark                         Time             CPU   Iterations
 -------------------------------------------------------------------
-BM_Compile_mean             2682747 ns      2682698 ns           25
-BM_Compile_median           2680034 ns      2679991 ns           25
-BM_Compile_stddev              8563 ns         8567 ns           25
-BM_CompileRunOnce_mean      2691090 ns      2691040 ns           25
-BM_CompileRunOnce_median    2689788 ns      2689785 ns           25
-BM_CompileRunOnce_stddev       5132 ns         5127 ns           25
-BM_CompileRun10k_mean     112272809 ns    112271189 ns           25
-BM_CompileRun10k_median   112245785 ns    112245060 ns           25
-BM_CompileRun10k_stddev      151842 ns       152004 ns           25
+BM_Compile_mean             2708805 ns      2708622 ns           20
+BM_Compile_median           2707774 ns      2707546 ns           20
+BM_Compile_stddev              8171 ns         8135 ns           20
+BM_CompileRunOnce_mean      2715977 ns      2715772 ns           20
+BM_CompileRunOnce_median    2714510 ns      2714253 ns           20
+BM_CompileRunOnce_stddev       5830 ns         5843 ns           20
+BM_CompileRun1k_mean       13674832 ns     13673766 ns           20
+BM_CompileRun1k_median     13664199 ns     13662419 ns           20
+BM_CompileRun1k_stddev        26548 ns        26802 ns           20
