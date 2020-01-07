@@ -47,11 +47,8 @@ static Function *CreateIncrementFunction(Module *M, LLVMContext &Context) {
   Argument *ArgX = &*incrementF->arg_begin(); // Get the arg.
   ArgX->setName("AnArg");            // Give it a nice symbolic name for fun.
 
-  // increment(x-1)+increment(x-2)
   Value *Sum = BinaryOperator::CreateAdd(ArgX, One,
                                          "addresult", BB);
-
-  // Create the return instruction and add it to the basic block
   ReturnInst::Create(Context, Sum, BB);
 
   return incrementF;
