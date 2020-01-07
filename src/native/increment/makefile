@@ -1,10 +1,10 @@
 OUT			= ./build
 MK_DIR		= mkdir -p $(OUT)
 
-MAIN_OBJ		= main.o simple.o
-BENCH_OBJ		= bench.o simple.o
+MAIN_OBJ		= main.o increment.o
+BENCH_OBJ		= bench.o increment.o
 
-CXXFLAGS	+= -std=c++11 -O3
+CXXFLAGS	+= -std=c++11 -O0
 HEADERS		= -I. -I../../lib/benchmark/include
 LDFLAGS		+= -L../../lib/benchmark/build/src
 LDLIBS		+= -lbenchmark -lpthread
@@ -23,12 +23,12 @@ main.o: main.cpp
 bench.o: bench.cpp
 	$(CXX) $(CXXFLAGS) -c bench.cpp -o bench.o $(HEADERS) 
 
-simple.o: simple.cpp
-	$(CXX) $(CXXFLAGS) -c simple.cpp -o simple.o $(HEADERS)
+increment.o: increment.cpp
+	$(CXX) $(CXXFLAGS) -c increment.cpp -o increment.o $(HEADERS)
 
 clean:
-	rm simple.o main.o bench.o
+	rm increment.o main.o bench.o
 	rm -rf $(OUT)
 
 run-bench: bench
-	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=10
+	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=25
