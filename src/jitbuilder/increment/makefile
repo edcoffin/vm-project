@@ -5,7 +5,7 @@ BENCH_DIR 	= ../../lib/benchmark
 JITBUILDER_DIR = ../../lib/omr/jitbuilder/release/cpp
 
 CXX      = /usr/bin/g++
-CXXFLAGS	= --std=c++0x -fno-rtti -fPIC -Wno-write-strings -O0
+CXXFLAGS	= --std=c++0x -fno-rtti -fPIC -Wno-write-strings -O3
 HEADERS		= -I. -I$(BENCH_DIR)/include -I../../lib/omr/include_core -I$(JITBUILDER_DIR)/include
 
 BENCH_LD	= -L$(BENCH_DIR)/build/src -lbenchmark -lpthread
@@ -33,4 +33,4 @@ clean:
 	rm -rf $(OUT)
 
 run-bench: bench
-	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=25
+	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=20
