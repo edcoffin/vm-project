@@ -5,7 +5,7 @@
 
 int main() {
     int32_t result = 0;
-    result = fib(20);
+    result = fib_runner(20, 1);
 
     #if defined(DEBUG_OUTPUT)
     printf("Result=%d\n", result);

@@ -3,7 +3,7 @@
 
 int main() {
     int32_t result = 0;
-    result = fib(20);
+    result = fib_runner(20, 1);
     printf("Result = %d\n", result);
 }
 
