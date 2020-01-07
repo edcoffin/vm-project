@@ -11,8 +11,19 @@ OMR IR has several hundred opcodes, where typically with each type operation has
 }
 The children of these opcode nodes are in turn operands.
 Trees with side-effects, which cannot be reordered, belong to a list of elements called treetops \cite{treetops}.
-Existing nodes can be reused within a given tree, making optimizations such as common subexpression elimination relatively simple.
+Existing nodes can be reused within a given tree, making optimizations such as common subexpression elimination relatively simple (see Listing \ref{lst:jitbuilder_ir}).
 Though Testarossa supports several levels of optimization ranging from \textit{cold}, with roughly 20 optimizations applied, all the way to \textit{scorching}, where as many as 170 optimizations are applied, as of writing, JitBuilder is locked at the \textit{Warm} optimization level \cite{sanchez2011using, jitbuilderWarm}.
-
-
+\begin{lstlisting}[float,floatplacement=H,
+caption={OMR IR representation for (a+b)*(a-b). Note that the iload nodes are reused \cite{treetops}.},
+label=lst:jitbuilder_ir]
+treetop--> istore a
+            |
+            imul--- isub-------+
+            |                  |
+            iadd               |
+            |                  |
+            +-----> iload b <--+
+            |                  |
+            +-----> iload a <--+
+}\end{lstlisting}
 
