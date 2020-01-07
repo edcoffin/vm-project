@@ -33,4 +33,4 @@ clean:
 	rm -rf $(OUT)
 
 run-bench: bench
-	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=10
+	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=25
