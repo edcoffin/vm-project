@@ -11,15 +11,15 @@ HEADERS		= -I. -I$(BENCH_DIR)/include -I../../lib/omr/include_core -I$(JITBUILDE
 BENCH_LD	= -L$(BENCH_DIR)/build/src -lbenchmark -lpthread
 JITBUILDER_LD	= -L$(JITBUILDER_DIR) -ljitbuilder -ldl 
 
-main: simple.o main.o
+main: increment.o main.o
 	$(MK_DIR)
-	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ simple.o main.o $(JITBUILDER_LD)
+	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ increment.o main.o $(JITBUILDER_LD)
 
-bench: simple.o bench.o
+bench: increment.o bench.o
 	$(MK_DIR)
-	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ simple.o bench.o $(JITBUILDER_LD) $(BENCH_LD)
+	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ increment.o bench.o $(JITBUILDER_LD) $(BENCH_LD)
 
-simple.o: simple.cpp
+increment.o: increment.cpp
 	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
 
 main.o: main.cpp
@@ -29,7 +29,7 @@ bench.o: bench.cpp
 	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
 
 clean:
-	rm simple.o bench.o main.o
+	rm increment.o bench.o main.o
 	rm -rf $(OUT)
 
 run-bench: bench
