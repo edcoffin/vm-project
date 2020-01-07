@@ -4,7 +4,7 @@ MK_DIR		= mkdir -p $(OUT)
 MAIN_OBJ		= main.o fib.o
 BENCH_OBJ		= bench.o fib.o
 
-CXXFLAGS	+= -std=c++11 -O0
+CXXFLAGS	+= -std=c++11 -03
 HEADERS		= -I. -I../../lib/benchmark/include
 LDFLAGS		+= -L../../lib/benchmark/build/src
 LDLIBS		+= -lbenchmark -lpthread
@@ -31,4 +31,4 @@ clean:
 	rm -rf $(OUT)
 
 run-bench:
-	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=10
+	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=20

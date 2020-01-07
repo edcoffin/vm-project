@@ -15,15 +15,15 @@ static void BM_CompileRunOnce(benchmark::State& state) {
   }
 }
 
-static void BM_CompileRun10k(benchmark::State& state) {
+static void BM_CompileRun1k(benchmark::State& state) {
   int32_t result = 0;
   for (auto _ : state) {
-    result = jit_compile_function(true, 20, 10000);
+    result = jit_compile_function(true, 20, 1000);
   }
 }
 
 BENCHMARK(BM_Compile);
 BENCHMARK(BM_CompileRunOnce);
-BENCHMARK(BM_CompileRun10k);
+BENCHMARK(BM_CompileRun1k);
 
 BENCHMARK_MAIN();

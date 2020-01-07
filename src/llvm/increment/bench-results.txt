@@ -1,17 +1,15 @@
-g++ -O3 -std=c++14 -c bench.cpp -o bench.o -I. -I../../lib/benchmark/include 
-g++ -O3 -std=c++14 -c increment.cpp -o increment.o `../../lib/llvm-project/build/bin/llvm-config --cppflags` -I. -I../../lib/benchmark/include
 mkdir -p ./build
 g++ -O3 -std=c++14 -o ./build/bench bench.o increment.o -I. -I../../lib/benchmark/include -L../../lib/benchmark/build/src -lbenchmark -lpthread `../../lib/llvm-project/build/bin/llvm-config --cppflags --ldflags --system-libs --libs core executionengine interpreter passes mc mcjit support nativecodegen`
 ./build/bench --benchmark_report_aggregates_only --benchmark_repetitions=20
 -------------------------------------------------------------------
 Benchmark                         Time             CPU   Iterations
 -------------------------------------------------------------------
-BM_Compile_mean             1323530 ns      1323516 ns           20
-BM_Compile_median           1320472 ns      1320457 ns           20
-BM_Compile_stddev              9906 ns         9909 ns           20
-BM_CompileRunOnce_mean      1323460 ns      1323446 ns           20
-BM_CompileRunOnce_median    1321746 ns      1321740 ns           20
-BM_CompileRunOnce_stddev      10624 ns        10621 ns           20
-BM_CompileRun10k_mean       2931385 ns      2931344 ns           20
-BM_CompileRun10k_median     2926483 ns      2926446 ns           20
-BM_CompileRun10k_stddev       19589 ns        19576 ns           20
+BM_Compile_mean             1360719 ns      1360696 ns           20
+BM_Compile_median           1379840 ns      1379818 ns           20
+BM_Compile_stddev             40416 ns        40419 ns           20
+BM_CompileRunOnce_mean      1300271 ns      1300248 ns           20
+BM_CompileRunOnce_median    1290335 ns      1290325 ns           20
+BM_CompileRunOnce_stddev      23243 ns        23245 ns           20
+BM_CompileRun10k_mean       2994900 ns      2994840 ns           20
+BM_CompileRun10k_median     2965100 ns      2965050 ns           20
+BM_CompileRun10k_stddev       81394 ns        81373 ns           20

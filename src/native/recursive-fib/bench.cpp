@@ -10,14 +10,14 @@ static void BM_RunOnce(benchmark::State& state) {
   }
 }
 
-static void BM_Run100k(benchmark::State& state) {
+static void BM_Run1k(benchmark::State& state) {
   int32_t result = 0;
   for (auto _ : state) {
-    result = fib_runner(20, 100000);
+    result = fib_runner(20, 1000);
   }
 }
 
 BENCHMARK(BM_RunOnce);
-BENCHMARK(BM_Run100k);
+BENCHMARK(BM_Run1k);
 
 BENCHMARK_MAIN();
