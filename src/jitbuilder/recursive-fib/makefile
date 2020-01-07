@@ -19,9 +19,6 @@ bench: fib.o bench.o
 	$(MK_DIR)
 	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ fib.o bench.o $(JITBUILDER_LD) $(BENCH_LD)
 
-tp: fib.o tp.o
-	$(MK_DIR)
-	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ fib.o tp.o $(JITBUILDER_LD)
 
 fib.o: fib.cpp
 	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
@@ -32,17 +29,9 @@ main.o: main.cpp
 bench.o: bench.cpp
 	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
 
-tp.o: tp.cpp
-	$(CXX) $(CXXFLAGS) $(HEADERS) -c $< -o $@
-
 clean:
-	rm fib.o tp.o bench.o main.o
+	rm fib.o bench.o main.o
 	rm -rf $(OUT)
 
-run-bench:
-	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=10
-
-run-tp: tp
-	$(MK_DIR)
-	mkdir -p $(OUT)/tp_results
-	python tp_runner.py $(OUT)/tp
+run-bench: bench
+	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=25

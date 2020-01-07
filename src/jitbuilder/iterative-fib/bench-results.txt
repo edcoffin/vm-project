@@ -1,5 +1,5 @@
-./build/bench --benchmark_report_aggregates_only --benchmark_repetitions=10                                       
-2020-01-04 15:31:39
+./build/bench --benchmark_report_aggregates_only --benchmark_repetitions=25
+2020-01-07 09:52:53
 Running ./build/bench
 Run on (12 X 4600 MHz CPU s)
 CPU Caches:
@@ -7,16 +7,16 @@ CPU Caches:
   L1 Instruction 32 KiB (x6)
   L2 Unified 256 KiB (x6)
   L3 Unified 12288 KiB (x1)
-Load Average: 0.56, 0.43, 0.38
--------------------------------------------------------------------                                               
-Benchmark                         Time             CPU   Iterations                                               
--------------------------------------------------------------------                                               
-BM_Compile_mean             4188082 ns      4188025 ns           10                                               
-BM_Compile_median           4183684 ns      4183636 ns           10                                               
-BM_Compile_stddev             11133 ns        11136 ns           10                                               
-BM_CompileRunOnce_mean      4178044 ns      4177970 ns           10                                               
-BM_CompileRunOnce_median    4178133 ns      4178022 ns           10                                               
-BM_CompileRunOnce_stddev       4713 ns         4702 ns           10                                               
-BM_CompileRun1k_mean        4296103 ns      4296023 ns           10                                               
-BM_CompileRun1k_median      4186184 ns      4186118 ns           10                                               
-BM_CompileRun1k_stddev       162279 ns       162259 ns           10       
+Load Average: 0.57, 0.54, 0.47
+-------------------------------------------------------------------
+Benchmark                         Time             CPU   Iterations
+-------------------------------------------------------------------
+BM_Compile_mean             4192213 ns      4192110 ns           25
+BM_Compile_median           4191730 ns      4191546 ns           25
+BM_Compile_stddev             10419 ns        10388 ns           25
+BM_CompileRunOnce_mean      4188103 ns      4188013 ns           25
+BM_CompileRunOnce_median    4186734 ns      4186558 ns           25
+BM_CompileRunOnce_stddev       8107 ns         8100 ns           25
+BM_CompileRun1k_mean        4227967 ns      4227879 ns           25
+BM_CompileRun1k_median      4190232 ns      4190065 ns           25
+BM_CompileRun1k_stddev       102744 ns       102726 ns           25

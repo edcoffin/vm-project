@@ -32,5 +32,5 @@ clean:
 	rm fib.o bench.o main.o
 	rm -rf $(OUT)
 
-run-bench:
-	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=10
+run-bench: bench
+	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=25
