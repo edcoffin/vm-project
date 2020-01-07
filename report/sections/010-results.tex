@@ -1,0 +1,18 @@
+\section{Results}
+\label{sec:results}
+\subsection{Compilation Time}
+First we measured the time to compile each function (see Table \ref{tab:compile-time}).
+\begin{table}[]
+    \begin{tabular}{@{}lllll@{}}
+    \toprule
+    Framework  & Program & Mean    & Median  & Std. Dev \\ \midrule
+    LLVM       & inc     & 1,228,939 & 1,223,583 & 13,780    \\
+    JitBuilder & inc     &   531,730  &  531,976  & 5,292     \\
+    LLVM       & rfib    & 1,548,316 & 1,547,491 & 3,925     \\
+    JitBuilder & rfib    & 1,855,381 & 1,847,804 & 17,716    \\
+    LLVM       & ifib    & 1,711,828 & 1,711,296 & 3,086     \\
+    JitBuilder & ifib    & 4,188,082 & 4,183,684 & 11,133    \\ \bottomrule
+    \end{tabular}
+    \caption{Time to build IR and generate native code.}
+    \label{tab:compile-time}
+    \end{table}
