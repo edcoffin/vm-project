@@ -1,5 +1,5 @@
 #include "benchmark/benchmark.h"
-#include "simple.hpp"
+#include "increment.hpp"
 
 static void BM_Compile(benchmark::State& state) {
   int32_t result = 0;

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "simple.hpp"
+#include "increment.hpp"
 
 int main() {
     int32_t result = 0;    

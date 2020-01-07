@@ -25,36 +25,36 @@
 
 #include <fstream>
 #include <time.h>
-#include "simple.hpp"
+#include "increment.hpp"
 
 using namespace llvm;
 
-static Function *CreateSimpleFunction(Module *M, LLVMContext &Context) {
-  // Create the Simple function and insert it into module M. This function is said
+static Function *CreateIncrementFunction(Module *M, LLVMContext &Context) {
+  // Create the increment function and insert it into module M. This function is said
   // to return an int and take an int parameter.
-  FunctionType *SimpleFTy = FunctionType::get(Type::getInt32Ty(Context),
+  FunctionType *incrementFTy = FunctionType::get(Type::getInt32Ty(Context),
                                            {Type::getInt32Ty(Context)}, false);
-  Function *SimpleF =
-      Function::Create(SimpleFTy, Function::ExternalLinkage, "increment", M);
+  Function *incrementF =
+      Function::Create(incrementFTy, Function::ExternalLinkage, "increment", M);
 
   // Add a basic block to the function.
-  BasicBlock *BB = BasicBlock::Create(Context, "EntryBlock", SimpleF);
+  BasicBlock *BB = BasicBlock::Create(Context, "EntryBlock", incrementF);
 
   // Get pointers to the constants.
   Value *One = ConstantInt::get(Type::getInt32Ty(Context), 1);
   
   // Get pointer to the integer argument of the add1 function...
-  Argument *ArgX = &*SimpleF->arg_begin(); // Get the arg.
+  Argument *ArgX = &*incrementF->arg_begin(); // Get the arg.
   ArgX->setName("AnArg");            // Give it a nice symbolic name for fun.
 
-  // Simple(x-1)+Simple(x-2)
+  // increment(x-1)+increment(x-2)
   Value *Sum = BinaryOperator::CreateAdd(ArgX, One,
                                          "addresult", BB);
 
   // Create the return instruction and add it to the basic block
   ReturnInst::Create(Context, Sum, BB);
 
-  return SimpleF;
+  return incrementF;
 }
 
 int32_t jit_compile_function(bool run_function, int32_t n, int32_t count) {
@@ -66,8 +66,8 @@ int32_t jit_compile_function(bool run_function, int32_t n, int32_t count) {
   std::unique_ptr<Module> Owner(new Module("test", Context));
   Module *M = Owner.get();
 
-  // We are about to create the "Simple" function:
-  Function *_SimpleF = CreateSimpleFunction(M, Context);
+  // We are about to create the "increment" function:
+  Function *_incrementF = CreateIncrementFunction(M, Context);
 
   llvm::PassBuilder _PassBuilder;
   
@@ -89,7 +89,7 @@ int32_t jit_compile_function(bool run_function, int32_t n, int32_t count) {
         llvm::PassBuilder::ThinLTOPhase::None,
         false);
 
-  _FunctionPassMgr.run(*_SimpleF, _FAMgr);  
+  _FunctionPassMgr.run(*_incrementF, _FAMgr);  
   
   // Now we going to create JIT
   std::string errStr;
@@ -108,7 +108,7 @@ int32_t jit_compile_function(bool run_function, int32_t n, int32_t count) {
     std::vector<GenericValue> Args(1);
     Args[0].IntVal = APInt(32, n);
     for(int i = 0; i < count; i++) {
-      GenericValue GV = _EE->runFunction(_SimpleF, Args);
+      GenericValue GV = _EE->runFunction(_incrementF, Args);
       sum += GV.IntVal.getSExtValue();
     }
   }

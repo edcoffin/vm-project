@@ -1,8 +1,8 @@
 OUT			= ./build
 MK_DIR		= mkdir -p $(OUT)
 
-MAIN_OBJ		= main.o simple.o
-BENCH_OBJ		= bench.o simple.o
+MAIN_OBJ		= main.o increment.o
+BENCH_OBJ		= bench.o increment.o
 
 CXX 		= g++
 CXXFLAGS	+= -O3 -std=c++14
@@ -27,12 +27,12 @@ main.o: main.cpp
 bench.o: bench.cpp
 	$(CXX) $(CXXFLAGS) -c bench.cpp -o bench.o $(HEADERS) 
 
-simple.o: simple.cpp
-	$(CXX) $(CXXFLAGS) -c simple.cpp -o $@ `$(LLVM_CONFIG) --cppflags` $(HEADERS)
+increment.o: increment.cpp
+	$(CXX) $(CXXFLAGS) -c increment.cpp -o $@ `$(LLVM_CONFIG) --cppflags` $(HEADERS)
 
 clean:
-	rm simple.o bench.o main.o
+	rm increment.o bench.o main.o
 	rm -rf $(OUT)
 
 run-bench: bench
-	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=10
+	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=25

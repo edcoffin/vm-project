@@ -1,5 +1,5 @@
-#ifndef SIMPLE_H_INCLUDED
-#define SIMPLE_H_INCLUDED
+#ifndef INCREMENT_H_INCLUDED
+#define INCREMENT_H_INCLUDED
 
 #include <cstdint>
 #include <iostream>
