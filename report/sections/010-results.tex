@@ -1,7 +1,7 @@
 \section{Results}
 \label{sec:results}
 \subsection{Compilation Time}
-The first question we looked at was how long each framework took to compile a function.
+The first question we looked at was how long each framework took to compile a function 25 times. This time includes running the program from start to finish and thus includes the setup and teardown time of the JIT.
 
 In Table \ref{tab:compile_time} we see that for the increment task JitBuilder's compiled the function 61.5\% faster than MCJIT.
 For the other two tasks, we see that MCJIT was able to compile the functions more quickly than JitBuilder (recursive-fib compiled 16.5\% faster, and iterative-fib compiled 40.1\% faster ).
@@ -70,3 +70,8 @@ IncrementMethod::buildIL()
     return incrementF;
   }
 }\end{lstlisting}
+
+\subsection{Execution Time}
+Once compilation has completed we turn to measuring how much CPU time is spent actually executing the function.
+To measure this we compiled the function once and then executed the compiled function 1000 times.
+For each program process was repeated 25 times.
