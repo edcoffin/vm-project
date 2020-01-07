@@ -1,4 +1,4 @@
-# A Comparison of JIT Compiler Overhead during Run-time
+# A Comparison of API-based JIT Compiler Overhead during Run-time
 
 ## Building project
 The project has the following dependencies:
