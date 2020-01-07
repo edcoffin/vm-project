@@ -1,0 +1,13 @@
+g++ -std=c++11 -O3 -c bench.cpp -o bench.o -I. -I../../lib/benchmark/include 
+mkdir -p ./build
+g++ -std=c++11 -O3 -o ./build/bench bench.o fib.o -I. -I../../lib/benchmark/include -L../../lib/benchmark/build/src -lbenchmark -lpthread
+./build/bench --benchmark_report_aggregates_only --benchmark_repetitions=20
+------------------------------------------------------------
+Benchmark                  Time             CPU   Iterations
+------------------------------------------------------------
+BM_RunOnce_mean        31375 ns        31372 ns           20
+BM_RunOnce_median      31372 ns        31370 ns           20
+BM_RunOnce_stddev       46.4 ns         45.7 ns           20
+BM_Run1k_mean       31404538 ns     31402186 ns           20
+BM_Run1k_median     31319334 ns     31318821 ns           20
+BM_Run1k_stddev       142705 ns       142394 ns           20

@@ -1,0 +1,15 @@
+mkdir -p ./build
+g++ -O3 -std=c++14 -o ./build/bench bench.o fib.o -I. -I../../lib/benchmark/include -L../../lib/benchmark/build/src -lbenchmark -lpthread `../../lib/llvm-project/build/bin/llvm-config --cppflags --ldflags --system-libs --libs core executionengine interpreter passes mc mcjit support nativecodegen`
+./build/bench --benchmark_report_aggregates_only --benchmark_repetitions=20
+-------------------------------------------------------------------
+Benchmark                         Time             CPU   Iterations
+-------------------------------------------------------------------
+BM_Compile_mean             2286509 ns      2286431 ns           20
+BM_Compile_median           2286476 ns      2286439 ns           20
+BM_Compile_stddev              2856 ns         2853 ns           20
+BM_CompileRunOnce_mean      2282687 ns      2282602 ns           20
+BM_CompileRunOnce_median    2281257 ns      2281171 ns           20
+BM_CompileRunOnce_stddev       5024 ns         5029 ns           20
+BM_CompileRun1k_mean        2444509 ns      2444429 ns           20
+BM_CompileRun1k_median      2442936 ns      2442880 ns           20
+BM_CompileRun1k_stddev         6949 ns         6929 ns           20

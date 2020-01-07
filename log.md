@@ -1,26 +1,30 @@
 # Log
 History, outstanding items and insights.
 
-### Next steps
+## 2010-01-07
+x- update note on N runs in reports
+x- update to 1k runs
+x- update to 03
+x- update to 20 reps
 
-- What will benefit the group during a seminar
-    - focus on work
-- Benchmarking tools (future seminar topic)
-- Experiments and Results
-    - Can we benchmark JIT
-    - Execution Time by function (flamegraphs)
-    - Memory (RSS, WSS) over time
-- We need an application to run for a long time… to see the long term benefits (dominated by JIT compilation)
-    - Can we measure throughput? (visualize time spent with JIT)
-    - Can we compare to native O3 results...
-        - More interesting than a recursive-fib?
-    - Relative ns + result (buckets of 1000 ns) 
-- What JIT optimizations can we apply to the compilers?
-    - TRJIT: noOpt? Scorching? Disable profiling? Not considering a staged compilation scenario?
-    - Does jitBuilder automatically increment optimizations?
-- In addition to rec-fib --- what is another common application we can write.
-- What is interesting about rec-fib? 
-- Compare generated JIT assembler (log it?)
+x- store in bench-results
+
+x- increment
+	x - llvm
+	x - jitbuilder	
+	x - native
+x- rfib
+	x - llvm
+	x - jitbuilder	
+	x - native
+x- ifib
+	x - llvm
+	x - jitbuilder	
+	x - native
+
+- measure linked files!
+
+
 
 ## 2020-01-02
 x - add report template and begin writing
