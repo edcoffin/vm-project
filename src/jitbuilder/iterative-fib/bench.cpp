@@ -15,15 +15,15 @@ static void BM_CompileRunOnce(benchmark::State& state) {
   }
 }
 
-static void BM_CompileRun1k(benchmark::State& state) {
+static void BM_CompileRun100k(benchmark::State& state) {
   int32_t result = 0;
   for (auto _ : state) {
-    result = IterativeFibonnaciMethod::jit_compile_function(true, 20, 1000);
+    result = IterativeFibonnaciMethod::jit_compile_function(true, 20, 100000);
   }
 }
 
 BENCHMARK(BM_Compile);
 BENCHMARK(BM_CompileRunOnce);
-BENCHMARK(BM_CompileRun1k);
+BENCHMARK(BM_CompileRun100k);
 
 BENCHMARK_MAIN();

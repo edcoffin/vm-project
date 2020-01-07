@@ -5,7 +5,7 @@ MAIN_OBJ		= main.o fib.o
 BENCH_OBJ		= bench.o fib.o
 
 CXX 		= g++
-CXXFLAGS	+= -O3 -std=c++14
+CXXFLAGS	+= -O0 -std=c++14
 HEADERS		= -I. -I../../lib/benchmark/include
 LDFLAGS		+= -L../../lib/benchmark/build/src
 LDLIBS		+= -lbenchmark -lpthread
