@@ -1,22 +1,17 @@
+/usr/bin/g++ --std=c++0x -fno-rtti -fPIC -Wno-write-strings -O0 -I. -I../../lib/benchmark/include -I../../lib/omr/include_core -I../../lib/omr/jitbuilder/release/cpp/include -c increment.cpp -o increment.o
+/usr/bin/g++ --std=c++0x -fno-rtti -fPIC -Wno-write-strings -O0 -I. -I../../lib/benchmark/include -I../../lib/omr/include_core -I../../lib/omr/jitbuilder/release/cpp/include -c bench.cpp -o bench.o
+mkdir -p ./build
+/usr/bin/g++ --std=c++0x -fno-rtti -fPIC -Wno-write-strings -O0 -o ./build/bench increment.o bench.o -L../../lib/omr/jitbuilder/release/cpp -ljitbuilder -ldl  -L../../lib/benchmark/build/src -lbenchmark -lpthread
 ./build/bench --benchmark_report_aggregates_only --benchmark_repetitions=25
-2020-01-07 09:46:15
-Running ./build/bench
-Run on (12 X 4600 MHz CPU s)
-CPU Caches:
-  L1 Data 32 KiB (x6)
-  L1 Instruction 32 KiB (x6)
-  L2 Unified 256 KiB (x6)
-  L3 Unified 12288 KiB (x1)
-Load Average: 0.53, 0.36, 0.40
 -------------------------------------------------------------------
 Benchmark                         Time             CPU   Iterations
 -------------------------------------------------------------------
-BM_Compile_mean              533581 ns       533572 ns           25
-BM_Compile_median            531840 ns       531836 ns           25
-BM_Compile_stddev              4911 ns         4912 ns           25
-BM_CompileRunOnce_mean       530516 ns       530507 ns           25
-BM_CompileRunOnce_median     530512 ns       530498 ns           25
-BM_CompileRunOnce_stddev        804 ns          804 ns           25
-BM_CompileRun1k_mean         532489 ns       532478 ns           25
-BM_CompileRun1k_median       532010 ns       532006 ns           25
-BM_CompileRun1k_stddev         1887 ns         1888 ns           25
+BM_Compile_mean              526956 ns       526949 ns           25
+BM_Compile_median            524917 ns       524906 ns           25
+BM_Compile_stddev              7635 ns         7636 ns           25
+BM_CompileRunOnce_mean       523343 ns       523335 ns           25
+BM_CompileRunOnce_median     523151 ns       523148 ns           25
+BM_CompileRunOnce_stddev       1451 ns         1450 ns           25
+BM_CompileRun100k_mean       675706 ns       675698 ns           25
+BM_CompileRun100k_median     675410 ns       675406 ns           25
+BM_CompileRun100k_stddev       1129 ns         1129 ns           25

@@ -1,19 +1,14 @@
-./build/bench --benchmark_report_aggregates_only --benchmark_repetitions=10
-2020-01-04 13:25:42
-Running ./build/bench
-Run on (12 X 4600 MHz CPU s)
-CPU Caches:
-  L1 Data 32 KiB (x6)
-  L1 Instruction 32 KiB (x6)
-  L2 Unified 256 KiB (x6)
-  L3 Unified 12288 KiB (x1)
-Load Average: 0.34, 0.27, 0.26
+g++ -std=c++11 -O0 -c bench.cpp -o bench.o -I. -I../../lib/benchmark/include 
+g++ -std=c++11 -O0 -c fib.cpp -o fib.o -I. -I../../lib/benchmark/include
+mkdir -p ./build
+g++ -std=c++11 -O0 -o ./build/bench bench.o fib.o -I. -I../../lib/benchmark/include -L../../lib/benchmark/build/src -lbenchmark -lpthread
+./build/bench --benchmark_report_aggregates_only --benchmark_repetitions=25
 ------------------------------------------------------------
 Benchmark                  Time             CPU   Iterations
 ------------------------------------------------------------
-BM_RunOnce_mean        16189 ns        16189 ns           10
-BM_RunOnce_median      16111 ns        16111 ns           10
-BM_RunOnce_stddev        150 ns          150 ns           10
-BM_Run1k_mean       16145398 ns     16145236 ns           10
-BM_Run1k_median     16116321 ns     16116186 ns           10
-BM_Run1k_stddev        92733 ns        92651 ns           10
+BM_RunOnce_mean        31728 ns        31727 ns           25
+BM_RunOnce_median      31662 ns        31661 ns           25
+BM_RunOnce_stddev        303 ns          302 ns           25
+BM_Run100k_mean   3161059579 ns   3161035018 ns           25
+BM_Run100k_median 3160474181 ns   3160455302 ns           25
+BM_Run100k_stddev    1774634 ns      1770708 ns           25

@@ -5,7 +5,7 @@ MAIN_OBJ		= main.o increment.o
 BENCH_OBJ		= bench.o increment.o
 
 CXX 		= g++
-CXXFLAGS	+= -O0 -std=c++14
+CXXFLAGS	+= -O3 -std=c++14
 
 HEADERS		= -I. -I../../lib/benchmark/include
 LDFLAGS		+= -L../../lib/benchmark/build/src
@@ -35,4 +35,4 @@ clean:
 	rm -rf $(OUT)
 
 run-bench: bench
-	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=25
+	$(OUT)/bench --benchmark_report_aggregates_only --benchmark_repetitions=20
