@@ -3,9 +3,9 @@
 To answer the questions we outlined in the introduction, we wrote three simple programs for each of LLVM MCJIT, JitBuilder, and a straight forward native implementation without a JIT framework.
 The programs are as follows:
 \begin{itemize}
-    \item inc - Calls a single function that adds one to an integer argument.
-    \item rfib - Calls a recursive fibonacci function for \textit{fib(20)}.
-    \item ifib - Calls an iterative fibonacci function for \textit{fib(20)}.  
+    \item increment - Calls a single function that adds one to an integer argument.
+    \item recursive-fib - Calls a recursive fibonacci function for \textit{fib(20)}.
+    \item iterative-fib - Calls an iterative fibonacci function for \textit{fib(20)}.  
 \end{itemize}
 For the JIT implementations, the functions were created using the provided API's, then native code was generated and later used for the actual function call.
 We built and benchmarked the programs on an x86-64 Linux workstation with 32gb of RAM and an Intel 6 Core (12 thread) processor. 

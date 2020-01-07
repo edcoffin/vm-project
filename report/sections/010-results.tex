@@ -1,26 +1,37 @@
 \section{Results}
 \label{sec:results}
 \subsection{Compilation Time}
-First we measured the time to compile each function (see Table \ref{tab:compile-time}).
+The first question we looked at was how long each framework took to compile a function.
+
+In Table \ref{tab:compile_time} we see that for the increment task JitBuilder's compiled the function 61.5\% faster than MCJIT.
+For the other two tasks, we see that MCJIT was able to compile the functions more quickly than JitBuilder (recursive-fib compiled 16.5\% faster, and iterative-fib compiled 40.1\% faster ).
+There is no clear reason why this disparity exists.
+Looking at the JitBuilder code to generate the function (see Listing \ref{lst:lst:jitbuilder_ir}), we see a relatively simple method compared to the IR generator for LLVM (see Listing \ref{lst:llvm_ir}).
+
+\begin{lstlisting}[float,floatplacement=H,
+caption={Generating JitBuilder IR for the increment program.},
+label=lst:jitbuilder_increment]
+bool
+IncrementMethod::buildIL()
+{
+  Return(
+    Add(
+        Load("value"),
+        ConstInt32(1)));
+  return true;
+}
+}\end{lstlisting}
 
 
-\begin{tabular}{l c S[table-format=10.9] S[retain-zero-exponent=true]}
-    \toprule
-    \multicolumn{4}{c}{SI Prefixes} \\
-    \addlinespace %\midrule
-    Prefix & Symbol & {Multiplication Factor} & {\dots\ in Scientific Notation} \\
-    \midrule
-    giga  & \si{\giga} & 1000000000 & e9 \\
-    mega  & \si{\mega} & 1000000    & e6 \\ 
-    kilo  & \si{\kilo} & 1000       & e3 \\
-    deca  & \si{\deca} & 10         & e1 \\ % "\deka" works too
-    \rowcolor{gray!20}  -- & -- & 1 & e0 \\
-    deci  & \si{\deci} & 0.1        & e-1 \\
-    centi & \si{\centi}& 0.01       & e-2 \\
-    milli & \si{\milli}& 0.001      & e-3 \\
-    micro & \si{\micro}& 0.000001   & e-6 \\
-    nano  & \si{\nano} & 0.000000001& e-9 \\
-    \bottomrule
-    \end{tabular}
-
-    
+\begin{table*}[t]
+  \begin{tabular}{|r|l|l|l|l||l|l|}
+  \hline
+  \multicolumn{1}{|l|}{\multirow{2}{*}{}} & \multicolumn{3}{c|}{\textbf{LLVM MCJIT}}                                                                                     & \multicolumn{3}{c|}{\textbf{Eclipse OMR JitBuilder}}                                                                              \\ \cline{2-7}
+  \multicolumn{1}{|c|}{\textbf{Program}}  & \multicolumn{1}{c|}{mean (nanoseconds)}  & \multicolumn{1}{c|}{median}  & \multicolumn{1}{c|}{std. deviation}                & \multicolumn{1}{c|}{mean (nanoseconds)}  & \multicolumn{1}{c|}{median}  & \multicolumn{1}{c|}{std. deviation}             \\ \hline
+  increment                               & \num{1378060}                            & \num{1387338}                & \num{39774}                                        & \num{533581}                             & \num{531840}                & \num{4911}                                      \\ \hline
+  recursive-fib                           & \num{1548316}                            & \num{1547491}                & \num{3925}                                         & \num{1854393}                            & \num{1850322}               & \num{21754}                                     \\ \hline
+  iterative-fib                           & \num{2509502}                            & \num{2519808}                & \num{60429}                                        & \num{4192213}                            & \num{4191730}               & \num{10419}                                     \\ \hline
+  \end{tabular}
+  \caption{Results of compiling each function 25 times with each JIT framework.}
+  \label{tab:compile_time}
+\end{table*}
