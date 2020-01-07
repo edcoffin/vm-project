@@ -2,17 +2,25 @@
 \label{sec:results}
 \subsection{Compilation Time}
 First we measured the time to compile each function (see Table \ref{tab:compile-time}).
-\begin{table}[]
-    \begin{tabular}{@{}lllll@{}}
+
+
+\begin{tabular}{l c S[table-format=10.9] S[retain-zero-exponent=true]}
     \toprule
-    Framework  & Program & Mean    & Median  & Std. Dev \\ \midrule
-    LLVM       & inc     & 1,228,939 & 1,223,583 & 13,780    \\
-    JitBuilder & inc     &   531,730  &  531,976  & 5,292     \\
-    LLVM       & rfib    & 1,548,316 & 1,547,491 & 3,925     \\
-    JitBuilder & rfib    & 1,855,381 & 1,847,804 & 17,716    \\
-    LLVM       & ifib    & 1,711,828 & 1,711,296 & 3,086     \\
-    JitBuilder & ifib    & 4,188,082 & 4,183,684 & 11,133    \\ \bottomrule
+    \multicolumn{4}{c}{SI Prefixes} \\
+    \addlinespace %\midrule
+    Prefix & Symbol & {Multiplication Factor} & {\dots\ in Scientific Notation} \\
+    \midrule
+    giga  & \si{\giga} & 1000000000 & e9 \\
+    mega  & \si{\mega} & 1000000    & e6 \\ 
+    kilo  & \si{\kilo} & 1000       & e3 \\
+    deca  & \si{\deca} & 10         & e1 \\ % "\deka" works too
+    \rowcolor{gray!20}  -- & -- & 1 & e0 \\
+    deci  & \si{\deci} & 0.1        & e-1 \\
+    centi & \si{\centi}& 0.01       & e-2 \\
+    milli & \si{\milli}& 0.001      & e-3 \\
+    micro & \si{\micro}& 0.000001   & e-6 \\
+    nano  & \si{\nano} & 0.000000001& e-9 \\
+    \bottomrule
     \end{tabular}
-    \caption{Time to build IR and generate native code.}
-    \label{tab:compile-time}
-    \end{table}
+
+    
