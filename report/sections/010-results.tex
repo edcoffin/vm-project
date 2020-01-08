@@ -217,8 +217,7 @@ While there are over 167 possible linkable modules when using LLVM, I found the 
   \label{tab:size_in_bytes}
 \end{table*}
 
-
-\subsection{Max Resident State Set}
+\subsection{Resident State Set}
 
 
 \begin{table*}[t]
@@ -247,10 +246,11 @@ While there are over 167 possible linkable modules when using LLVM, I found the 
   \\ \hline
   
 \end{tabular}
-  \caption{Maximum resident state set in kilobytes of test programs during execution of a single compilation and execution of the function.}
+  \caption{Maximum resident state set in kilobytes of test programs during execution of a single compilation and execution of the generated function. Note that Native had no run-time compilation phase.}
   \label{tab:size_in_bytes}
 \end{table*}
 
+\subsection{Developer Experience}
 
 \subsection{Considerations}
 Considering the JIT compiler behind JitBuilder was originally designed for dynamic runtime compilation, it makes sense that it has a lighter footprint than LLVM -- both in terms of RSS and linked file size.

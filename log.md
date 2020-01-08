@@ -1,7 +1,29 @@
 # Log
 History, outstanding items and insights.
 
-## 2010-01-07
+## 2020-01-08
+- rss results ? page faults
+- developer experience
+- note the CPU and running application with desktop
+- remove note on flamegraphs
+- related work
+    - benchmarking JIT? is there a paper
+    - paper on interoperability of LLVM and JitBuilder
+- future work
+    - more configuration for JitBuilder
+    - Investigate ORC
+    - effects on Code Cache
+    - ?
+- Summary
+
+...
+
+- Poster
+- Get LLVM built with debug symbols, investigate perf. ? what does this tell me.
+ - total time spent in framework, vs total time spent doing work.
+
+
+## 2020-01-07
 x- update note on N runs in reports
 x- update to 1k runs
 x- update to 03
