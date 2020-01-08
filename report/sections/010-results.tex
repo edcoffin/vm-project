@@ -93,3 +93,12 @@ The native solution was compiled using GCC 5.3 with an optimization level of O0\
   \caption{Results of compiling each function and executing generated function 1000 times.}
   \label{tab:1k_time}
 \end{table*}
+
+\subsection{Max Resident State Set}
+
+\subsection{Binary File Size}
+
+\subsection{Considerations}
+Considering the JIT compiler behind JitBuilder was originally designed for dynamic runtime compilation, it makes sense that it has a lighter footprint than LLVM -- both in terms of RSS and linked file size.
+Unlike LLVM's IR, which is meant for life-long usage, the design of OMR's IR does not have the goals in mind.
+Perhaps this may somewhat limit the overhead of JitBuilder when analyzing and transforming the IR.

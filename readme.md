@@ -57,7 +57,7 @@ $ git clone https://github.com/llvm/llvm-project.git
 $ cd llvm-project
 $ mkdir build
 $ cd build
-$ cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_ASSERTIONS=on ../llvm # Replace Ninja with Unix Makefiles
+$ cmake -G Ninja -DLLVM_ENABLE_ASSERTIONS=on ../llvm # Replace Ninja with Unix Makefiles
 $ ninja  # or make
 $ ninja check-all # Optional: run regression tests on all sub-projects
 ```
