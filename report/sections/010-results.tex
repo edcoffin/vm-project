@@ -391,8 +391,3 @@ When considering usability we took note of the following items:
 \subsubsection{Configuration}
 While the API of LLVM MCJIT may have an overabundance of controls, it does provide an high level of configuration compared to JitBuilder, including which optimization and analysis passes to run, control over the memory structure of the generated code, control over the object cache, and what level of optimization to generate the code at.
 As mentioned, JitBuilder on the other hand is currently locked at the \textit{Warm} optimization level, limiting the number of optimizations performed on the IR.
-
-\subsection{Considerations}
-Considering the JIT compiler behind JitBuilder was designed specifically for dynamic runtime compilation, it makes sense that it has a lighter footprint than MCJIT, which shares it's codebase with the static compiler for LLVM
-Unlike LLVM's IR, which is meant for life-long usage, the design of OMR's IR does not have ahead of time, or offline goals in mind, thus
-possibly simplifying the work required whenever IR interactions are made in JitBuilder.

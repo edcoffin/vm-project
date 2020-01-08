@@ -2,14 +2,7 @@
 History, outstanding items and insights.
 
 ## 2020-01-08
-x - rss results ? page faults
-x - usability
-x - note the CPU and running application with desktop
-x - compare runtime 1k - compile time; + compare with native
-x - quality of the generated code
-    x - recursive-fib disassembly for llvm, jitbuilder
-    
-x - remove note on flamegraphs
+
 - related work
     - benchmarking JIT? is there a paper
     - paper on interoperability of LLVM and JitBuilder
@@ -24,6 +17,14 @@ x - remove note on flamegraphs
     - LLVM should improve the API
     - OMR should consider attaching debug information for their JIT-ed code
 
+x - rss results ? page faults
+x - usability
+x - note the CPU and running application with desktop
+x - compare runtime 1k - compile time; + compare with native
+x - quality of the generated code
+    x - recursive-fib disassembly for llvm, jitbuilder
+    
+x - remove note on flamegraphs
 ...
 
 - Poster
