@@ -14,7 +14,7 @@ LLVM_COMPONENTS = core executionengine interpreter passes mc mcjit support nativ
 
 main: $(MAIN_OBJ)
 	$(MK_DIR)
-	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ $(MAIN_OBJ) $(HEADERS) `$(LLVM_CONFIG) --cppflags --ldflags --system-libs --libs $(LLVM_COMPONENTS)`
+	$(CXX) $(CXXFLAGS) -o $(OUT)/$@ $(MAIN_OBJ) $(HEADERS) `$(LLVM_CONFIG)  $(LLVM_COMPONENTS)`
 
 bench: $(BENCH_OBJ)
 	$(MK_DIR)

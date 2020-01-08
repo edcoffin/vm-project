@@ -59,7 +59,7 @@ $ mkdir build
 $ cd build
 # note that the build default is -DCMAKE_BUILD_TYPE=Debug
 # when using ninja to build in this mode the amount of RAM you have is a major consideration
-# ensure to add  -DLLVM_PARALL_LINK_JOBS=n
+# ensure to add  -DLLVM_PARALLEL_LINK_JOBS=n
 # where n is based on your system: {16GB:1, 32GB: 2, 64GB: 3, 72GB: 10}
 $ cmake -G Ninja -DLLVM_ENABLE_ASSERTIONS=on -DCMAKE_BUILD_TYPE=Release ../llvm # Replace Ninja with Unix Makefiles
 $ ninja  # or make

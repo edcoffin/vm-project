@@ -218,41 +218,86 @@ While there are over 167 possible linkable modules when using LLVM, I found the 
 \end{table*}
 
 \subsection{Resident State Set}
-
+The resident state (RSS) set is amount of data loaded into RAM during execution at any one time.
+To measure the maximum RSS, we used the \texttt{time} utility (\texttt{/usr/bin/time -v}) to collect this.
+Looking at the results in Table \ref{tab:max_rss}, we see that LLVM consistently had the largest RSS.
+The memory overhead required by LLVM is roughly 4.5 times larger than JitBuilder's requirement.
+Looking at the number of times inactive pages were reclaimed during execution (minor page faults), we see that LLVM had roughly 4 times the number of inactive pages collected.
 
 \begin{table*}[t]
-  \begin{tabular}{|r|l|l|l|} 
+  \begin{tabular}{|r|l|l|l|l|l|l|}
   \hline
-  \multicolumn{1}{|c|}{\textbf{Program}}
-  & \multicolumn{1}{c|}{\textbf{LLVM MCJIT}}                      & \multicolumn{1}{c|}{\textbf{Eclipse OMR JitBuilder}}
-  & \multicolumn{1}{c|}{\textbf{Native (C++)}}                    \\ \hline
+  
+  \multicolumn{1}{|l|}{\multirow{2}{*}{}} 
+  & \multicolumn{2}{c|}{\textbf{LLVM MCJIT}}                                                                                    
+  & \multicolumn{2}{c|}{\textbf{Eclipse OMR JitBuilder}}                                                                
+  & \multicolumn{2}{c|}{\textbf{Native (C++)}}                                                                              
+  \\ \cline{2-7}
+  
+  \multicolumn{1}{|c|}{\textbf{Program}}  
+  & \multicolumn{1}{c|}{max RSS (kb)}  %llvm         
+  & \multicolumn{1}{c|}{minor page faults}  
+  & \multicolumn{1}{c|}{max RSS (kb)}  %jb         
+  & \multicolumn{1}{c|}{minor page faults}  
+  & \multicolumn{1}{c|}{max RSS (kb)}  %native         
+  & \multicolumn{1}{c|}{minor page faults}  
+  \\ \hline
 
   increment                               
-  & \multicolumn{1}{r|}{\num{43544}} %llvm      
+  & \multicolumn{1}{r|}{\num{43544}} %llvm  
+  & \multicolumn{1}{r|}{\num{1478}} 
   & \multicolumn{1}{r|}{\num{9416}} %jitbuilder               
+  & \multicolumn{1}{r|}{\num{344}}
   & \multicolumn{1}{r|}{\num{1548}}    %native 
+  & \multicolumn{1}{r|}{\num{65}}
   \\ \hline
   
   recursive-fib                           
   & \multicolumn{1}{r|}{\num{45472}} %llvm       
+  & \multicolumn{1}{r|}{\num{1545}} 
   & \multicolumn{1}{r|}{\num{9768}} %jitbuilder
+  & \multicolumn{1}{r|}{\num{384}} 
   & \multicolumn{1}{r|}{\num{1532}}   %native 
+  & \multicolumn{1}{r|}{\num{63}} 
   \\ \hline
   
   iterative-fib                           
-  & \multicolumn{1}{r|}{\num{43544}} %llvm
+  & \multicolumn{1}{r|}{\num{44452}} %llvm
+  & \multicolumn{1}{r|}{\num{1520}}
   & \multicolumn{1}{r|}{\num{10044}} %jitbuilder
+  & \multicolumn{1}{r|}{\num{423}}
   & \multicolumn{1}{r|}{\num{1684}}   %native 
+  & \multicolumn{1}{r|}{\num{66}}  
   \\ \hline
   
 \end{tabular}
-  \caption{Maximum resident state set in kilobytes of test programs during execution of a single compilation and execution of the generated function. Note that Native had no run-time compilation phase.}
-  \label{tab:size_in_bytes}
+  \caption{Maximum resident state set (RSS) in kilobytes during execution of a single compilation and execution of the generated function. Note that Native had no run-time compilation phase. A minor page fault occurs when the OS reclaims inactive pages during execution. Page size was 4096 bytes.}
+  \label{tab:max_rss}
 \end{table*}
 
 \subsection{Developer Experience}
+One additional aspect to overhead worth considering is the usability of the frameworks from a developer's perspective.
+Under this banner, we looked at two items: ease of use, and how configurable the frameworks were.
+
+\subsubsection{Usability}
+While ease of use is not likely to be the highest priority when considering which JIT framework to select, research has shown that improved API usability can positively impact developer productivity \cite{apiUsability}, while improving code quality and reducing errors.
+Overall we found that JitBuilder took less time to integrate, and provided a more intuitive API for generating IR.
+When considering usability we took note of the following items:
+\begin{itemize}
+  \item Both of the frameworks provide public Github repositories \cite{llvmGithub,jitbuilderGithub}.
+  \item The instructions for building the frameworks were readily available and simple to follow.
+  \item Linking LLVM took considerable effort as it was unclear which of the 167 objects were required to use MCJIT. After some trial and error, we discovered LLVM provides a utility, \texttt{llvmconfig}, which simplifies this task by generating header and linking arguments for G++ based on a list of objects\footnote{Example commands for building the programs can be found \texttt{makefiles} in the accompanying source code \cite{projectGithub} under \texttt{src/<framework>/}.} 
+  \item JitBuilder on the other hand required was simple to integrate, requiring only a single header file and single module to link: \texttt{jitbuilder}. On the other hand, LLVM required us to include 20 header files in our programs.
+  \item We found that writing the IR generators in our test programs took less time with JitBuilder than with LLVM. 
+  The most challenging task was writing iterative-fib for LLVM, as this required us to grasp the underlying IR requirements which included: an induction value, a Phi node, several basic blocks for before, during and after the loop, condition values, as well as allocation and store pointers.\footnote{Source code for the LLVM iterative-fibonacci program can be found in the CreateFibFunction within \texttt{src/llvm/iterative-fib/fib.cpp}}.
+  \item The in memory objects generated by LLVM MCJIT can contain debug symbols (DWARF format) allowing debugging to take place in GDB 7.0 and higher \cite{llvmDebugJIT}.
+\end{itemize}
+
+\subsubsection{Configuration}
+While the API of LLVM MCJIT may have an overabundance of controls, it does provide an high level of configuration compared to JitBuilder, including which optimization and analysis passes to run, control over the memory structure of the generated code, control over the object cache, and what level of optimization to generate the code at.
+As mentioned, JitBuilder on the other hand is currently locked at the \textit{Warm} optimization level, limiting the number of optimizations performed on the IR.
 
 \subsection{Considerations}
-Considering the JIT compiler behind JitBuilder was originally designed for dynamic runtime compilation, it makes sense that it has a lighter footprint than LLVM -- both in terms of RSS and linked file size.
-Unlike LLVM's IR, which is meant for life-long usage, the design of OMR's IR does not have the goals in mind.
-Perhaps this may somewhat limit the overhead of JitBuilder when analyzing and transforming the IR.
+Considering the JIT compiler behind JitBuilder was designed specifically for dynamic runtime compilation, it makes sense that it has a lighter footprint than MCJIT, which shares it's codebase with the static compiler for LLVM
+Unlike LLVM's IR, which is meant for life-long usage, the design of OMR's IR does not have ahead of time, or offline goals in mind, thus
+possibly simplifying the work required whenever IR interactions are made in JitBuilder.

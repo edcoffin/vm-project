@@ -3,8 +3,9 @@ History, outstanding items and insights.
 
 ## 2020-01-08
 - rss results ? page faults
-- developer experience
+- usability
 - note the CPU and running application with desktop
+- quality of the generated code
 - remove note on flamegraphs
 - related work
     - benchmarking JIT? is there a paper
