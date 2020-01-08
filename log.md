@@ -2,11 +2,14 @@
 History, outstanding items and insights.
 
 ## 2020-01-08
-- rss results ? page faults
-- usability
-- note the CPU and running application with desktop
+x - rss results ? page faults
+x - usability
+x - note the CPU and running application with desktop
 - quality of the generated code
-- remove note on flamegraphs
+    - recursive-fib disassembly for llvm, jitbuilder
+    - increment disassembly for llvm, jitbuilder
+
+x - remove note on flamegraphs
 - related work
     - benchmarking JIT? is there a paper
     - paper on interoperability of LLVM and JitBuilder
@@ -14,8 +17,12 @@ History, outstanding items and insights.
     - more configuration for JitBuilder
     - Investigate ORC
     - effects on Code Cache
-    - ?
 - Summary
+    - LLVM outperformed JitBuilder on most of the tasks
+    - JitBuilder had a smaller footprint for memory, disk space, and superior usability
+    - JitBuilder with scorching compilation level would be interesting
+    - LLVM should improve the API
+    - OMR should consider attaching debug information for their JIT-ed code
 
 ...
 
