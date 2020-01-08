@@ -5,6 +5,7 @@ History, outstanding items and insights.
 x - rss results ? page faults
 x - usability
 x - note the CPU and running application with desktop
+- compare runtime 1k - compile time; + compare with native
 - quality of the generated code
     - recursive-fib disassembly for llvm, jitbuilder
     - increment disassembly for llvm, jitbuilder
