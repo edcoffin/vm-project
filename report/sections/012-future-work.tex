@@ -1,4 +1,7 @@
 \section{Future Work}
 \label{sec:future-work}
-Future Work
- 
+The number of test programs could be expanded to cover such scenarios as arrays, large vector operations, and very large functions.
+In all the test examples, each JIT compilation required a complete teardown of the JIT infrastructure. 
+It would be interesting to compare the performance of repeated JIT compilations.
+While the JIT compiler in Eclipse OMR, TRJIT, supports many levels of compilation, as well as support for synchronous, and asynchronous compilation schemes, these options have not yet been exposed to JitBuilder.
+JitBuilder could be expanded upon to provide such controls, though special attention would have to be given to the maintaining the usability of the API.
