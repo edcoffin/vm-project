@@ -4,10 +4,10 @@
 The first question we looked at was how long each framework took to compile a function 25 times. This time includes running the program from start to finish and thus includes the setup and teardown time of the JIT.
 
 In Table \ref{tab:compile_time} we see that for the increment task JitBuilder's compiled the function 61.5\% faster than MCJIT.
+Looking into this further, the initial run to compile the function would take roughly 900,000 nanoseconds.
+Repeated executions made by our benchmarking framework Google Benchmark\cite{googleBench} would take closer to 500,000 nanoseconds as the instructions for this relatively small example would be cached.
 For the other two tasks, we see that MCJIT was able to compile the functions more quickly than JitBuilder (recursive-fib compiled 16.5\% faster, and iterative-fib compiled 40.1\% faster ).
 Looking at the JitBuilder code to generate the function (see Listing \ref{lst:lst:jitbuilder_ir}), we see a much smaller function body compared to the function used to generate IR for LLVM (see Listing \ref{lst:llvm_increment}).
-There is no clear reason why this disparity exists.
-One idea is JitBuilder has a lower base overhead than LLVM, but the work required to generate code for more complex IR favours LLVM.
 %We will revisit this question when we look at the call-stack flame graphs.
 
 
