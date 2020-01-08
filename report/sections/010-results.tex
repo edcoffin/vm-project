@@ -75,20 +75,66 @@ IncrementMethod::buildIL()
 \subsection{Execution Time}
 Once compilation has completed we turn to measuring how much CPU time is spent actually executing the function.
 To measure this we compiled the function once and then executed the compiled function 1000 times.
-For each program, the process was repeated 25 times (see Table \ref{tab:1k_time}).
-The native solution was compiled using GCC 5.3 with an optimization level of O0\footnote{
-  Setting any level optimization above O0 was causing the function within the test runner to be optimized away.
-}
-
+For each program, the process was repeated 20 times (see Table \ref{tab:1k_time}).
+Compiling the test programs GCC 5.3 with an optimization level of O3 resulted in extremely low execution times for the native increment program as our function calls were optimized away.
 
 \begin{table*}[t]
   \begin{tabular}{|r|l|l|l|l|l|l|l|l|l|}
   \hline
-  \multicolumn{1}{|l|}{\multirow{2}{*}{}} & \multicolumn{3}{c|}{\textbf{LLVM MCJIT}}                                                                                     & \multicolumn{3}{c|}{\textbf{Eclipse OMR JitBuilder}}                                                                & \multicolumn{3}{c|}{\textbf{Native (C++)}}                                                                               \\ \cline{2-10}
-  \multicolumn{1}{|c|}{\textbf{Program}}  & \multicolumn{1}{c|}{mean (ns)}           & \multicolumn{1}{c|}{median}  & \multicolumn{1}{c|}{std. dev.}                     & \multicolumn{1}{c|}{mean (ns)}           & \multicolumn{1}{c|}{median}  & \multicolumn{1}{c|}{std. dev.}            & \multicolumn{1}{c|}{mean (ns)}  & \multicolumn{1}{c|}{median}  & \multicolumn{1}{c|}{std. dev.}                        \\ \hline
-  increment                               & \num{1464856}                            & \num{1460112}                & \num{15406}                                        & \num{532489}                             & \num{532010}                 & \num{1887}                                & \num{2088}                              & \num{1998}                   & \num{233}                                \\ \hline
-  recursive-fib                           & \num{16809528}                           & \num{16801418}               & \num{27106}                                        & \num{28736409}                           & \num{28726192}               & \num{47205}                               & \num{16145398}                          & \num{16116321}               & \num{92733}                                \\ \hline
-  iterative-fib                           & \num{2657528}                            & \num{2668792}                & \num{83388}                                        & \num{4227967}                            & \num{4190232}                & \num{102744}                              & \num{37379}                             & \num{37516}                  & \num{583}                                \\ \hline
+  
+  \multicolumn{1}{|l|}{\multirow{2}{*}{}} 
+  & \multicolumn{3}{c|}{\textbf{LLVM MCJIT}}                                                                                    
+  & \multicolumn{3}{c|}{\textbf{Eclipse OMR JitBuilder}}                                                                
+  & \multicolumn{3}{c|}{\textbf{Native (C++)}}                                                                              
+  \\ \cline{2-10}
+  
+  \multicolumn{1}{|c|}{\textbf{Program}}  
+  & \multicolumn{1}{c|}{mean (ns)}  %llvm         
+  & \multicolumn{1}{c|}{median}  
+  & \multicolumn{1}{c|}{std. dev.}                     
+  & \multicolumn{1}{c|}{mean (ns)}  %jb         
+  & \multicolumn{1}{c|}{median}  
+  & \multicolumn{1}{c|}{std. dev.}           
+  & \multicolumn{1}{c|}{mean (ns)}  %native
+  & \multicolumn{1}{c|}{median}  
+  & \multicolumn{1}{c|}{std. dev.}                        
+  \\ \hline
+  
+  increment                               
+  & \num{1463310} %llvm
+  & \num{1463032}                
+  & \num{1660}                                        
+  & \num{524723}  %jb                           
+  & \num{524763}                 
+  & \num{718}                                
+  & \num{0.876}    %nat                          
+  & \num{0.875}                   
+  & \num{0.002}                                
+  \\ \hline
+  
+  recursive-fib                           
+  & \num{13674832}  %llvm                        
+  & \num{13664199}               
+  & \num{26548}                                        
+  & \num{28707381}  %jb                         
+  & \num{28699013}               
+  & \num{29480}                               
+  & \num{31404538}  %nat                        
+  & \num{31319334}               
+  & \num{142705}  
+  \\ \hline
+  
+  iterative-fib                           
+  & \num{2657528}   %llvm                         
+  & \num{2668792}                
+  & \num{83388}                                        
+  & \num{4227967}   %jb                         
+  & \num{4190232}                
+  & \num{102744}                              
+  & \num{37379}     %nat                        
+  & \num{37516}                  
+  & \num{583}                                
+  \\ \hline
   \end{tabular}
   \caption{Results of compiling each function and executing generated function 1000 times.}
   \label{tab:1k_time}
