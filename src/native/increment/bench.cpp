@@ -6,7 +6,7 @@
 static void BM_RunOnce(benchmark::State& state) {
   int32_t result = 0;
   for (auto _ : state) {
-    result = increment_runner(20, 1);
+    result += increment_runner(20, 1);
   }
 }
 
