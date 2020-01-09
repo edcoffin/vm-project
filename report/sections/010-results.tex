@@ -1,14 +1,14 @@
 \section{Results}
 \label{sec:results}
 \subsection{Compilation Time}
-The first question we looked at was how long each framework took to compile a function 25 times. This time includes running the program from start to finish and thus includes the setup and teardown time of the JIT.
+The first question we looked at was how long each framework took to compile a function. 
+This time includes running the program from start to finish and includes the setup and teardown time of the JIT.
+Each program was executed 20 times.
 
-In Table \ref{tab:compile_time} we see that for the increment task JitBuilder's compiled the function 61.5\% faster than MCJIT.
-Looking into this further, the initial run to compile the function would take roughly 900,000 nanoseconds.
-Repeated executions made by our benchmarking framework Google Benchmark\cite{googleBench} would take closer to 500,000 nanoseconds as the instructions for this relatively small example would be cached.
+In Table \ref{tab:compile_time} we see that for the increment task JitBuilder compiled the function 61.5\% faster than MCJIT.
+Looking into this further, the initial run to compile the function was roughly 900,000 nanoseconds.
+Repeated executions made by our benchmarking framework\cite{googleBench} were closer to 500,000 nanoseconds as the instructions for this relatively small example were likely be cached.
 For the other two tasks, we see that MCJIT was able to compile the functions more quickly than JitBuilder (recursive-fib compiled 16.5\% faster, and iterative-fib compiled 40.1\% faster ).
-Looking at the JitBuilder code to generate the function (see Listing \ref{lst:lst:jitbuilder_ir}), we see a much smaller function body compared to the function used to generate IR for LLVM (see Listing \ref{lst:llvm_increment}).
-%We will revisit this question when we look at the call-stack flame graphs.
 
 
 \begin{table*}[t]
@@ -64,67 +64,67 @@ Looking at the JitBuilder code to generate the function (see Listing \ref{lst:ls
 \begin{lstlisting}[float,floatplacement=H,
   caption={Generating JitBuilder IR for the increment program.},
   label=lst:jitbuilder_increment]
-  bool
-  IncrementMethod::buildIL()
-  {
-    Return(
-      Add(
-          Load("value"),
-          ConstInt32(1)));
-    return true;
-  }
-  }\end{lstlisting}
-
+bool IncrementMethod::buildIL()
+{
+  Return(
+    Add(
+        Load("value"),
+        ConstInt32(1)));
+  return true;
+}
+\end{lstlisting}
 
 % IR code for LLVM increment
 \begin{lstlisting}[float,floatplacement=H,
   caption={Generating MCJIT IR for the increment program.},
   label=lst:llvm_increment]
-  static Function *CreateIncrementFunction(
-                    Module *M, 
-                    LLVMContext &c) {
-    FunctionType *f = FunctionType::get(Type::getInt32Ty(c), 
-                        {Type::getInt32Ty(c)}, 
-                        false);
-    
-    Function *incrementF = Function::Create(f, 
-                        Function::ExternalLinkage, 
-                        "increment", 
-                        M);
+static Function *CreateIncrementFunction(
+                  Module *M, 
+                  LLVMContext &c) {
+  FunctionType *f = FunctionType::get(Type::getInt32Ty(c), 
+                      {Type::getInt32Ty(c)}, 
+                      false);
+  
+  Function *incrementF = Function::Create(f, 
+                      Function::ExternalLinkage, 
+                      "increment", 
+                      M);
 
-    BasicBlock *BB = BasicBlock::Create(c, 
-                        "EntryBlock", 
-                        incrementF);
-    
-    Value *One = ConstantInt::get(Type::getInt32Ty(c), 1);
-    
-    Argument *ArgX = &*incrementF->arg_begin(); 
-    ArgX->setName("AnArg");
+  BasicBlock *BB = BasicBlock::Create(c, 
+                      "EntryBlock", 
+                      incrementF);
   
-    Value *Sum = BinaryOperator::CreateAdd(ArgX, 
-                                  One,
-                                  "addresult", 
-                                  BB);
+  Value *One = ConstantInt::get(Type::getInt32Ty(c), 1);
   
-    ReturnInst::Create(c, Sum, BB);
-    return incrementF;
-  }
-}\end{lstlisting}
+  Argument *ArgX = &*incrementF->arg_begin(); 
+  ArgX->setName("AnArg");
+
+  Value *Sum = BinaryOperator::CreateAdd(ArgX, 
+                                One,
+                                "addresult", 
+                                BB);
+
+  ReturnInst::Create(c, Sum, BB);
+  return incrementF;
+}
+\end{lstlisting}
 
 \subsection{Execution Time}
-Once compilation has completed we turn to measuring how much CPU time is spent actually executing the function.
-To measure this we compiled the function once and then executed the compiled function 1000 times.
+With JIT compilation completed, we turn to measuring how much CPU time is spent actually executing the function.
+To measure this, we compiled the function once and then executed the compiled function 1000 times.
 For each program, the process was repeated 20 times (see Table \ref{tab:1k_time_with_one_compile}).
 Aside from the increment program, which favoured JitBuilder, both the recursive and iterative fib functions executed more quickly with LLVM generated code (0.53\% faster for recursive, and 0.37\% faster for iterative).
-Compiling the test programs GCC 5.3 with an optimization level of O3 resulted in extremely low execution times for the native increment program as our function calls were optimized away.
+Compiling the test programs with GCC 5.3, having an optimization level of O3 (large binary, fast code), we saw extremely low execution times for the native increment program as our function calls were essentially optimized away.
 It is worth noting that the code generated by the LLVM recursive-fib outperformed the native optimized code.
 Given two of our programs performed more quickly with MCJIT than with JitBuilder, it is interesting to examine the disassembly of the generated code.\footnote{We used GDB to print instructions starting at the function pointer address. The disassembly is using Intel style.}
-Examining the recursive-fib disassembly for JitBuilder\ref{lst:jitbuilder_rfib_assembly}, we see it is using a stack for storages. These additional loads and stores at indirect offsets (from rsp) for passing arguments and return values are likely the culprit in the performance disparity.
-The LLVM disassembly on the other hand does away with loads and stores to the stack for argument passing (though we still see register preserving via push and pop).
-It's interesting to see the condition for the jump comparison: \texttt{jg} 0x2 with LLVM and \texttt{jl} 0x2 in JitBuilder. I would expect the latter to be a better optimization considering most times \texttt{n} is greater than 2.
-The code in the LLVM listing would be performing a relative jump more often, while the code in the JitBuilder would flow through the instruction more often.
 
-Looking at the estimated execution time without compilation for 1000 generated functions (see Table \ref{tab:1k_executions}), we can see that JitBuilder's generated code outperformed MCJIT in the iterative-fib program, and in the increment\footnote{In our tests, the compile time plus the execution time of the JIT-ed function was less than the measurement for just the compilation. As noted earlier, we suspect this performance has to do with a high degree of cache locality}. \footnote{We subtracted the mean from Table\ref{tab:compile_time} from the mean from Table\ref{tab:1k_time_with_one_compile} without accounting for the variance. This may be incorrect. Unfortunately, time constraints limited our ability to properly benchmark 1000 executions of the JIT-ed code.}
+Examining the recursive-fib disassembly for JitBuilder (code listing \ref{lst:jitbuilder_rfib_assembly}), we see it is using the stack for storage. We expect these additional loads and stores, used for passing arguments and return values, are the reason for the performance disparity.
+The LLVM disassembly (code listing \ref{lst:llvm_rfib_assembly}) on the other hand, passes arguments using registers.
+It's also interesting to see the condition for the jump comparison: \texttt{jg} 0x2 with LLVM and \texttt{jl} 0x2 in JitBuilder. 
+We would expect the latter to be the better optimization considering most times \texttt{n} is greater than 2.
+The code in the LLVM listing would perform relative jumps more often, while the code in the JitBuilder would flow through the instructions more often.
+
+Looking at the estimated execution time minus JIT compilation for 1000 functions calls (see Table \ref{tab:1k_executions}), we can see that JitBuilder's generated code outperformed MCJIT both in the iterative-fib programs.\footnote{In our tests, the compile time plus the execution time of the JIT-ed function was less than the measurement for just the compilation. As noted earlier, we suspect this performance has to do with a high degree of cache locality. We subtracted the mean from Table \ref{tab:compile_time} from the mean from Table \ref{tab:1k_time_with_one_compile} without accounting for the variance. This may be incorrect. Unfortunately, time constraints limited our ability to properly benchmark 1000 executions of the JIT-ed code.}
 
 
 \begin{table*}[t]
@@ -386,6 +386,8 @@ When considering usability we took note of the following items:
   \item JitBuilder on the other hand required was simple to integrate, requiring only a single header file and single module to link: \texttt{jitbuilder}. On the other hand, LLVM required us to include 20 header files in our programs.
   \item We found that writing the IR generators in our test programs took less time with JitBuilder than with LLVM. 
   The most challenging task was writing iterative-fib for LLVM, as this required us to grasp the underlying IR requirements which included: an induction value, a Phi node, several basic blocks for before, during and after the loop, condition values, as well as allocation and store pointers.\footnote{Source code for the LLVM iterative-fibonacci program can be found in the CreateFibFunction within \texttt{src/llvm/iterative-fib/fib.cpp}}.
+  \item We noticed that the number of lines of code to generate IR are typically fewer for JitBuilder. 
+  This can be seen in the increment code listing for JitBuilder\ref{lst:jitbuilder_ir}, and for LLVM MCJIT\ref{lst:llvm_ir}.
   \item The in memory objects generated by LLVM MCJIT can contain debug symbols (DWARF format) allowing debugging to take place in GDB 7.0 and higher \cite{llvmDebugJIT}.
 \end{itemize}
 
