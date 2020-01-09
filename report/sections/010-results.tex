@@ -276,10 +276,10 @@ label=lst:jitbuilder_rfib_assembly]
 
 
 \subsection{Binary File Size}
-Looking at the size of the generated files (see Table \ref{tab:size_in_bytes}), the linked LLVM MCJIT programs are roughly six times larger in size than the JitBuilder programs.
-Note that the JIT frameworks were compiled without debug symbols.
-Part of the explanation for this is may have to do with over-linking the LLVM programs.
-While there are over 167 possible linkable modules when using LLVM, I found the minimal set required to use MCJIT was just 8 : \textit{core, executionengine, interpreter, passes, mc, mcjit, support, nativecodegen}.
+Looking at the size of the generated files (see Table \ref{tab:size_in_bytes}), the linked LLVM MCJIT programs are roughly six times larger in size than the JitBuilder programs.\footnote{The JIT frameworks were compiled without debug symbols.}
+Part of the explanation for this may have to do with potentially over-linking the LLVM programs.
+With over 167 possible linkable modules when using LLVM, we found what we think is the minimum number of modules required to use MCJIT.
+These 8 modules are \textit{core, executionengine, interpreter, passes, mc, mcjit, support, nativecodegen}.
 
 \begin{table*}[t]
   \begin{tabular}{|r|l|l|l|} 
@@ -314,8 +314,8 @@ While there are over 167 possible linkable modules when using LLVM, I found the 
 \end{table*}
 
 \subsection{Resident State Set}
-The resident state (RSS) set is amount of data loaded into RAM during execution at any one time.
-To measure the maximum RSS, we used the \texttt{time} utility (\texttt{/usr/bin/time -v}) to collect this.
+The resident state set (RSS) is amount of program memory during execution at any one time.
+To measure the maximum RSS, we used the \texttt{time} utility (\texttt{/usr/bin/time -v}).
 Looking at the results in Table \ref{tab:max_rss}, we see that LLVM consistently had the largest RSS.
 The memory overhead required by LLVM is roughly 4.5 times larger than JitBuilder's requirement.
 Looking at the number of times inactive pages were reclaimed during execution (minor page faults), we see that LLVM had roughly 4 times the number of inactive pages collected.
@@ -367,28 +367,30 @@ Looking at the number of times inactive pages were reclaimed during execution (m
   \\ \hline
   
 \end{tabular}
-  \caption{Maximum resident state set (RSS) in kilobytes during execution of a single compilation and execution of the generated function. Note that Native had no run-time compilation phase. A minor page fault occurs when the OS reclaims inactive pages during execution. Page size was 4096 bytes.}
+  \caption{Maximum resident state set (RSS) in kilobytes during execution of a single compilation and execution of the generated function. Note that Native had no run-time compilation phase. 
+  A minor page fault occurs when the OS reclaims inactive pages during execution. Page size was 4096 bytes.}
   \label{tab:max_rss}
 \end{table*}
 
 \subsection{Developer Experience}
-One additional aspect to overhead worth considering is the usability of the frameworks from a developer's perspective.
-Under this banner, we looked at two items: ease of use, and how configurable the frameworks were.
+One additional aspect not typically included when considering overhead is the usability of the frameworks from a developer's perspective.
+Under this banner we looked at two items: ease of use, and how configurable the frameworks were.
 
 \subsubsection{Usability}
-While ease of use is not likely to be the highest priority when considering which JIT framework to select, research has shown that improved API usability can positively impact developer productivity \cite{apiUsability}, while improving code quality and reducing errors.
-Overall we found that JitBuilder took less time to integrate, and provided a more intuitive API for generating IR.
+While ease of use is not likely to be the highest priority when considering which JIT framework to select, research has shown that improved API usability can positively impact developer productivity, while improving code quality and reducing errors \cite{apiUsability}.
+Overall, we found that JitBuilder took less time to integrate, and provided a more intuitive API for generating IR.
 When considering usability we took note of the following items:
 \begin{itemize}
   \item Both of the frameworks provide public Github repositories \cite{llvmGithub,jitbuilderGithub}.
   \item The instructions for building the frameworks were readily available and simple to follow.
-  \item Linking LLVM took considerable effort as it was unclear which of the 167 objects were required to use MCJIT. After some trial and error, we discovered LLVM provides a utility, \texttt{llvmconfig}, which simplifies this task by generating header and linking arguments for G++ based on a list of objects\footnote{Example commands for building the programs can be found \texttt{makefiles} in the accompanying source code \cite{projectGithub} under \texttt{src/<framework>/}.} 
-  \item JitBuilder on the other hand required was simple to integrate, requiring only a single header file and single module to link: \texttt{jitbuilder}. On the other hand, LLVM required us to include 20 header files in our programs.
-  \item We found that writing the IR generators in our test programs took less time with JitBuilder than with LLVM. 
-  The most challenging task was writing iterative-fib for LLVM, as this required us to grasp the underlying IR requirements which included: an induction value, a Phi node, several basic blocks for before, during and after the loop, condition values, as well as allocation and store pointers.\footnote{Source code for the LLVM iterative-fibonacci program can be found in the CreateFibFunction within \texttt{src/llvm/iterative-fib/fib.cpp}}.
-  \item We noticed that the number of lines of code to generate IR are typically fewer for JitBuilder. 
+  \item Linking LLVM took considerable effort as it was unclear which of the 167 objects were required to use MCJIT. 
+  After some trial and error, we discovered that LLVM provides a utility, \texttt{llvmconfig}, which simplifies this task by generating header and linking arguments based on a list of provided objects\footnote{Commands for building the programs can be found in \texttt{makefiles} in the accompanying source code under \texttt{src/<framework>/} \cite{projectGithub}.} 
+  \item JitBuilder was relatively simple to integrate, requiring only a single header file and single module to link: \texttt{jitbuilder}, where as LLVM required us to include 20 header files.
+  \item We found that writing the IR generators took less time with JitBuilder than with LLVM. 
+  The most challenging was writing the iterative-fib generator for LLVM which included an induction value, a Phi node, several basic blocks for before, during and after the loop, condition values, as well as allocation and store pointers.\footnote{Source code for the LLVM iterative-fibonacci program can be found in the CreateFibFunction within \texttt{src/llvm/iterative-fib/fib.cpp}}.
+  \item In every case the number of lines of code to generate the IR were fewer for JitBuilder. 
   This can be seen in the increment code listing for JitBuilder\ref{lst:jitbuilder_ir}, and for LLVM MCJIT\ref{lst:llvm_ir}.
-  \item The in memory objects generated by LLVM MCJIT can contain debug symbols (DWARF format) allowing debugging to take place in GDB 7.0 and higher \cite{llvmDebugJIT}.
+  \item The in-memory objects generated by LLVM MCJIT can contain debug symbols (DWARF format) allowing debugging to take place in GDB 7.0 and higher \cite{llvmDebugJIT}.
 \end{itemize}
 
 \subsubsection{Configuration}
