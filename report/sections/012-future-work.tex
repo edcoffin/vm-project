@@ -1,7 +1,10 @@
 \section{Future Work}
 \label{sec:future-work}
-To provide a deeper glimpse into the quality of the generated code, the number of test programs could be expanded to cover such scenarios as arrays, large vector operations, and very large functions.
-It would be interesting to compare the performance of repeated JIT compilations rather than tearing down the JIT infrastructure between calls.
-The JIT compiler in Eclipse OMR, TRJIT, supports many levels of compilation, as well as support for synchronous, and asynchronous compilation schemes, however, these options have not yet been exposed to JitBuilder.
-While we believe JitBuilder should be expanded upon to provide such controls, special attention would have to be given to maintaining the simplicity and usability of the API.
-Finally, testing the compilers under more complex scenarios such as making JIT-to-JIT function calls and dealing with code cache limitations would provide more real world results.
+The following are all potential items for future work:
+\begin{itemize}
+    \item To provide a deeper glimpse into the quality of the generated code, the number of test programs could be expanded to cover such scenarios as arrays, large vector operations, and very large functions.
+    \item It would be interesting to compare the performance of repeated JIT compilations rather than tearing down the JIT infrastructure between calls.
+    \item The JIT compiler in Eclipse OMR, TRJIT, supports many levels of compilation, as well as support for synchronous, and asynchronous compilation schemes, however, these options have not yet been exposed to JitBuilder.
+    \item While we believe JitBuilder should be expanded upon to provide such controls, special attention would have to be given to maintaining the simplicity and usability of the API.
+    \item Finally, testing the compilers under more complex scenarios such as making JIT-to-JIT function calls and dealing with code cache limitations would provide more real-world results.
+\end{itemize}

@@ -1,7 +1,7 @@
 \subsection{LLVM}
 \label{sec:llvm}
-LLVM, which at one time stood for Low Level Virtual Machine, is a popular set of open-source, modular compiler and toolchain components \cite{lattner2004llvm}.
-The compiler framework was originally designed to provide analysis and transformation for an application throughout it's entire lifetime: from initial compilation and linking, through to runtime and even while the application was offline (see Figure \ref{fig:llvmarch}).
+LLVM, which at one time stood for Low-Level Virtual Machine, is a popular set of open-source, modular compiler and toolchain components \cite{lattner2004llvm}.
+The compiler framework was originally designed to provide analysis and transformation for an application throughout its entire lifetime: from initial compilation and linking, through to runtime and even while the application was offline (see Figure \ref{fig:llvmarch}).
 \begin{figure*}
     \includegraphics[width=\textwidth]{images/llvm-architecture.png}
     \caption{ The LLVM Compiler Framework Architecture \cite{lattner2004llvm}.}
@@ -30,7 +30,7 @@ define i32 @mul_add(i32 %x, i32 %y, i32 %z) {
 }\end{lstlisting}
 
 This report will focus on LLVM's JIT component, which can be accessed through the MCJIT application programming interface (API).
-The MCJIT framework provides an API thats accepts IR, generates optimized machine code, and provides a function pointer for calling the generated code.
+The MCJIT framework provides an API that accepts IR, generates optimized machine code, and provides a function pointer for calling the generated code.
 The JIT compiler offers several levels of optimization: none, less, default, and aggressive.
 It should be noted that the JIT compiler by default does not perform any IR optimizations or transformations.
 Instead, a developer must pass the generated IR to a PassManager with specific optimizations they intend to apply.
@@ -43,5 +43,5 @@ These passes can be categorized as analysis passes, or transformation passes \ci
 Generated IR can then be used by the ExecutionEngine to generate code for the target architecture.
 Before a function is executed by the ExecutionEngine, it first checks if the code cache, or ObjectCache, contains a copy.
 If the function could not be found, the compiler will generate the JIT code and store it in the ObjectCache before execution \cite{LLVM_MCJIT}.
-It is worth noting that an newer JIT API, called ORCJIT, is also part of the LLVM project.
-ORCJIT, or On-Request-Compilation JIT, is intended to compliment the MCJIT API -- which compiles eagerly, by adding support for both lazy and concurrent compilations \cite{LLVM_ORCJIT}.
+It is worth noting that a newer JIT API, called ORCJIT, is also part of the LLVM project.
+ORCJIT, or On-Request-Compilation JIT, is intended to complement the MCJIT API -- which compiles eagerly, by adding support for both lazy and concurrent compilations \cite{LLVM_ORCJIT}.

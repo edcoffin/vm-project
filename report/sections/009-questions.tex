@@ -1,14 +1,14 @@
 \section{Questions and Methods}
 \label{sec:methodology}
-To answer the questions we outlined in the introduction, we wrote three simple programs for both LLVM MCJIT, and JitBuilder.
+To answer the questions we outlined in the introduction, we wrote three simple programs for both LLVM MCJIT and JitBuilder.
 For the sake of comparison, we also wrote the programs using standard C++ without any JIT framework.
 The programs are as follows:
 \begin{itemize}
     \item increment - Calls a single function that adds one to an integer argument.
-    \item recursive-fib - Calls a recursive fibonacci function for \textit{fib(20)}.
-    \item iterative-fib - Calls an iterative fibonacci function for \textit{fib(20)}.  
+    \item recursive-fib - Calls a recursive Fibonacci function - \textit{fib(20)}. 
+    \item iterative-fib - Calls an iterative Fibonacci function - \textit{fib(20}.  
 \end{itemize}
 For the JIT implementations, the IR was built using the provided APIs, then native code was generated and later used for the actual function calls.
 We built and benchmarked the programs on an x86-64 Linux workstation running Ubuntu 19.04 with 32GB of RAM and an Intel i7-8700 (6-core, 12 thread) processor. 
-Both LLVM, and OMR were built from source from their respective GitHub repositories \cite{llvmCommit, omrCommit}.
+Both LLVM and OMR were built from source code from their respective GitHub repositories \cite{llvmCommit, omrCommit}.
 All the source code for this project can be found online\cite{projectGithub}.

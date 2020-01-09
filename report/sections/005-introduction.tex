@@ -3,7 +3,7 @@
 Just-in-time compilation, or JIT compilation, is a technique to improve the run-time binary translation of an application \cite{Aycock:2003:BHJ:857076.857077}.
 Using information collected from the running application, JIT compilers can further optimize generated code.
 For instance, by profiling which code paths are executed most frequently, JIT compilers can generate code that is optimized for hot-paths \cite{Smith:2005:VMV:1204009}.
-A JIT compiler might also inline entire blocks of code, generate an inline cache to speed up the dispatch of polymorphic method calls \cite{picPaper}, or generate hardware specific instructions.
+A JIT compiler might also inline entire blocks of code, generate an inline cache to speed up the dispatch of polymorphic method calls \cite{picPaper}, or generate hardware-specific instructions.
 
 Runtimes for the high-level language Java make heavy use of JIT compilers, allowing their workloads to execute much faster than if they were entirely interpreted \cite{HiPerfJava}.
 Given that JIT compilation can add significant overhead to a workload, compilation is typically applied selectively to the code executed most frequently.
@@ -15,7 +15,7 @@ A runtime with such an optimizing JIT compiler can then employ a staged compilat
     We will discuss TRJIT in more detail when we look at JitBuilder in \hyperref[sec:jitbuilder]{Section 2.2}.}
 
 Considering JIT compilers may also want to perform some of the optimizations found in a static compiler such as common sub-expression elimination, loop unrolling and constant propagation \cite{compilerBook}, an application developer, or language designer interested in enhancing a runtime's performance by adding a JIT compiler, will have a large engineering task ahead of them.
-In addition, considering that JIT compilers often need to generate native, or architecture specific code, for multiple platforms, the effort required can increase significantly.
+In addition, considering that JIT compilers often need to generate native, or architecture-specific code, for multiple platforms, the effort required can increase significantly.
 It is no surprise then that libraries or frameworks encapsulating proven, high-performance JIT compilers are available to software engineers today.
 For an engineer interested in incorporating an existing JIT framework, it is useful to consider the following questions when making their selection: 
 \begin{itemize}
@@ -28,8 +28,8 @@ For an engineer interested in incorporating an existing JIT framework, it is use
 \end{itemize} 
 
 In this report, we will consider those questions while looking at two such JIT frameworks: LLVM MCJIT \cite{LLVM_Web} and OMR JitBuilder \cite{jitbuilderPaper}.
-In Sections \hyperref[sec:llvm]{2}, and \hyperref[sec:jitbuilder]{3} we will discuss the background of each compiler and consider the techniques they employ.
+In Sections \hyperref[sec:llvm]{2} and \hyperref[sec:jitbuilder]{3}, we will discuss the background of each compiler and consider the techniques they employ.
 In \hyperref[sec:methodology]{Section 3}, we outline the methods we used to answer those questions.
 In \hyperref[sec:results]{Section 4}, we will consider the results.
 In \hyperref[sec:related-work]{Section 5} we will discuss related work.
-In \hyperref[sec:future-work]{Section 6}, we will look at potential future work, and finally in \hyperref[sec:summary]{Section 7}, we will summarize the report.
+In \hyperref[sec:future-work]{Section 6}, we will look at potential future work, and finally, in \hyperref[sec:summary]{Section 7}, we will summarize the report.
