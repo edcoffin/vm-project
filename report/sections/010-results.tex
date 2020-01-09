@@ -55,7 +55,7 @@ For the other two tasks, we see that MCJIT was able to compile the functions mor
   \\ \hline
   
 \end{tabular}
-  \caption{Results of compiling each function 25 times with each JIT framework.}
+  \caption{Results of compiling each function 20 times with each JIT framework.}
   \label{tab:compile_time}
 \end{table*}
 
@@ -270,7 +270,7 @@ label=lst:jitbuilder_rfib_assembly]
   \\ \hline
   
 \end{tabular}
-  \caption{Estimated time to execute JIT function 1000 times (mean from Table \ref{tab:1k_time_with_one_compile} - mean from Table \ref{tab:compile_time}). JitBuilder's increment score is listed as 0 because the compile and execution time was actually slightly lower than the compile time itself. We suspect these low values were due to a high degree of cache locality exhibited by the program.}
+  \caption{Estimated time to execute JIT-ed function 1000 times.}
   \label{tab:1k_executions}
 \end{table*}
 
@@ -367,8 +367,7 @@ Looking at the number of times inactive pages were reclaimed during execution (m
   \\ \hline
   
 \end{tabular}
-  \caption{Maximum resident state set (RSS) in kilobytes during execution of a single compilation and execution of the generated function. Note that Native had no run-time compilation phase. 
-  A minor page fault occurs when the OS reclaims inactive pages during execution. Page size was 4096 bytes.}
+  \caption{Maximum resident state set (RSS) in kilobytes during execution of a single compilation and execution of the generated function. A minor page fault occurs when the OS reclaims inactive pages during execution. Page size was 4096 bytes.}
   \label{tab:max_rss}
 \end{table*}
 
