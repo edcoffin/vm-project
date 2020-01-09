@@ -321,49 +321,37 @@ The memory overhead required by LLVM is roughly 4.5 times larger than JitBuilder
 Looking at the number of times inactive pages were reclaimed during execution (minor page faults), we see that LLVM had roughly 4 times the number of inactive pages collected.
 
 \begin{table*}[t]
-  \begin{tabular}{|r|l|l|l|l|l|l|}
+  \begin{tabular}{|r|l|l|l|}
   \hline
   
   \multicolumn{1}{|l|}{\multirow{2}{*}{}} 
-  & \multicolumn{2}{c|}{\textbf{LLVM MCJIT}}                                                                                    
-  & \multicolumn{2}{c|}{\textbf{Eclipse OMR JitBuilder}}                                                                
-  & \multicolumn{2}{c|}{\textbf{Native (C++)}}                                                                              
-  \\ \cline{2-7}
+  & \multicolumn{1}{c|}{\textbf{LLVM MCJIT}}                                                                                    
+  & \multicolumn{1}{c|}{\textbf{Eclipse OMR JitBuilder}}                                                                
+  & \multicolumn{1}{c|}{\textbf{Native (C++)}}                                                                              
+  \\ \cline{2-4}
   
   \multicolumn{1}{|c|}{\textbf{Program}}  
   & \multicolumn{1}{c|}{max RSS (kb)}  %llvm         
-  & \multicolumn{1}{c|}{minor page faults}  
   & \multicolumn{1}{c|}{max RSS (kb)}  %jb         
-  & \multicolumn{1}{c|}{minor page faults}  
   & \multicolumn{1}{c|}{max RSS (kb)}  %native         
-  & \multicolumn{1}{c|}{minor page faults}  
   \\ \hline
 
   increment                               
   & \multicolumn{1}{r|}{\num{43544}} %llvm  
-  & \multicolumn{1}{r|}{\num{1478}} 
   & \multicolumn{1}{r|}{\num{9416}} %jitbuilder               
-  & \multicolumn{1}{r|}{\num{344}}
   & \multicolumn{1}{r|}{\num{1548}}    %native 
-  & \multicolumn{1}{r|}{\num{65}}
   \\ \hline
   
   recursive-fib                           
   & \multicolumn{1}{r|}{\num{45472}} %llvm       
-  & \multicolumn{1}{r|}{\num{1545}} 
   & \multicolumn{1}{r|}{\num{9768}} %jitbuilder
-  & \multicolumn{1}{r|}{\num{384}} 
   & \multicolumn{1}{r|}{\num{1532}}   %native 
-  & \multicolumn{1}{r|}{\num{63}} 
   \\ \hline
   
   iterative-fib                           
   & \multicolumn{1}{r|}{\num{44452}} %llvm
-  & \multicolumn{1}{r|}{\num{1520}}
   & \multicolumn{1}{r|}{\num{10044}} %jitbuilder
-  & \multicolumn{1}{r|}{\num{423}}
   & \multicolumn{1}{r|}{\num{1684}}   %native 
-  & \multicolumn{1}{r|}{\num{66}}  
   \\ \hline
   
 \end{tabular}
