@@ -124,7 +124,8 @@ The LLVM disassembly on the other hand does away with loads and stores to the st
 It's interesting to see the condition for the jump comparison: \texttt{jg} 0x2 with LLVM and \texttt{jl} 0x2 in JitBuilder. I would expect the latter to be a better optimization considering most times \texttt{n} is greater than 2.
 The code in the LLVM listing would be performing a relative jump more often, while the code in the JitBuilder would flow through the instruction more often.
 
-Looking at the estimated execution time without compilation for 1000 generated functions (see Table \ref{tab:1k_executions}), we can see that JitBuilder's generated code may outperform LLVM \footnote{We subtracted the mean from Table\ref{tab:compile_time} from the mean from Table\ref{tab:1k_time_with_one_compile} without accounting for the variance. This may be incorrect. Unfortunately, time constraints limited our ability to properly benchmark 1000 executions of the JIT-ed code.}
+Looking at the estimated execution time without compilation for 1000 generated functions (see Table \ref{tab:1k_executions}), we can see that JitBuilder's generated code outperformed MCJIT in the iterative-fib program, and in the increment\footnote{In our tests, the compile time plus the execution time of the JIT-ed function was less than the measurement for just the compilation. As noted earlier, we suspect this performance has to do with a high degree of cache locality}. \footnote{We subtracted the mean from Table\ref{tab:compile_time} from the mean from Table\ref{tab:1k_time_with_one_compile} without accounting for the variance. This may be incorrect. Unfortunately, time constraints limited our ability to properly benchmark 1000 executions of the JIT-ed code.}
+
 
 \begin{table*}[t]
   \begin{tabular}{|r|l|l|l|l|l|l|l|l|l|}
@@ -269,7 +270,7 @@ label=lst:jitbuilder_rfib_assembly]
   \\ \hline
   
 \end{tabular}
-  \caption{Estimated time to execute JIT function 1000 times (mean from Table \ref{tab:1k_time_with_one_compile} - mean from Table \ref{tab:compile_time}).}
+  \caption{Estimated time to execute JIT function 1000 times (mean from Table \ref{tab:1k_time_with_one_compile} - mean from Table \ref{tab:compile_time}). JitBuilder's increment score is listed as 0 because the compile and execution time was actually slightly lower than the compile time itself. We suspect these low values were due to a high degree of cache locality exhibited by the program.}
   \label{tab:1k_executions}
 \end{table*}
 

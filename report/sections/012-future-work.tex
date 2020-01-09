@@ -5,3 +5,4 @@ In all the test examples, each JIT compilation required a complete teardown of t
 It would be interesting to compare the performance of repeated JIT compilations.
 While the JIT compiler in Eclipse OMR, TRJIT, supports many levels of compilation, as well as support for synchronous, and asynchronous compilation schemes, these options have not yet been exposed to JitBuilder.
 JitBuilder could be expanded upon to provide such controls, though special attention would have to be given to the maintaining the usability of the API.
+Finally, testing the compilers under more complex scenarios such as making JIT-to-JIT function calls, and dealing with code cache limitations would provide more realistic data.
