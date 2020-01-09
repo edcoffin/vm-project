@@ -1,14 +1,13 @@
 \begin{abstract}
-    Just-in-Time compilation has allowed for significant performance gains during the run-time of applications.
-    Two popular open-source JIT frameworks are LLVM MCJIT and OMR JitBuilder, 
-    both of which can be embedded within applications, offering interaces to define and generate native code at run-time.
+    Just-in-Time compilation has allowed for significant performance gains by applications.
+    Two popular open-source JIT frameworks are MCJIT and JitBuilder. 
+    Both of these compilers can be embedded within applications, offering interfaces to define and generate native code at run-time.
     LLVM is a collection of modular compiler and toolchain components, while MCJIT is a framework based on these components to provide JIT compilation.
-    Similarly, JitBuilder is a JIT framework based on the OMR compiler and runtime components.
+    Similarly, JitBuilder is framework based on the Eclipse OMR compiler and runtime components.
     In this report we discuss the different approaches these two frameworks employ.
-    In addition, we measure the overhead of each framework while compiling and then executing a small handful of functions.
+    In addition, we attempt to measure the overhead of each framework while compiling and then executing a small handful of test.
     We found that while LLVM required a larger memory footprint, in certain cases it was able to generate code more quickly.
-    Furthermore, the code LLVM generated typically offered high throughput.
-    JitBuilder, a relatively young project compared to LLVM, does not currently expose the underlying configuration of TRJIT. 
-    Instead, it locks the compilation level to the \textit{warm} setting, thus limiting the oppourtunities for optimizations.
+    Furthermore, there were cases where the code LLVM generated offered higher throughput.
+    JitBuilder did provide smaller disk and memory footprints and generated faster code than MCJIT in some cases.
 \end{abstract}
   
