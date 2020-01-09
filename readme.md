@@ -1,4 +1,4 @@
-# A Comparison of API-based JIT Compiler Overhead during Run-time
+# A Comparison of JIT Compiler Overhead
 
 ## Building project
 The project has the following dependencies:
@@ -8,8 +8,6 @@ The project has the following dependencies:
 - [google benchmark](https://github.com/google/benchmark)
 - [Eclipse OMR](https://github.com/eclipse/omr/tree/master/jitbuilder/release)
 - LLVM
-- libjit
-- Python (for [FlameGraph](https://github.com/brendangregg/FlameGraph) 🔥)
 
 After cloning this repository `cd` into `src/lib` and perform the following operations.
 
@@ -65,13 +63,5 @@ $ cmake -G Ninja -DLLVM_ENABLE_ASSERTIONS=on -DCMAKE_BUILD_TYPE=Release ../llvm 
 $ ninja  # or make
 $ ninja check-all # Optional: run regression tests on all sub-projects
 ```
-
-
-### Install FlameGraph 
-Clone the FlameGraph repository in `src/lib`:
-```
-$ git clone https://github.com/brendangregg/FlameGraph.git
-```
-
 
 
