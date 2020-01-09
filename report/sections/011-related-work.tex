@@ -1,12 +1,13 @@
 \section{Related Work}
 \label{sec:related-work}
 Given the overhead involved in fetching, decoding, and executing instructions, interpreters are a common place we see JIT compilers employed.
-Java Virtual Machines \cite{HiPerfJava,SuganumaIBMJit} have been employing JIT compilers for over two decades.
-Numba is a Python JIT compiler based on LLVM \cite{numba,numbaWeb}, while the PyPy project has it's own tracing JIT \cite{pypy}.
-JitBuilder has been used on several demonstration interpreters \cite{lua-vermhela, wasmjit}, while ongoing work continues to build new runtimes, or to bolster existing runtimes with it's parent project Eclipse ORM \cite{ruby-omr}.
+Java Virtual Machines \cite{HiPerfJava,SuganumaIBMJit} have been employing JIT compilers for over two decades, while the Python world has both
+Numba, a Python JIT compiler based on LLVM \cite{numba,numbaWeb}, and the PyPy project -- a Python interpreter with it's own tracing JIT \cite{pypy}.
 
-Currently there is work being done to allow JitBuilder to ingest LLVM IR \cite{llvm-jitbuilder-interop}. 
-Not only would this allow JitBuilder to bolt onto existing LLVM based projects, it would help provide deeper insight into the quality of the generated between the two frameworks.
+JitBuilder has been integrated in several demonstration interpreters \cite{lua-vermhela, wasmjit, base9}, while work is ongoing to build new runtimes, or to bolster existing runtimes with it's parent project, Eclipse ORM \cite{ruby-omr}.
+
+There is also work being done to allow JitBuilder to ingest LLVM IR \cite{llvm-jitbuilder-interop}. 
+Not only would this allow JitBuilder to bolt onto existing LLVM based projects, it could help provide deeper insight into the quality of the generated code between the two frameworks.
 
 
 
