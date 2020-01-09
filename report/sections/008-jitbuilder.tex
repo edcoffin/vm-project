@@ -1,16 +1,16 @@
 \subsection{JitBuilder}
 \label{sec:jitbuilder}
-JitBuilder is the embeddable framework for interacting with the Eclipse OMR JIT compiler Testarossa \cite{jitbuilderPaper}.
+JitBuilder is the embeddable framework for interacting with the Eclipse OMR JIT compiler Testarossa (TRJIT) \cite{jitbuilderPaper}.
 Eclipse OMR is an open-source collection of components for building language runtime environments.
-Some of OMR's components include a garbage collection framework, a thread library, cross-platform port support, virtual machine building blocks, and a JIT compiler \cite{eclipseOMR,RebuildingAirliner}.
-Much of the infrastructure driving Eclipse OpenJ9, a popular, open-source Java Virtual Machine, links to OMR components.
+Some of OMR's components include a garbage collection framework, a thread library, cross-platform port support, virtual machine building blocks, and the TRJIT compiler \cite{eclipseOMR,RebuildingAirliner}.
+Much of the infrastructure driving Eclipse OpenJ9, a popular, open-source Java Virtual Machine, link to OMR components.
 
 Through JitBuilder's API, users generate IR upon which optimizations are applied and from which native code is generated \cite{SuganumaIBMJit}.
 Based on basic-blocks, the IR is arranged into directed acyclic graphic (DAG) structures called trees, composed of nodes which each contain an opcode.
-OMR IR has several hundred opcodes, where typically with each type operation has a code for each data type: integer, pointer, double, float, vector, etc...\footnote{
+The children of these opcode nodes are in turn operands.
+While the number of available opcodes is high -- there are several hundred, most of the general instructions (add, load, compare) have a specific opcode for each data type: integer, pointer, double, float, vector, etc...\footnote{
     This can be contrasted with LLVM's roughly 31 opcodes, where the data type code is instead embedded within the instruction.
 }
-The children of these opcode nodes are in turn operands.
 Trees with side-effects, which cannot be reordered, belong to a list of elements called treetops \cite{treetops}.
 Existing nodes can be reused within a given tree, making optimizations such as common subexpression elimination relatively simple (see Listing \ref{lst:jitbuilder_ir}).
 Though Testarossa supports several levels of optimization ranging from \textit{cold}, with roughly 20 optimizations applied, all the way to \textit{scorching}, where as many as 170 optimizations are applied, as of writing, JitBuilder is locked at the \textit{Warm} optimization level \cite{sanchez2011using, jitbuilderWarm}.
