@@ -186,7 +186,7 @@ Looking at the estimated execution time minus JIT compilation for 1000 functions
   & \num{0.003}                                
   \\ \hline
   \end{tabular}
-  \caption{Results of JIT compiling each function once and executing the generated code 1000 times.}
+  \caption{Results of JIT compiling each function once and executing the generated code 1000 times (repeated 20 times).}
   \label{tab:1k_time_with_one_compile}
 \end{table*}
 
@@ -322,37 +322,50 @@ The memory overhead required by LLVM is roughly 4.5 times larger than JitBuilder
 Looking at the number of times inactive pages were reclaimed during execution (minor page faults), we see that LLVM had roughly 4 times the number of inactive pages collected.
 
 \begin{table*}[t]
-  \begin{tabular}{|r|l|l|l|}
+  \begin{tabular}{|r|l|l|l|l|l|l|}
   \hline
   
   \multicolumn{1}{|l|}{\multirow{2}{*}{}} 
-  & \multicolumn{1}{c|}{\textbf{LLVM MCJIT}}                                                                                    
-  & \multicolumn{1}{c|}{\textbf{Eclipse OMR JitBuilder}}                                                                
-  & \multicolumn{1}{c|}{\textbf{Native (C++)}}                                                                              
-  \\ \cline{2-4}
+  & \multicolumn{2}{c|}{\textbf{LLVM MCJIT}}                                                                                    
+  & \multicolumn{2}{c|}{\textbf{Eclipse OMR JitBuilder}}                                                                
+  & \multicolumn{2}{c|}{\textbf{Native (C++)}}                                                                              
+  \\ \cline{2-7}
   
   \multicolumn{1}{|c|}{\textbf{Program}}  
   & \multicolumn{1}{c|}{max RSS (kb)}  %llvm         
-  & \multicolumn{1}{c|}{max RSS (kb)}  %jb         
-  & \multicolumn{1}{c|}{max RSS (kb)}  %native         
+  & \multicolumn{1}{c|}{minor pagefaults}  %llvm pf        
+  & \multicolumn{1}{c|}{max RSS (kb)}      %jb         
+  & \multicolumn{1}{c|}{minor pagefaults}  %jb  pf
+  & \multicolumn{1}{c|}{max RSS (kb)}      %native         
+  & \multicolumn{1}{c|}{minor pagefaults}  %native pf
+  
   \\ \hline
 
   increment                               
   & \multicolumn{1}{r|}{\num{43544}} %llvm  
-  & \multicolumn{1}{r|}{\num{9416}} %jitbuilder               
+  & \multicolumn{1}{r|}{\num{1478}} %llvm pf 
+  & \multicolumn{1}{r|}{\num{9416}} %jb
+  & \multicolumn{1}{r|}{\num{344}} %jb pf              
   & \multicolumn{1}{r|}{\num{1548}}    %native 
+  & \multicolumn{1}{r|}{\num{65}}    %native pf
   \\ \hline
   
   recursive-fib                           
-  & \multicolumn{1}{r|}{\num{45472}} %llvm       
-  & \multicolumn{1}{r|}{\num{9768}} %jitbuilder
+  & \multicolumn{1}{r|}{\num{45472}} %llvm     
+  & \multicolumn{1}{r|}{\num{1545}} %llvm pf   
+  & \multicolumn{1}{r|}{\num{9768}} %jb
+  & \multicolumn{1}{r|}{\num{384}} %jb pf
   & \multicolumn{1}{r|}{\num{1532}}   %native 
+  & \multicolumn{1}{r|}{\num{63}}   %native pf
   \\ \hline
   
   iterative-fib                           
   & \multicolumn{1}{r|}{\num{44452}} %llvm
-  & \multicolumn{1}{r|}{\num{10044}} %jitbuilder
-  & \multicolumn{1}{r|}{\num{1684}}   %native 
+  & \multicolumn{1}{r|}{\num{1520}} %llvm pf
+  & \multicolumn{1}{r|}{\num{10044}} %jb
+  & \multicolumn{1}{r|}{\num{423}} %jb pf
+  & \multicolumn{1}{r|}{\num{66}}   %native 
+  & \multicolumn{1}{r|}{\num{1684}}   %native pf
   \\ \hline
   
 \end{tabular}

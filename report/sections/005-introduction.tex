@@ -14,7 +14,7 @@ A runtime with such an optimizing JIT compiler can then employ a staged compilat
     Additionally, separate thresholds can be associated with each optimization level \cite{TRJitLevels}.
     We will discuss TRJIT in more detail when we look at JitBuilder in \hyperref[sec:jitbuilder]{Section 2.2}.}
 
-Considering JIT compilers may also want to perform some of the optimizations found in a static compiler such as common sub-expression elimination, loop unrolling and constant propagation \cite{compilerBook}, an application developer, or language designer interested in enhancing a runtime's performance by adding a JIT compiler, will have a large engineering task ahead of them.
+Considering JIT compilers may also want to perform some of the optimizations found in a static compiler such as common sub-expression elimination, loop unrolling and constant propagation \cite{compilerBook}, an application developer, or language designer interested in enhancing a runtimes performance by adding a JIT compiler, will have a large engineering task ahead of them.
 In addition, considering that JIT compilers often need to generate native, or architecture-specific code, for multiple platforms, the effort required can increase significantly.
 It is no surprise then that libraries or frameworks encapsulating proven, high-performance JIT compilers are available to software engineers today.
 For an engineer interested in incorporating an existing JIT framework, it is useful to consider the following questions when making their selection: 
